@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_newParticipation"
+        android:title="@string/student_newParticipation"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_new_participation"/>
+
+    #android:onClick="onclickItem"
+
+    <item
+        android:id="@+id/item_addStudent"
+        android:title="@string/student"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_add_student"/>
+
+    #android:onClick="onclickItem"
+
+    <item
+        android:id="@+id/save_students"
+        android:title="@string/students"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_add_group"/>
+
+    # android:onClick="onclickItem"
+
+</menu>

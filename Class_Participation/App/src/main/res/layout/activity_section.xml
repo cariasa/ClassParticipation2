@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Quarter:"
+            android:id="@+id/textViewQuarter"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="28dp" />
+        
+        <RadioGroup
+            android:id="@+id/radioGroupQuarter"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewQuarter"
+            android:layout_alignLeft="@+id/radioGroupSemester">
+            <RadioButton
+                android:id="@+id/radioButtonQuarter1"
+                android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/radioButtonQuarter2"
+                android:text="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/radioButtonQuarter3"
+                android:text="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/radioButtonQuarter4"
+                android:text="4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Semester:"
+            android:id="@+id/textViewSemester"
+            android:layout_below="@+id/textViewQuarter"
+            android:layout_alignLeft="@+id/textViewQuarter"
+            android:layout_marginTop="36dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupSemester"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textViewCourse"
+            android:layout_toRightOf="@+id/textViewSemester">
+            <RadioButton
+                android:id="@+id/radioButtonSemester1"
+                android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/radioButtonSemester2"
+                android:text="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Year:"
+            android:id="@+id/textViewYear"
+            android:layout_marginTop="35dp"
+            android:layout_below="@+id/radioGroupSemester"
+            android:layout_alignLeft="@+id/textViewSemester" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerYear"
+            android:layout_below="@+id/textViewYear"
+            android:layout_alignLeft="@+id/textViewYear" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Course:"
+            android:id="@+id/textViewCourse"
+            android:layout_marginTop="142dp"
+            android:layout_below="@+id/textViewSemester"
+            android:layout_alignRight="@+id/textViewQuarter" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerCourse"
+            android:layout_below="@+id/textViewCourse"
+            android:layout_alignLeft="@+id/spinnerYear" />
+
+    </RelativeLayout>
+</LinearLayout>

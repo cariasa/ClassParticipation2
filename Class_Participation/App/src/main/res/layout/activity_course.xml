@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Code"
+            android:id="@+id/textViewCourse_code"
+            android:textSize="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/textViewCourse_description"
+            android:layout_alignStart="@+id/textViewCourse_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Description"
+            android:textSize="18dp"
+            android:id="@+id/textViewCourse_description"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/editTextCourse_name"
+            android:layout_alignLeft="@+id/editTextCourse_name"
+            android:layout_alignStart="@+id/editTextCourse_name" />
+
+        <EditText
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="15"
+            android:hint="@string/course_code"
+            android:id="@+id/editTextCourse_code"
+            android:autoText="true"
+            android:layout_below="@+id/textViewCourse_code"
+            android:layout_alignLeft="@+id/textViewCourse_code"
+            android:layout_alignStart="@+id/textViewCourse_code" />
+
+        <EditText
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="15"
+            android:id="@+id/editTextCourse_name"
+            android:hint="@string/course_name"
+            android:autoText="true"
+            android:layout_below="@+id/textViewCourse_name"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="15"
+            android:id="@+id/editTextCourse_description"
+            android:hint="@string/course_description"
+            android:autoText="true"
+            android:layout_below="@+id/textViewCourse_description"
+            android:layout_alignLeft="@+id/textViewCourse_description"
+            android:layout_alignStart="@+id/textViewCourse_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Name"
+            android:id="@+id/textViewCourse_name"
+            android:textSize="18dp"
+            android:layout_marginTop="17dp"
+            android:layout_below="@+id/editTextCourse_code"
+            android:layout_alignLeft="@+id/editTextCourse_name"
+            android:layout_alignStart="@+id/editTextCourse_name" />
+    </RelativeLayout>
+</LinearLayout>

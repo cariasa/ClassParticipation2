@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Class Participation</string>
+    <string name="courseActivity">Course</string>
+    <string name="sectionActivity">Section</string>
+    <string name="courses">Add Course</string>
+    <string name="sections">Add Section</string>
+    <string name="student">Add Student</string>
+    <string name="students">Add Students</string>
+    <string name="student_newParticipation">New Participation</string>
+    <string name="abouts">About</string>
+    <string name="course_code">Progra4</string>
+    <string name="course_name">Programación 4</string>
+    <string name="course_description">Programación web</string>
+    <string name="save_course">save course</string>
+    <string name="listView">Course</string>
+    <string name="home">home</string>
+    <string name ="StudentActivity">Student</string>
+    <string name ="facebook">facebook</string>
+    <string name="app_id">558500024224460</string>
+    <string name="post_facebook">post</string>
+
+</resources>

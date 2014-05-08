@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.unitec.app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/octocat"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="edu.unitec.app.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="CourseActivity" android:label="@string/courseActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name="SectionActivity" android:label="@string/sectionActivity" android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="StudentActivity" android:label="Student" android:screenOrientation="portrait" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id" />
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,24 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+
+    <item
+        android:id="@+id/course"
+        android:title="@string/courses"
+        android:orderInCategory="100"/>
+       # android:onClick="onclickItem"/>
+
+    <item
+        android:id="@+id/section"
+        android:title="@string/sections"
+        android:orderInCategory="100"/>
+        #android:onClick="onclickItem"/>
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/abouts"
+        android:orderInCategory="100"/>
+        #android:onClick="onclickItem"/>
+
+</menu>
