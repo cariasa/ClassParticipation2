@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="D:\GitHub\Projects\ClassParticipation\Class_Participation\facebook\src\main\assets" />
+        <source path="/Users/Carlos/Documents/Progra4/ClassParticipation2/Class_Participation/facebook/src/main/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="D:\GitHub\Projects\ClassParticipation\Class_Participation\facebook\src\debug\assets" />
+        <source path="/Users/Carlos/Documents/Progra4/ClassParticipation2/Class_Participation/facebook/src/debug/assets" />
     </dataSet>
 
 </merger>
