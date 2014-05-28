@@ -12,52 +12,77 @@ import java.util.List;
 
 /**
  * Created by Henry on 12-02-13.
+ * Improved by Carlos on 05-28-14.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Participation";
 
-    // Table Course
+    // Course Table
     private static final String TABLE_COURSE = "course";
-    // Table Course Fields
+    // Table Course - Table Fields
     private static final String COURSE_ID = "CourseId";
     private static final String COURSE_CODE = "CourseCode";
     private static final String COURSE_NAME = "CourseName";
     private static final String COURSE_DESC = "CourseDescription";
 
-    // Table Section
+    // Section Table
     private static final String TABLE_SECTION = "section";
-    // Table Section Fields
+    // Table Section - Table Fields
     private static final String SECT_ID = "SectionId";
     private static final String SECT_COURSE = "CourseId";
     private static final String SECT_QTR = "SectionQuarter";
     private static final String SECT_SEM = "SectionSemester";
     private static final String SECT_YEA = "SectionYear";
+    private static final String SECT_CODE = "SectionCode";
 
-    // Table Students
+    // Students Table
     private static final String TABLE_STUDENT="student";
-    // Table Students Fields
+    // Table Students Fie- Table Fieldslds
     private static final String STU_ID = "StudentId";
     private static final String STU_NAME = "StudentName";
     private static final String STU_MAJOR = "StudentMajor";
 
-    // Table Students Per Section
+    // Students Per Section Table
     private static final String TABLE_STUDENTSECTION = "studentSection";
-    // Table Students Per Section Fields
+    // Table Students Per Section - Table Fields
     private static final String STUSEC_ID = "StudentSectionId";
     private static final String STUSEC_SECT = "SectionId";
     private static final String STUSEC_STUD = "StudentId";
     private static final String STUSEC_FINAL = "StudentSectionFinal";
 
-    // Table Partipations Per Student
+    // Partipations Per Student Table
     private static final String TABLE_PARTICIPATION = "participationStudent";
-    // Table Participations Per Student Fields
-    private static final String PART_ID = "ParticipationID";
+    // Table Participations Per Student - Fields
+    private static final String PART_ID = "ParticipationId";
     private static final String PART_STUSECT = "StudentSectionId";
     private static final String PART_GRADE = "ParticipationGrade";
     private static final String PART_DATE = "ParticipationDate";
     private static final String PART_COMMENT = "ParticipationComment";
+
+    // Homework Table
+    private static final String TABLE_HOMEWORK = "homework";
+    // Table Homework - Table Fields
+    private static final String HOMEWORK_ID = "HomeworkId";
+    private static final String HOMEWORK_NAME = "HomeworkName";
+    private static final String HOMEWORK_SECID = "SectionId";
+
+    // Critera Per Homework Table
+    private static final String TABLE_CRITERIA = "criteria";
+    // Table Homework - Table Fields
+    private static final String CRITERIA_ID = "CriteriaId";
+    private static final String CRITERIA_NAME = "CriteriaName";
+    private static final String CRITERIA_HOMEWORK = "HomeworkId";
+    private static final String CRITERIA_WEIGHT = "CriteriaWeight";
+
+    // Homework Per Student Table
+    private static final String TABLE_HOMESTU = "homeworkstudent";
+    // Table Homework - Table Fields
+    private static final String HOMESTU_ID = "HomeworkStudentId";
+    private static final String HOMESTU_CriteriaId = "CriteriaId";
+    private static final String HOMESTU_StudentId = "StudentId";
+    private static final String HOMESTU_Grade = "HomeworkStudentGrade";
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
