@@ -3,10 +3,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_newParticipation"
-        android:title="@string/student_newParticipation"
+        android:id="@+id/item_statistics"
+        android:title="@string/students_statistics"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_new_participation"/>
+        android:icon="@drawable/ic_action_statistics"/>
+    <item
+        android:id="@+id/item_newAssignment"
+        android:title="@string/student_newAssignment"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_assignment">
+        <menu>
+            <item
+                android:id="@+id/item_newParticipation"
+                android:title="@string/student_newParticipation"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_new_participation"/>
+
+            #android:onClick="onclickItem"
+
+            <item
+                android:id="@+id/item_newHomework"
+                android:title="@string/student_newHomework"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_new_homework"/>
+
+            # android:onClick="onclickItem"
+        </menu>
+    </item>
 
     #android:onClick="onclickItem"
     <item android:id="@+id/item_Student"
