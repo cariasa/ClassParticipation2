@@ -95,7 +95,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COURSE_CODE + " TEXT," +
                         COURSE_NAME + " TEXT," +
-                        COURSE_DESC + " TEXT" + ")";
+                        COURSE_DESC + " TEXT" +
+                        ")";
         String CREATE_SECTION_TABLE =
                 "CREATE TABLE " + TABLE_SECTION + " (" +
                         SECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -128,12 +129,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         PART_COMMENT + " TEXT," +
                         "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")" +
                         ")";
+        String CREATE_HOMEWORK_TABLE =
+                "CREATE TABLE " + TABLE_HOMEWORK + " (" +
+                        HOMEWORK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        HOMEWORK_NAME + " TEXT," +
+                        "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")" +
+                        ")";
+        String CREATE_CRITERIA_TABLE =
+                "CREATE TABLE " + TABLE_CRITERIA + " (" +
+                        CRITERIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        CRITERIA_NAME + " TEXT," +
+                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + "), " +
+                        CRITERIA_WEIGHT + " REAL" +
+                        ")";
+        String CREATE_HOMESTU_TABLE =
+                "CREATE TABLE " + TABLE_HOMESTU + " (" +
+                        HOMESTU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "FOREIGN KEY(" + HOMESTU_CriteriaId + ") REFERENCES " + TABLE_CRITERIA + "(" + CRITERIA_ID + "), " +
+                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + "), " +
+                        HOMESTU_Grade + " REAL" +
+                        ")";
 
         db.execSQL(CREATE_COURSE_TABLE);
         db.execSQL(CREATE_SECTION_TABLE);
         db.execSQL(CREATE_STUDENT_TABLE);
         db.execSQL(CREATE_STUDENTSECTION_TABLE);
         db.execSQL(CREATE_PARTICIPATION_TABLE);
+        db.execSQL(CREATE_HOMEWORK_TABLE);
+        db.execSQL(CREATE_CRITERIA_TABLE);
+        db.execSQL(CREATE_HOMESTU_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -142,6 +166,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENTSECTION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PARTICIPATION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOMEWORK);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CRITERIA);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOMESTU);
         onCreate(db);
     }
     void addCourse(Course course){
