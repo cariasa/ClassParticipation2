@@ -67,18 +67,24 @@ public class StudentActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.student, menu);
+        MenuItem item_student = menu.findItem(R.id.item_Student);
         MenuItem save_student = menu.findItem(R.id.item_addStudent);
         MenuItem save_students = menu.findItem(R.id.save_students);
+        MenuItem delete_student = menu.findItem(R.id.delete_students);
         MenuItem newParticipation = menu.findItem(R.id.item_newParticipation);
         if(!getCurrentStudentNamesList().isEmpty() ){
+            item_student.setVisible(true);
             save_student.setVisible(true);
             save_students.setVisible(false);
             newParticipation.setVisible(true);
+            delete_student.setVisible(true);
         }
         else {
+            item_student.setVisible(true);
             save_student.setVisible(false);
             save_students.setVisible(true);
             newParticipation.setVisible(false);
+            delete_student.setVisible(false);
         }
         return true;
     }
@@ -106,6 +112,9 @@ public class StudentActivity extends Activity
                 return true;
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.delete_students:
+                showDeleteStudentDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -338,6 +347,11 @@ public class StudentActivity extends Activity
     {
         AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
         dialog.show(getFragmentManager(), "dialog_addstudent");
+    }
+    public void showDeleteStudentDialog()
+    {
+        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
+        dialog.show(getFragmentManager(), "dialog_deletestudent");
     }
 
     //event clicking on one item of the list view

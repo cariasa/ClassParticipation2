@@ -9,21 +9,34 @@
         android:icon="@drawable/ic_action_new_participation"/>
 
     #android:onClick="onclickItem"
-
-    <item
-        android:id="@+id/item_addStudent"
-        android:title="@string/student"
+    <item android:id="@+id/item_Student"
+        android:title="Student"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_add_student"/>
+        android:icon="@drawable/ic_action_student">
 
-    #android:onClick="onclickItem"
+        <menu>
+            <item
+                android:id="@+id/item_addStudent"
+                android:title="@string/student"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_add_student"/>
 
-    <item
-        android:id="@+id/save_students"
-        android:title="@string/students"
-        android:showAsAction="always"
-        android:icon="@drawable/ic_action_add_group"/>
+            #android:onClick="onclickItem"
 
-    # android:onClick="onclickItem"
+            <item
+                android:id="@+id/save_students"
+                android:title="@string/students"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_add_group"/>
 
+            # android:onClick="onclickItem"
+
+            <item
+                android:id="@+id/delete_students"
+                android:title="@string/removestudent"
+                android:orderInCategory="1"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_delete_student"/>
+        </menu>
+    </item>
 </menu>
