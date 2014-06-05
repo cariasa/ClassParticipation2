@@ -67,22 +67,31 @@ public class StudentActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.student, menu);
+        MenuItem item_statistics = menu.findItem(R.id.item_statistics);
         MenuItem item_student = menu.findItem(R.id.item_Student);
         MenuItem save_student = menu.findItem(R.id.item_addStudent);
         MenuItem save_students = menu.findItem(R.id.save_students);
         MenuItem delete_student = menu.findItem(R.id.delete_students);
+        MenuItem newAssignment = menu.findItem(R.id.item_newAssignment);
+        MenuItem newHomework = menu.findItem(R.id.item_newHomework);
         MenuItem newParticipation = menu.findItem(R.id.item_newParticipation);
         if(!getCurrentStudentNamesList().isEmpty() ){
+            item_statistics.setVisible(true);
             item_student.setVisible(true);
             save_student.setVisible(true);
             save_students.setVisible(false);
+            newAssignment.setVisible(true);
+            newHomework.setVisible(true);
             newParticipation.setVisible(true);
             delete_student.setVisible(true);
         }
         else {
+            item_statistics.setVisible(false);
             item_student.setVisible(true);
             save_student.setVisible(false);
             save_students.setVisible(true);
+            newAssignment.setVisible(false);
+            newHomework.setVisible(false);
             newParticipation.setVisible(false);
             delete_student.setVisible(false);
         }

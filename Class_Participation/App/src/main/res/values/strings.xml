@@ -6,10 +6,13 @@
     <string name="sectionActivity">Section</string>
     <string name="courses">Add Course</string>
     <string name="sections">Add Section</string>
+    <string name="students_statistics">Statistics</string>
     <string name="student">Add Student</string>
     <string name="removestudent">Delete Student</string>
     <string name="students">Add Students</string>
+    <string name="student_newAssignment">New Assignment</string>
     <string name="student_newParticipation">New Participation</string>
+    <string name="student_newHomework">New Homework</string>
     <string name="abouts">About</string>
     <string name="course_code">Progra4</string>
     <string name="course_name">Programación 4</string>
