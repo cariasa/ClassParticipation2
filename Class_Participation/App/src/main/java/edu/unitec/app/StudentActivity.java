@@ -256,8 +256,7 @@ public class StudentActivity extends Activity
     }
 
 
-    public List<String> getCurrentStudentNamesList()
-    {
+    public List<String> getCurrentStudentNamesList(){
         List<Integer> studentId = getCurrentStudentIdList();
         List<String> studentNamesList = new ArrayList<String>();
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
@@ -316,14 +315,9 @@ public class StudentActivity extends Activity
         int randomValue = random.nextInt(6 - 1) + 1;
 
         //Less student participation
-        if ( ( randomValue == 1 ) || ( randomValue == 2 ) || ( randomValue == 3 ) )
-        {
+        if ( ( randomValue == 1 ) || ( randomValue == 2 ) || ( randomValue == 3 ) ){
             studentIndex = getMinValueIndex(studentSectionIdCounters);
-        }
-
-        //Random student
-        else
-        {
+        }else{//Random student
             studentIndex = random.nextInt(studentSectionIdList.size());
         }
 
@@ -348,10 +342,10 @@ public class StudentActivity extends Activity
         AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
         dialog.show(getFragmentManager(), "dialog_addstudent");
     }
-    public void showDeleteStudentDialog()
-    {
-        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
+    public void showDeleteStudentDialog(){
+        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, listViewStudentNameList,getCurrentStudentIdList());
         dialog.show(getFragmentManager(), "dialog_deletestudent");
+
     }
 
     //event clicking on one item of the list view

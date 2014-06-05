@@ -34,7 +34,6 @@ public class AddStudentDialog extends DialogFragment
     AddStudentDialog(Section currentSection, ArrayAdapter<String> arrayAdapter, List<String> list)
     {
         this.currentSection = currentSection;
-
         this.arrayAdapter = arrayAdapter;
         this.listViewStudentNameList = list;
     }
@@ -56,20 +55,16 @@ public class AddStudentDialog extends DialogFragment
         builder.setTitle("Add Student");
         builder.setView(view);
 
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
                 AddStudentDialog.this.getDialog().cancel();
             }
         });
 
         builder.setPositiveButton("Add",
-                new DialogInterface.OnClickListener()
-                {
+                new DialogInterface.OnClickListener(){
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which){
                         //Do nothing here because we override this button later to change the close behaviour.
                         //However, we still need this because on older versions of Android unless we
                         //pass a handler the button doesn't get instantiated
@@ -80,13 +75,11 @@ public class AddStudentDialog extends DialogFragment
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart(){
         super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
         AlertDialog dialog = (AlertDialog)getDialog();
 
-        if(dialog != null)
-        {
+        if(dialog != null){
             Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 
             positiveButton.setOnClickListener(new View.OnClickListener()
@@ -98,44 +91,27 @@ public class AddStudentDialog extends DialogFragment
                     Boolean wantToCloseDialog = false;
                     boolean studentSectionExist = false;
 
-                    try
-                    {
+                    try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
                         studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()));
                         db.close();
+                    }catch (Exception e){
                     }
 
-                    catch (Exception e)
-                    {
-                    }
-
-                    if ( studentId.getText().toString().isEmpty() )
-                    {
+                    if ( studentId.getText().toString().isEmpty() ){
                         studentId.requestFocus();
-                    }
-
-                    else if ( studentSectionExist )
-                    {
+                    }else if ( studentSectionExist ){
                         studentId.requestFocus();
-                    }
-
-                    else if ( studentName.getText().toString().isEmpty() )
-                    {
+                    }else if ( studentName.getText().toString().isEmpty() ){
                         studentName.requestFocus();
-                    }
-
-                    else
-                    {
+                    }else{
                         Student student = new Student(Integer.parseInt(studentId.getText().toString()),
                                                       studentName.getText().toString(),
                                                       studentMajor.getText().toString());
 
-                        try
-                        {
+                        try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-
-                            if ( !db.studentExist(Integer.parseInt(studentId.getText().toString())) )
-                            {
+                            if ( !db.studentExist(Integer.parseInt(studentId.getText().toString())) ){
                                 db.addStudent(student);
                             }
 
@@ -153,15 +129,13 @@ public class AddStudentDialog extends DialogFragment
                             studentId.requestFocus();
                         }
 
-                        catch (Exception e)
-                        {
+                        catch (Exception e){
                         }
 
                         //wantToCloseDialog = true;
                     }
 
-                    if(wantToCloseDialog)
-                    {
+                    if(wantToCloseDialog){
                         dismiss();
                     }
                 }

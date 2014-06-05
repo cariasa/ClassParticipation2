@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,18 @@ import java.util.List;
 public class DeleteStudentDialog extends DialogFragment {
     ArrayAdapter<String> arrayAdapter;
     List<String> listViewStudentNameList;
+    List<Integer> list_StudentID;
     ArrayList<Integer> SelectedIdxToDelete;
     Section currentSection;
+    String elements[];
 
-    DeleteStudentDialog(Section currentSection, ArrayAdapter<String> arrayAdapter, List<String> list)
+    DeleteStudentDialog(Section currentSection, ArrayAdapter<String> arrayAdapter, List<String> list, List<Integer> list2)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
         this.listViewStudentNameList = list;
         this.SelectedIdxToDelete=new ArrayList<Integer>();
+        this.list_StudentID=list2;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class DeleteStudentDialog extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Delete Students");
         builder.setView(view);
-        String elements []=new String[listViewStudentNameList.size()];
+        elements=new String[listViewStudentNameList.size()];
         for(int i=0;i<listViewStudentNameList.size();i++){
             elements[i]=listViewStudentNameList.get(i);
         }
@@ -72,5 +76,36 @@ public class DeleteStudentDialog extends DialogFragment {
                 });
 
         return builder.create();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
+        AlertDialog dialog = (AlertDialog)getDialog();
+
+        if(dialog != null){
+            Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
+
+            positiveButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    ArrayList<Integer> StudentID_toErase = new ArrayList<Integer>();
+                    for(int i=0; i<SelectedIdxToDelete.size(); i++){
+                        StudentID_toErase.add(list_StudentID.get(SelectedIdxToDelete.get(i)));
+                    }
+                    try{
+                        DatabaseHandler db = new DatabaseHandler(v.getContext());
+                        db.deleteStudent(StudentID_toErase);db.close();
+                    }catch (Exception e){
+
+                    }
+                    for(int i=0; i<SelectedIdxToDelete.size(); i++){
+                        listViewStudentNameList.remove(elements[i]);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+        }
+
     }
 }

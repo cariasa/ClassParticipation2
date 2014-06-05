@@ -155,9 +155,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_STUDENT_TABLE);
         db.execSQL(CREATE_STUDENTSECTION_TABLE);
         db.execSQL(CREATE_PARTICIPATION_TABLE);
-        db.execSQL(CREATE_HOMEWORK_TABLE);
-        db.execSQL(CREATE_CRITERIA_TABLE);
-        db.execSQL(CREATE_HOMESTU_TABLE);
+        //db.execSQL(CREATE_HOMEWORK_TABLE);
+        //db.execSQL(CREATE_CRITERIA_TABLE);
+        //db.execSQL(CREATE_HOMESTU_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -256,6 +256,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(STU_NAME, student.get_StudentName());
         values.put(STU_MAJOR, student.get_StudentMajor());
         db.insert(TABLE_STUDENT, null, values);
+        db.close();
+    }
+
+    void deleteStudent(ArrayList<Integer> toDelete){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String strSQL;
+        for(int i=0; i<toDelete.size(); i++){
+
+            //Eliminar referencia del estudiante de tabla de participaciones por estudiante
+            List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
+            String query = "SELECT StudentSectionId FROM studentSection WHERE StudentId=" + toDelete.get(i);
+            Cursor cursor = db.rawQuery(query, null);
+            if ( cursor.moveToFirst() ){
+                do{
+                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(i);
+                    db.execSQL(strSQL);
+                }while ( cursor.moveToNext() );
+            }
+
+            //Eliminar referencia del estudiante de tabla de estudiantes por sección
+            strSQL = "DELETE FROM studentSection WHERE StudentId=" + toDelete.get(i);
+            db.execSQL(strSQL);
+
+            //Eliminar referencia del estudiante de tabla de estudiantes
+            strSQL = "DELETE FROM student WHERE StudentId=" + toDelete.get(i);
+            db.execSQL(strSQL);
+        }
         db.close();
     }
 
