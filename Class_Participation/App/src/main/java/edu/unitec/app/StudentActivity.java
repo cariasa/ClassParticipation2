@@ -84,8 +84,7 @@ public class StudentActivity extends Activity
             newHomework.setVisible(true);
             newParticipation.setVisible(true);
             delete_student.setVisible(true);
-        }
-        else {
+        }else{
             item_statistics.setVisible(false);
             item_student.setVisible(true);
             save_student.setVisible(false);
@@ -148,9 +147,9 @@ public class StudentActivity extends Activity
                     try{
                         Uri uri = data.getData();
                         String filePath = uri.getPath();
-                        Log.i("path", filePath);
+                        Log.i("path!!!!!!! ", filePath);
 
-                        //reading the path of the file
+                        //Reads the path of the file
                         ReadWriteFileManager file = new ReadWriteFileManager();
                         List<Student> student = file.readFromFile(this, filePath);
 
@@ -158,25 +157,21 @@ public class StudentActivity extends Activity
                         List<Integer> list2 = getCurrentStudentIdList();*/
 
                         DatabaseHandler bd = new DatabaseHandler(this);
-                        //validate
-                        if( getCurrentStudentNamesList().isEmpty() ){
 
-                           // if( !list1.containsAll( list2 ) ){
+                        if( getCurrentStudentNamesList().isEmpty() ){
                                 for (Student aStudent : student) {
                                     bd.addStudent(aStudent);
                                     bd.addStudentTable(aStudent, currentSection);
                                 }
                                 this.recreate();
-                           /* }else{
-                                for (Student aStudent : student) {
-                                    bd.addStudentTable(aStudent, currentSection);
-                                }
-                                this.recreate();
-                                Log.i("student","students list already exist");
-                            }*/
-                        }else{
-                            Log.i("Nothing","do nothing");
-                        }
+                        }/*else{
+                            for (Student aStudent : student) {
+                                bd.addStudentTable(aStudent, currentSection);
+                                listViewStudentNameList.add(aStudent.get_StudentName());
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+                            this.recreate();
+                        }*/
                     }catch(Exception ignored){
                     }
                 }
@@ -205,60 +200,41 @@ public class StudentActivity extends Activity
         return StudentList;
     }
 */
-    public List<Integer> getCurrentStudentSectionIdList()
-    {
+    public List<Integer> getCurrentStudentSectionIdList(){
         List<Integer> StudentSectionIdList = new ArrayList<Integer>();
 
-        try
-        {
+        try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-
             Cursor cursorStudentSectionId = db.rawQuery("SELECT StudentSectionId FROM studentSection WHERE SectionId = " +
                     currentSection.get_SectionId() + " ORDER BY SectionId ASC", null);
-
-            if ( cursorStudentSectionId.moveToFirst() )
-            {
-                do
-                {
+            if ( cursorStudentSectionId.moveToFirst() ){
+                do{
                     StudentSectionIdList.add(cursorStudentSectionId.getInt(0));
-
                 } while ( cursorStudentSectionId.moveToNext() );
             }
-
             db.close();
-        }
-
-        catch(Exception e)
-        {
+        }catch(Exception e){
             e.printStackTrace();
         }
 
         return StudentSectionIdList;
     }
 
-    public List<Integer> getCurrentStudentIdList()
-    {
+    public List<Integer> getCurrentStudentIdList(){
         List<Integer> StudentIdList = new ArrayList<Integer>();
-        try
-        {
+        try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionId = db.rawQuery("SELECT StudentId FROM studentSection WHERE SectionId = " +
                     currentSection.get_SectionId() + " ORDER BY SectionId ASC", null);
-            if ( cursorSectionId.moveToFirst() )
-            {
-                do
-                {
+            if ( cursorSectionId.moveToFirst() ){
+                do{
                     StudentIdList.add(cursorSectionId.getInt(0));
 
                 } while ( cursorSectionId.moveToNext() );
             }
-
             db.close();
 
-        }
-
-        catch(Exception e)
-        {
+        }catch(Exception e){
             e.printStackTrace();
         }
         return StudentIdList;
@@ -272,7 +248,6 @@ public class StudentActivity extends Activity
         for (Integer aStudentId : studentId) {
             Cursor cursorStudentName = db.rawQuery("SELECT StudentName FROM student WHERE StudentId = " +
                     aStudentId + " ORDER BY StudentId ASC", null);
-
             if (cursorStudentName.moveToFirst()) {
                 studentNamesList.add(cursorStudentName.getString(0));
             }
