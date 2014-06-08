@@ -14,9 +14,9 @@
     <string name="student_newParticipation">New Participation</string>
     <string name="student_newHomework">New Homework</string>
     <string name="abouts">About</string>
-    <string name="course_code">Progra4</string>
-    <string name="course_name">Programación 4</string>
-    <string name="course_description">Programación web</string>
+    <string name="course_code">CCC205</string>
+    <string name="course_name">Web and Mobile Programming</string>
+    <string name="course_description">HTML, PHP and Android</string>
     <string name="save_course">save course</string>
     <string name="listView">Course</string>
     <string name="home">home</string>

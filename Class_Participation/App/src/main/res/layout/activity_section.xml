@@ -14,13 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Quarter:"
+            android:text="Quarter"
             android:id="@+id/textViewQuarter"
             android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="28dp" />
-        
+
         <RadioGroup
             android:id="@+id/radioGroupQuarter"
             android:orientation="horizontal"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Semester:"
+            android:text="Semester"
             android:id="@+id/textViewSemester"
             android:layout_below="@+id/textViewQuarter"
             android:layout_alignLeft="@+id/textViewQuarter"
@@ -85,11 +85,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Year:"
+            android:text="Year"
             android:id="@+id/textViewYear"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="34dp"
             android:layout_below="@+id/radioGroupSemester"
-            android:layout_alignLeft="@+id/textViewSemester" />
+            android:layout_alignLeft="@+id/textViewCourse"
+            android:layout_alignStart="@+id/textViewCourse" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -102,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Course:"
+            android:text="Course"
             android:id="@+id/textViewCourse"
             android:layout_marginTop="142dp"
             android:layout_below="@+id/textViewSemester"
@@ -114,6 +115,27 @@
             android:id="@+id/spinnerCourse"
             android:layout_below="@+id/textViewCourse"
             android:layout_alignLeft="@+id/spinnerYear" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Section Code"
+            android:id="@+id/textView"
+            android:layout_below="@+id/spinnerCourse"
+            android:layout_alignLeft="@+id/textViewCourse"
+            android:layout_alignStart="@+id/textViewCourse" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextSection_code"
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_alignRight="@+id/radioGroupQuarter"
+            android:layout_alignEnd="@+id/radioGroupQuarter"
+            android:hint="UTGU-20142" />
 
     </RelativeLayout>
 </LinearLayout>
