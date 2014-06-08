@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/Carlos/Documents/Progra4/ClassParticipation2/Class_Participation/facebook/src/main/assets" />
+        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/src/main/assets" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/Users/Carlos/Documents/Progra4/ClassParticipation2/Class_Participation/facebook/src/release/assets" />
+        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/src/release/assets" />
     </dataSet>
 
 </merger>
