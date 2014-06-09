@@ -9,14 +9,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Class Participation"
-        android:id="@+id/textView"
+        android:id="@+id/textViewSection_code"
         android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Versión 1.0"
+        android:text="Version 1.1"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
 
@@ -31,16 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="© 2013 - 2014"
+        android:text="Copyright © 2014 Unitec"
         android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=" Ariel Esquivel and Henry Acosta"
-        android:id="@+id/textView5"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -50,4 +42,5 @@
         android:text="All rights reserved."
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

@@ -100,7 +100,7 @@ public class DeleteStudentDialog extends DialogFragment {
 
                     }
                     for(int i=0; i<SelectedIdxToDelete.size(); i++){
-                        listViewStudentNameList.remove(elements[i]);
+                        listViewStudentNameList.remove(elements[SelectedIdxToDelete.get(i)]);
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }

@@ -70,8 +70,7 @@ public class MainActivity extends Activity
         return calendar.get(Calendar.YEAR);
     }
 
-    public int getCurrentSemester()
-    {
+    public int getCurrentSemester(){
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH); //January == 0
         //June == 5
@@ -82,69 +81,54 @@ public class MainActivity extends Activity
         return 2;
     }
 
-    public int getCurrentQuarter()
-    {
+    public int getCurrentQuarter(){
         Calendar calendar = Calendar.getInstance();
         int currentMonth = calendar.get(Calendar.MONTH); //January == 0
         int currentSemester = getCurrentSemester();
         int currentQuarter = 0;
 
-        if ( currentSemester == 1 )
-        {
-            if ( currentMonth <= 2 )//January(0), February(1), March(2)
-            {
+        if ( currentSemester == 1 ){
+            if ( currentMonth <= 2 ){
                 currentQuarter = 1;
             }else{
-            //else
-            currentQuarter = 2;
+                currentQuarter = 2;
             }
-        }
-
-        else if ( currentSemester == 2 )
-        {
-            if ( currentMonth <= 8 ) //(July(6), August(7), September(8)
-            {
+        }else if ( currentSemester == 2 ){
+            if ( currentMonth <= 8 ){
                 currentQuarter = 3;
             }else{
-            //else
-            currentQuarter = 4;
+                currentQuarter = 4;
             }
         }
         return currentQuarter;
     }
 
-    public List<Section> getCurrentSectionsList()
-    {
+
+
+    public List<Section> getCurrentSectionsList(){
         int year = getCurrentYear();
         int quarter = getCurrentQuarter();
         int semester = getCurrentSemester();
         List<Section> sectionsList = new ArrayList<Section>();
-        try
-        {
+        try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-            Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId FROM section WHERE SectionQuarter = " +
+            Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
                     quarter + " AND SectionYear = " + year + " ORDER BY SectionId ASC", null);
 
-            if ( cursorSectionIdAndCourseId.moveToFirst() )
-            {
-                do
-                {
+            if ( cursorSectionIdAndCourseId.moveToFirst() ){
+                do{
                     Section section = new Section(cursorSectionIdAndCourseId.getInt(0), cursorSectionIdAndCourseId.getInt(1),
-                            quarter, semester, year);
+                            quarter, semester, year, cursorSectionIdAndCourseId.getString(2));
                     sectionsList.add(section);
                 } while ( cursorSectionIdAndCourseId.moveToNext() );
             }
             db.close();
-        }
-
-        catch (Exception ignored)
-        {
+        }catch (Exception ignored){
         }
         return sectionsList;
     }
 
-    public List<String> getCurrentCoursesNamesList()
-    {
+    public List<String> getCurrentCoursesNamesList(){
         List<Section> sectionsList = getCurrentSectionsList();
         List<String> coursesNamesList = new ArrayList<String>();
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
@@ -162,16 +146,14 @@ public class MainActivity extends Activity
     }
 
     //creating the listView
-    private void populateListView()
-    {
+    private void populateListView(){
         ArrayAdapter<String> adapter = new MyListAdapter();
         ListView listview = (ListView) findViewById(R.id.listView);
         listview.setAdapter(adapter);
     }
 
     //event clicking on one item of the list view
-    private void ClickCallback()
-    {
+    private void ClickCallback(){
         ListView listview = (ListView) findViewById(R.id.listView);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -188,25 +170,20 @@ public class MainActivity extends Activity
      }
 
     //class myAdapter for my personal style listView
-    public class MyListAdapter extends ArrayAdapter<String>
-    {
-        public MyListAdapter()
-        {
+    public class MyListAdapter extends ArrayAdapter<String>{
+        public MyListAdapter(){
             super( MainActivity.this, R.layout.item_listview, getCurrentCoursesNamesList());
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent )
-        {
+        public View getView(int position, View convertView, ViewGroup parent ){
             View itemView = convertView;
             //if itemView is null we create a new one
-            if(itemView == null )
-            {
+            if(itemView == null ){
                 itemView = getLayoutInflater().inflate(R.layout.item_listview, parent, false);
             }
             //find the course to work with and the section
-            try
-            {
+            try{
                 List<Section> sectionsList = getCurrentSectionsList();
 
                 //course name view
@@ -226,8 +203,7 @@ public class MainActivity extends Activity
                 item_IdSection.setText("Section id: " + sectionsList.get(position).get_SectionId());
             }
 
-            catch(Exception e)
-            {
+            catch(Exception e){
             }
 
             return itemView;
@@ -253,7 +229,6 @@ public class MainActivity extends Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
         if (requestCode == REQUEST_CODE) {
             this.recreate();
         }
@@ -265,8 +240,8 @@ public class MainActivity extends Activity
         // Inflate the menu; this adds items to the action bar if it is present.
        // getMenuInflater().inflate(R.menu.main, menu);
        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+       inflater.inflate(R.menu.main, menu);
+       return true;
     }
 
     @Override

@@ -13,10 +13,11 @@ public class Section implements Serializable
 	private int _SectionQuarter;
 	private int _SectionSemester;
     private int _SectionYear;
-
+    private String _SectionCode;
+    // editTextSection_code
     public Section(){}
     public Section(int _SectionId, int _CourseId, int _SectionQuarter,
-                   int _SectionSemester, int _SectionYear)
+                   int _SectionSemester, int _SectionYear, String _SectionCode)
     {
 		super();
 		this._SectionId = _SectionId;
@@ -24,6 +25,7 @@ public class Section implements Serializable
 		this._SectionQuarter = _SectionQuarter;
 		this._SectionSemester = _SectionSemester;
 		this._SectionYear = _SectionYear;
+        this._SectionCode=_SectionCode;
 	}
 	public int get_SectionId()
     {
@@ -65,9 +67,17 @@ public class Section implements Serializable
     {
 		this._SectionYear = _SectionYear;
 	}
+    public String get_SectionCode()
+    {
+        return _SectionCode;
+    }
+    public void set_SectionCode(String _SectionCode)
+    {
+        this._SectionCode = _SectionCode;
+    }
 
     @Override
     public String toString(){
-        return _SectionId+","+_CourseId+","+_SectionQuarter+","+_SectionSemester+","+_SectionYear;
+        return _SectionId+","+_CourseId+","+_SectionQuarter+","+_SectionSemester+","+_SectionYear+","+_SectionCode;
     }
 }

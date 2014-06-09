@@ -104,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         SECT_QTR + " INTEGER," +
                         SECT_SEM + " INTEGER," +
                         SECT_YEA + " INTEGER, " +
+                        SECT_CODE + " TEXT," +
                         "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + ")" +
                         ")";
         String CREATE_STUDENT_TABLE =
@@ -133,21 +134,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_HOMEWORK + " (" +
                         HOMEWORK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         HOMEWORK_NAME + " TEXT," +
+                        HOMEWORK_SECID + " INTEGER," +
                         "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")" +
                         ")";
         String CREATE_CRITERIA_TABLE =
                 "CREATE TABLE " + TABLE_CRITERIA + " (" +
                         CRITERIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         CRITERIA_NAME + " TEXT," +
-                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + "), " +
-                        CRITERIA_WEIGHT + " REAL" +
+                        CRITERIA_WEIGHT + " REAL," +
+                        CRITERIA_HOMEWORK + " INTEGER," +
+                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")" +
                         ")";
         String CREATE_HOMESTU_TABLE =
                 "CREATE TABLE " + TABLE_HOMESTU + " (" +
                         HOMESTU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        HOMESTU_Grade + " REAL," +
+                        HOMESTU_CriteriaId + " INTEGER," +
+                        HOMESTU_StudentId + " INTEGER," +
                         "FOREIGN KEY(" + HOMESTU_CriteriaId + ") REFERENCES " + TABLE_CRITERIA + "(" + CRITERIA_ID + "), " +
-                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + "), " +
-                        HOMESTU_Grade + " REAL" +
+                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")" +
                         ")";
 
         db.execSQL(CREATE_COURSE_TABLE);
@@ -155,9 +160,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_STUDENT_TABLE);
         db.execSQL(CREATE_STUDENTSECTION_TABLE);
         db.execSQL(CREATE_PARTICIPATION_TABLE);
-        //db.execSQL(CREATE_HOMEWORK_TABLE);
-        //db.execSQL(CREATE_CRITERIA_TABLE);
-        //db.execSQL(CREATE_HOMESTU_TABLE);
+        db.execSQL(CREATE_HOMEWORK_TABLE);
+        db.execSQL(CREATE_CRITERIA_TABLE);
+        db.execSQL(CREATE_HOMESTU_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -263,15 +268,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL;
         for(int i=0; i<toDelete.size(); i++){
+            //Log.d("toDelete: ", toDelete.get(i));
 
             //Eliminar referencia del estudiante de tabla de participaciones por estudiante
             List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
             String query = "SELECT StudentSectionId FROM studentSection WHERE StudentId=" + toDelete.get(i);
             Cursor cursor = db.rawQuery(query, null);
+            int cursor_position=0;
             if ( cursor.moveToFirst() ){
                 do{
-                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(i);
+                    //Log.d("cursor: ", cursor.getInt(cursor_position));
+                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(cursor_position);
                     db.execSQL(strSQL);
+                    cursor_position++;
                 }while ( cursor.moveToNext() );
             }
 
@@ -332,7 +341,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-        Course course = new Course(
+            Course course = new Course(
                 Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1),
                 cursor.getString(2),

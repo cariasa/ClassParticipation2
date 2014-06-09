@@ -21,4 +21,8 @@
           android:drawable="@drawable/com_facebook_loginbutton_blue_focused" />
     <item android:drawable="@drawable/com_facebook_loginbutton_blue_normal" />
 </selector>
+<<<<<<< HEAD
 <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue.xml -->
+=======
+<!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue.xml -->
+>>>>>>> Database

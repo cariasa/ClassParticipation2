@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,61 +23,50 @@ public class ParticipationDialog extends DialogFragment
     int studentSectionId;
     String studentName;
 
-    ParticipationDialog(int studentSectionId, String studentName)
-    {
+    ParticipationDialog(int studentSectionId, String studentName){
         this.studentSectionId = studentSectionId;
         this.studentName = studentName;
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState){
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_participation, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(studentName);
         builder.setView(view);
-
-        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener()
-        {
+        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
+            public void onClick(DialogInterface dialog, int id){
                 int grade = 0;
-
-                if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 1 )
-                {
+                if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 1 ){
                     grade = 20;
-                }
-
-                else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 2 )
-                {
+                }else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 2 ){
                     grade = 40;
-                }
-
-                else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 3 )
-                {
+                }else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 3 ){
                     grade = 60;
-                }
-
-                else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 4 )
-                {
+                }else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 4 ){
                     grade = 80;
-                }
-
-                else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 5 )
-                {
+                }else if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 5 ){
                     grade = 100;
                 }
 
 
-                try
-                {
-                    //-------------------------Save the participation & update final note-----------------------------------
+                try{
+                    //-------------------------Save the participation & update final grade-----------------------------------
 
                     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
-                    String comment = ((EditText)view.findViewById(R.id.editTextComment)).getText().toString();
+                    String comment="ERROR";
+                    if ( ((RadioButton)view.findViewById(R.id.radioButton)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton2)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton2)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton3)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton3)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton4)).isChecked()){
+                        comment = ((EditText)view.findViewById(R.id.editTextComment)).getText().toString();
+                    }
 
                     //Database
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
@@ -84,18 +74,13 @@ public class ParticipationDialog extends DialogFragment
                     double studentSectionFinal = db.getFinalGrade(studentSectionId) + grade;
                     db.UpdateparticipationStudent(studentSectionId, studentSectionFinal);
                     db.close();
-                }
-
-                catch (Exception e)
-                {
+                }catch (Exception e){
                 }
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
                 ParticipationDialog.this.getDialog().cancel();
             }
         });
