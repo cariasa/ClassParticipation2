@@ -44,13 +44,22 @@ public class StudentActivity extends Activity
 
         //------------------Connect ArrayAdapter with a List for the ListView----------------------
 
-        listViewStudentNameList = getCurrentStudentNamesList();
+        /*listViewStudentNameList = getCurrentStudentNamesList();
 
         arrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, listViewStudentNameList);
 
-        ((ListView)findViewById(R.id.listView_student)).setAdapter(arrayAdapter);
+        ((ListView)findViewById(R.id.listView_student)).setAdapter(arrayAdapter);*/
 
+        ListView studentsList = (ListView) findViewById(R.id.listView_student);
+        ArrayList<StudentItem> arrayStudentItem = new ArrayList<StudentItem>();
+        listViewStudentNameList = getCurrentStudentNamesList();
+        for(int i=0;i<listViewStudentNameList.size();i++){
+            StudentItem studentitem=new StudentItem (listViewStudentNameList.get(i));
+            arrayStudentItem.add(studentitem);
+        }
+        StudentItemAdapter arrayAdapter=new StudentItemAdapter(this,arrayStudentItem);
+        studentsList.setAdapter(arrayAdapter);
         //------------------------------------------------------------------------------------------
 
         actionBar();
@@ -87,7 +96,6 @@ public class StudentActivity extends Activity
         }else{
             item_statistics.setVisible(false);
             item_student.setVisible(true);
-            save_student.setVisible(false);
             save_students.setVisible(true);
             newAssignment.setVisible(false);
             newHomework.setVisible(false);
@@ -320,6 +328,19 @@ public class StudentActivity extends Activity
             dialog.show(getFragmentManager(), "dialog_participation");
         }
     }
+    //Participates using the index of the selected item
+    public void showParticipationDialog(int listIndex)
+    {
+        if ( getCurrentStudentNamesList().size() > 0 )
+        {
+            int studentIndex = listIndex;
+
+            ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
+                    getCurrentStudentNamesList().get(studentIndex));
+            dialog.show(getFragmentManager(), "dialog_participation");
+        }
+    }
+
 
     public void showAddStudentDialog()
     {
@@ -357,7 +378,6 @@ public class StudentActivity extends Activity
                 catch (Exception e)
                 {
                 }
-
                 StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade);
                 dialog.show(getFragmentManager(), "dialog_student");
 
