@@ -139,8 +139,8 @@ public class SectionActivity extends Activity
             //Database
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
-            db.execSQL("INSERT INTO section(CourseId, SectionQuarter, SectionSemester, SectionYear) VALUES(" +
-            courseId + ", " + quarter + ", " + semester + ", " + year + "," + sectionCode + ")");
+            db.execSQL("INSERT INTO section(CourseId, SectionQuarter, SectionSemester, SectionYear, SectionCode) VALUES(" +
+            courseId + ", " + quarter + ", " + semester + ", " + year + ", \"" + sectionCode + "\")");
             Log.v("Esoooooo ", sectionCode);
             db.close();
 

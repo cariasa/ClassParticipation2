@@ -135,7 +135,8 @@
             android:layout_alignStart="@+id/textView"
             android:layout_alignRight="@+id/radioGroupQuarter"
             android:layout_alignEnd="@+id/radioGroupQuarter"
-            android:hint="UTGU-20142" />
+            android:hint="UTGU-20142"
+            android:imeOptions="actionDone" />
 
     </RelativeLayout>
 </LinearLayout>
