@@ -47,6 +47,10 @@
             android:name=".DeleteStudentDialog"
             android:label="@string/title_activity_dialog_deletestudent" >
         </activity>
+        <activity
+            android:name=".CreateHomeworkActivity"
+            android:label="@string/title_activity_homework" >
+        </activity>
     </application>
 
 </manifest>
