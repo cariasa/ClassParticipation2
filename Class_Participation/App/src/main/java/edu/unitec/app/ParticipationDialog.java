@@ -38,7 +38,7 @@ public class ParticipationDialog extends DialogFragment
         builder.setView(view);
         builder.setPositiveButton("Accept", new DialogInterface.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialog, int id){
+            public void onClick(DialogInterface dialog, int id){//
                 int grade = 0;
                 if ( ((RatingBar)view.findViewById(R.id.ratingBar)).getRating() == 1 ){
                     grade = 20;
