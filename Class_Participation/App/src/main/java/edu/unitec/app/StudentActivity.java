@@ -23,8 +23,8 @@ import java.util.Random;
 /**
  * Created by Henry on 12-08-13.
  */
-public class StudentActivity extends Activity
-{
+public class StudentActivity extends Activity{
+
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
 
@@ -32,8 +32,7 @@ public class StudentActivity extends Activity
     List<String> listViewStudentNameList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
@@ -58,7 +57,7 @@ public class StudentActivity extends Activity
             StudentItem studentitem=new StudentItem (listViewStudentNameList.get(i));
             arrayStudentItem.add(studentitem);
         }
-        StudentItemAdapter arrayAdapter=new StudentItemAdapter(this,arrayStudentItem);
+        StudentItemAdapter arrayAdapter = new StudentItemAdapter(this,arrayStudentItem);
         studentsList.setAdapter(arrayAdapter);
         //------------------------------------------------------------------------------------------
 
@@ -93,10 +92,10 @@ public class StudentActivity extends Activity
             newHomework.setVisible(true);
             newParticipation.setVisible(true);
             delete_student.setVisible(true);
-        }
-        else {
+        }else{
             item_statistics.setVisible(false);
             item_student.setVisible(true);
+            save_student.setVisible(false);
             save_students.setVisible(true);
             newAssignment.setVisible(false);
             newHomework.setVisible(false);
@@ -182,8 +181,6 @@ public class StudentActivity extends Activity
                                 this.recreate();
                                 Log.i("student","students list already exist");
                             }*/
-                        }else{
-                            Log.i("Nothing","do nothing");
                         }
                     }catch(Exception ignored){
                     }
@@ -213,8 +210,7 @@ public class StudentActivity extends Activity
         return StudentList;
     }
 */
-    public List<Integer> getCurrentStudentSectionIdList()
-    {
+    public List<Integer> getCurrentStudentSectionIdList(){
         List<Integer> StudentSectionIdList = new ArrayList<Integer>();
 
         try
@@ -224,8 +220,7 @@ public class StudentActivity extends Activity
             Cursor cursorStudentSectionId = db.rawQuery("SELECT StudentSectionId FROM studentSection WHERE SectionId = " +
                     currentSection.get_SectionId() + " ORDER BY SectionId ASC", null);
 
-            if ( cursorStudentSectionId.moveToFirst() )
-            {
+            if ( cursorStudentSectionId.moveToFirst() ){
                 do
                 {
                     StudentSectionIdList.add(cursorStudentSectionId.getInt(0));
@@ -236,8 +231,7 @@ public class StudentActivity extends Activity
             db.close();
         }
 
-        catch(Exception e)
-        {
+        catch(Exception e){
             e.printStackTrace();
         }
 
@@ -359,7 +353,6 @@ public class StudentActivity extends Activity
         if ( getCurrentStudentNamesList().size() > 0 )
         {
             int studentIndex = listIndex;
-
             ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
                     getCurrentStudentNamesList().get(studentIndex));
             dialog.show(getFragmentManager(), "dialog_participation");
@@ -367,11 +360,11 @@ public class StudentActivity extends Activity
     }
 
 
-    public void showAddStudentDialog()
-    {
+    public void showAddStudentDialog(){
         AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
         dialog.show(getFragmentManager(), "dialog_addstudent");
     }
+
     public void showDeleteStudentDialog(){
         DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, listViewStudentNameList,getCurrentStudentIdList());
         dialog.show(getFragmentManager(), "dialog_deletestudent");
@@ -379,33 +372,24 @@ public class StudentActivity extends Activity
     }
 
     //event clicking on one item of the list view
-    private void ClickCallback()
-    {
+    private void ClickCallback(){
         ListView listview = (ListView) findViewById(R.id.listView_student);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
             {
                 List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
                 double finalGrade = 0;
-
-                try
-                {
+                try{
                     int currentStudentSectionId = getCurrentStudentSectionIdList().get(position);
-
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
                     currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                     finalGrade = db.getFinalGrade(currentStudentSectionId);
                     db.close();
-                }
-
-                catch (Exception e)
-                {
+                }catch (Exception e){
                 }
                 StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade);
                 dialog.show(getFragmentManager(), "dialog_student");
-
             }
         });
     }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -10,12 +11,81 @@
         android:id="@+id/ratingBar"
         android:layout_gravity="center_horizontal"
         android:stepSize="1"
-        android:numStars="5" />
-
-    <EditText
-        android:layout_width="fill_parent"
+        android:numStars="5"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextComment"
-        android:hint="Comment:" />
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignRight="@+id/ratingBar"
+        android:layout_alignEnd="@+id/ratingBar"
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_alignStart="@+id/ratingBar">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Feedback"
+            android:id="@+id/textView"
+            android:layout_alignTop="@+id/radioGroup"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Absent"
+            android:id="@+id/radioButton"
+            android:checked="false"
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/radioGroup"
+            android:layout_alignStart="@+id/radioGroup" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Didn't answer/know"
+            android:id="@+id/radioButton2"
+            android:checked="false"
+            android:layout_below="@+id/radioButton"
+            android:layout_alignLeft="@+id/radioButton"
+            android:layout_alignStart="@+id/radioButton" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton3"
+            android:checked="false"
+            android:text="Somewhat answered"
+            android:layout_below="@+id/radioButton2"
+            android:layout_alignLeft="@+id/radioButton2"
+            android:layout_alignStart="@+id/radioButton2" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton4"
+            android:checked="false"
+            android:text="Other"
+            android:layout_below="@+id/radioButton3"
+            android:layout_alignLeft="@+id/radioButton3"
+            android:layout_alignStart="@+id/radioButton3" />
+
+        <EditText
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextComment"
+            android:hint="Comment"
+            android:enabled="true"
+            android:layout_below="@+id/radioButton4"
+            android:layout_alignRight="@+id/radioGroup"
+            android:layout_alignEnd="@+id/radioGroup"
+            android:layout_gravity="center_horizontal"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
+    </RadioGroup>
+
+</RelativeLayout>

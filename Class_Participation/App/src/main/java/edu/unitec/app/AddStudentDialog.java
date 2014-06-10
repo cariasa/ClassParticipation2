@@ -39,8 +39,7 @@ public class AddStudentDialog extends DialogFragment
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState){
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_addstudent, null);
 
@@ -82,12 +81,9 @@ public class AddStudentDialog extends DialogFragment
         if(dialog != null){
             Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 
-            positiveButton.setOnClickListener(new View.OnClickListener()
-            {
+            positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View v)
-                {
-
+                public void onClick(View v){
                     Boolean wantToCloseDialog = false;
                     boolean studentSectionExist = false;
 
@@ -96,11 +92,12 @@ public class AddStudentDialog extends DialogFragment
                         studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()));
                         db.close();
                     }catch (Exception e){
+
                     }
 
-                    if ( studentId.getText().toString().isEmpty() ){
+                    if(studentId.getText().toString().isEmpty()){
                         studentId.requestFocus();
-                    }else if ( studentSectionExist ){
+                    }else if(studentSectionExist){
                         studentId.requestFocus();
                     }else if ( studentName.getText().toString().isEmpty() ){
                         studentName.requestFocus();
@@ -111,10 +108,9 @@ public class AddStudentDialog extends DialogFragment
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-                            if ( !db.studentExist(Integer.parseInt(studentId.getText().toString())) ){
+                            if(!db.studentExist(Integer.parseInt(studentId.getText().toString()))){
                                 db.addStudent(student);
                             }
-
                             db.addStudentTable(student, currentSection);
                             db.close();
 
@@ -127,12 +123,10 @@ public class AddStudentDialog extends DialogFragment
                             studentMajor.setText("");
 
                             studentId.requestFocus();
-                        }
+                        }catch (Exception e){
 
-                        catch (Exception e){
                         }
-
-                        //wantToCloseDialog = true;
+                        wantToCloseDialog = true;
                     }
 
                     if(wantToCloseDialog){
