@@ -81,6 +81,7 @@ public class AddStudentDialog extends DialogFragment
         if(dialog != null){
             Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 
+            assert positiveButton != null;
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){

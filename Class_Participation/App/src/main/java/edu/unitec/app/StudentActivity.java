@@ -301,8 +301,7 @@ public class StudentActivity extends Activity{
         return index;
     }
 
-    public int selectStudent()
-    {
+    public int selectStudent(){
         List<Integer> studentSectionIdList = getCurrentStudentSectionIdList();
         int studentSectionIdCounters[] = new int[studentSectionIdList.size()];
 

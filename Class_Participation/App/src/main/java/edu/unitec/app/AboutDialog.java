@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-/**
- * Created by Ariel on 12-17-13.
- */
+
 public class AboutDialog extends DialogFragment
 {
     AboutDialog()
