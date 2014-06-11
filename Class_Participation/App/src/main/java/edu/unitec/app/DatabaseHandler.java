@@ -421,4 +421,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(course.getCourseId())});
         db.close();
     }
+    public void addHomework(Homework homework){
+        SQLiteDatabase	db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HOMEWORK_NAME, homework.getHomeworkName());
+        values.put(HOMEWORK_SECID, homework.getSectionId());
+        db.insert(TABLE_HOMEWORK, null, values);
+        db.close();
+    }
+    boolean homeworkExist(Homework homework,int SectionId)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + HOMEWORK_ID +
+                                    " FROM " + TABLE_HOMEWORK +
+                                    " WHERE " + HOMEWORK_NAME + " = '" + homework.getHomeworkName() + "'"+
+                                    " AND " + HOMEWORK_SECID + " = " + SectionId, null);
+
+        if ( cursor.getCount() > 0 )
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -138,6 +138,11 @@ public class StudentActivity extends Activity{
             case R.id.delete_students:
                 showDeleteStudentDialog();
                 return true;
+            case R.id.item_newHomework:
+                Intent intentHomework = new Intent(this.getBaseContext(), CreateHomework.class);
+                intentHomework.putExtra("Section", currentSection);
+                startActivity(intentHomework);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
