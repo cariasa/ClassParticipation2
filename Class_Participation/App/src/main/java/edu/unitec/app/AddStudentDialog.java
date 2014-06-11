@@ -28,10 +28,10 @@ public class AddStudentDialog extends DialogFragment
     EditText studentName;
     EditText studentMajor;
 
-    ArrayAdapter<String> arrayAdapter;
-    List<String> listViewStudentNameList;
+    StudentItemAdapter arrayAdapter;
+    List<StudentItem> listViewStudentNameList;
 
-    AddStudentDialog(Section currentSection, ArrayAdapter<String> arrayAdapter, List<String> list)
+    AddStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
@@ -116,7 +116,7 @@ public class AddStudentDialog extends DialogFragment
                             db.close();
 
                             //Update the listView of student activity
-                            listViewStudentNameList.add(student.get_StudentName());
+                            listViewStudentNameList.add(new StudentItem(student.get_StudentName()));
                             arrayAdapter.notifyDataSetChanged();
 
                             studentId.setText("");

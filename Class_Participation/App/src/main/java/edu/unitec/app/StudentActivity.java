@@ -34,8 +34,9 @@ public class StudentActivity extends Activity{
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
 
-    ArrayAdapter<String> arrayAdapter;
-    List<String> listViewStudentNameList;
+    StudentItemAdapter arrayAdapter;
+    //List<String> listViewStudentNameList;
+    ArrayList<StudentItem> arrayStudentItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,13 +58,12 @@ public class StudentActivity extends Activity{
         ((ListView)findViewById(R.id.listView_student)).setAdapter(arrayAdapter);*/
 
         ListView studentsList = (ListView) findViewById(R.id.listView_student);
-        ArrayList<StudentItem> arrayStudentItem = new ArrayList<StudentItem>();
-        listViewStudentNameList = getCurrentStudentNamesList();
-        for(int i=0;i<listViewStudentNameList.size();i++){
-            StudentItem studentitem=new StudentItem (listViewStudentNameList.get(i));
+        arrayStudentItem = new ArrayList<StudentItem>();
+        for(int i=0;i<getCurrentStudentNamesList().size();i++){
+            StudentItem studentitem = new StudentItem (getCurrentStudentNamesList().get(i));
             arrayStudentItem.add(studentitem);
         }
-        StudentItemAdapter arrayAdapter = new StudentItemAdapter(this,arrayStudentItem);
+        arrayAdapter = new StudentItemAdapter(this,arrayStudentItem);
         studentsList.setAdapter(arrayAdapter);
         //------------------------------------------------------------------------------------------
 
@@ -392,12 +392,12 @@ public class StudentActivity extends Activity{
 
 
     public void showAddStudentDialog(){
-        AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, listViewStudentNameList);
+        AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, arrayStudentItem);
         dialog.show(getFragmentManager(), "dialog_addstudent");
     }
 
     public void showDeleteStudentDialog(){
-        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, listViewStudentNameList,getCurrentStudentIdList());
+        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, arrayStudentItem,getCurrentStudentIdList());
         dialog.show(getFragmentManager(), "dialog_deletestudent");
 
     }

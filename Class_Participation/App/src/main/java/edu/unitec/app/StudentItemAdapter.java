@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class StudentItemAdapter extends BaseAdapter {
 
-    protected Activity activity;
+    protected Context activity;
     protected ArrayList<StudentItem> items;
-    public StudentItemAdapter(Activity activity, ArrayList<StudentItem> items) {
+    public StudentItemAdapter(Context activity, ArrayList<StudentItem> items) {
         this.activity = activity;
         this.items = items;
     }

@@ -17,14 +17,14 @@ import java.util.List;
  * Created by Alberto on 03/06/2014.
  */
 public class DeleteStudentDialog extends DialogFragment {
-    ArrayAdapter<String> arrayAdapter;
-    List<String> listViewStudentNameList;
+    StudentItemAdapter arrayAdapter;
+    List<StudentItem> listViewStudentNameList;
     List<Integer> list_StudentID;
     ArrayList<Integer> SelectedIdxToDelete;
     Section currentSection;
     String elements[];
 
-    DeleteStudentDialog(Section currentSection, ArrayAdapter<String> arrayAdapter, List<String> list, List<Integer> list2)
+    DeleteStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list, List<Integer> list2)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
@@ -43,7 +43,7 @@ public class DeleteStudentDialog extends DialogFragment {
         builder.setView(view);
         elements=new String[listViewStudentNameList.size()];
         for(int i=0;i<listViewStudentNameList.size();i++){
-            elements[i]=listViewStudentNameList.get(i);
+            elements[i]=listViewStudentNameList.get(i).getStudentName();
         }
         builder.setMultiChoiceItems(elements,null,new DialogInterface.OnMultiChoiceClickListener(){
             @Override
@@ -100,8 +100,12 @@ public class DeleteStudentDialog extends DialogFragment {
 
                     }
                     for(int i=0; i<SelectedIdxToDelete.size(); i++){
-                        listViewStudentNameList.remove(elements[i]);
-                        arrayAdapter.notifyDataSetChanged();
+                        if(listViewStudentNameList.size()==1){
+                            listViewStudentNameList.remove(0);
+                        }else {
+                            listViewStudentNameList.remove((int) SelectedIdxToDelete.get(i));
+                            arrayAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             });
