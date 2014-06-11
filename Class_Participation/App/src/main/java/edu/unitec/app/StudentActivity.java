@@ -2,12 +2,14 @@ package edu.unitec.app;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +18,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -266,6 +272,25 @@ public class StudentActivity extends Activity{
         return StudentIdList;
     }
 
+    public boolean check_absence(int index_StudentSectionIDList){
+        List<Integer> studentSectionIdList = getCurrentStudentSectionIdList();
+        SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+
+        Cursor absent_check = db.rawQuery("SELECT ParticipationComment, ParticipationDate FROM participationStudent WHERE StudentSectionId = "
+                + studentSectionIdList.get(index_StudentSectionIDList) + " ORDER BY ParticipationId DESC LIMIT 1", null);
+
+        Date cDate = new Date();
+        String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
+
+        absent_check.moveToFirst();
+        if(absent_check.getCount()==0){
+            return false;
+        }
+        if(absent_check.getString(0).equals("Absent") && absent_check.getString(1).equals(fDate)){
+            return true;
+        }
+        return false;
+    }
 
     public List<String> getCurrentStudentNamesList(){
         List<Integer> studentId = getCurrentStudentIdList();
@@ -284,8 +309,7 @@ public class StudentActivity extends Activity{
         return studentNamesList;
     }
 
-    public int getMinValueIndex(int[] array)
-    {
+    public int getMinValueIndex(int[] array){
         int minValue = array[0];
         int index = 0;
         int i;
@@ -307,8 +331,7 @@ public class StudentActivity extends Activity{
 
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
-        for (int a = 0; a < studentSectionIdList.size(); a++)
-        {
+        for (int a = 0; a < studentSectionIdList.size(); a++){
             Cursor cursor = db.rawQuery("SELECT * FROM participationStudent WHERE StudentSectionId = " +
                     studentSectionIdList.get(a), null);
             studentSectionIdCounters[a] = cursor.getCount();
@@ -330,15 +353,26 @@ public class StudentActivity extends Activity{
         }else{//Random student
             studentIndex = random.nextInt(studentSectionIdList.size());
         }
-
         return studentIndex;
     }
 
-    public void showParticipationDialog()
-    {
-        if ( getCurrentStudentNamesList().size() > 0 )
-        {
-            int studentIndex = selectStudent();
+    public void showParticipationDialog(){
+        int studentIndex;
+        int student_quantity = getCurrentStudentNamesList().size();
+        if (student_quantity > 0 ){
+            int avoid_infinite_loop=0;
+            do{
+                studentIndex = selectStudent();
+                avoid_infinite_loop++;
+                if(avoid_infinite_loop == 100){
+                    Context context = getApplicationContext();
+                    CharSequence text = "All students absent!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    return;
+                }
+            }while(check_absence(studentIndex));
 
             ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
                     getCurrentStudentNamesList().get(studentIndex));
@@ -347,10 +381,8 @@ public class StudentActivity extends Activity{
         }
     }
     //Participates using the index of the selected item
-    public void showParticipationDialog(int listIndex)
-    {
-        if ( getCurrentStudentNamesList().size() > 0 )
-        {
+    public void showParticipationDialog(int listIndex){
+        if ( getCurrentStudentNamesList().size() > 0 ){
             int studentIndex = listIndex;
             ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
                     getCurrentStudentNamesList().get(studentIndex));
