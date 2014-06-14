@@ -9,7 +9,7 @@
     tools:context="edu.unitec.app.CreateHomework">
 
     <ListView
-        android:id="@+id/listView_create_homework"
+        android:id="@+id/listView_criteria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

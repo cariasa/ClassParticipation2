@@ -30,7 +30,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_homework">homework</string>
     <string name="title_activity_create_homework">CreateHomework</string>
+    <string name="item_addCriteria">Add Criteria</string>
     <string name="save_homework">Save Homework</string>
+    <string name="title_criteria">Criteria</string>
 
 
 </resources>

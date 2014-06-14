@@ -101,7 +101,7 @@ public class StudentActivity extends Activity{
         }else{
             item_statistics.setVisible(false);
             item_student.setVisible(true);
-            save_student.setVisible(false);
+            save_student.setVisible(true);
             save_students.setVisible(true);
             newAssignment.setVisible(false);
             newHomework.setVisible(false);
@@ -139,7 +139,7 @@ public class StudentActivity extends Activity{
                 showDeleteStudentDialog();
                 return true;
             case R.id.item_newHomework:
-                Intent intentHomework = new Intent(this.getBaseContext(), CreateHomework.class);
+                Intent intentHomework = new Intent(this, CreateHomework.class);
                 intentHomework.putExtra("Section", currentSection);
                 startActivity(intentHomework);
                 return true;

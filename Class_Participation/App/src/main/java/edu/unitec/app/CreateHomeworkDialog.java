@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CreateHomeworkDialog extends DialogFragment {
         homeworkName.requestFocus();
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add Student");
+        builder.setTitle("Create Homework");
         builder.setView(view);
 
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener(){
@@ -81,10 +82,16 @@ public class CreateHomeworkDialog extends DialogFragment {
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
                             if(!db.homeworkExist(homework,currentSection.get_SectionId())){
                                 db.addHomework(homework);
+                                ((CreateHomework)getActivity()).homework=homework;
+                                getActivity().setTitle(homeworkName.getText().toString());
+                                db.close();
+                            }else{
+                                Toast.makeText(getActivity(),"Ya existe una tarea con ese nombre", Toast.LENGTH_LONG).show();
+                                homeworkName.setText("");
+                                homeworkName.requestFocus();
+                                return;
                             }
-                            ((CreateHomework)getActivity()).homework=homework;
-                            getActivity().setTitle(homeworkName.getText().toString());
-                            db.close();
+
                         }catch (Exception e){
 
                         }

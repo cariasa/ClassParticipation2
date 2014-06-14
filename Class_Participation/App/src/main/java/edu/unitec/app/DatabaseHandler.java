@@ -445,4 +445,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return false;
     }
+    boolean criteriaExist(String criteriaName,int homeworkId)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + CRITERIA_ID +
+                " FROM " + TABLE_CRITERIA +
+                " WHERE " + CRITERIA_NAME + " = '" + criteriaName + "'"+
+                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId, null);
+
+        if ( cursor.getCount() > 0 )
+        {
+            return true;
+        }
+
+        return false;
+    }
+    public void addCriteria(Criteria criteria){
+        SQLiteDatabase	db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CRITERIA_NAME, criteria.getCriteriaName());
+        values.put(CRITERIA_WEIGHT,criteria.getCriteriaWeight());
+        values.put(CRITERIA_HOMEWORK,criteria.getCriteriaHomeworkId());
+        db.insert(TABLE_CRITERIA, null, values);
+        db.close();
+    }
+    public double getCriteriaWeight(String criteriaName,int homeworkId)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + CRITERIA_WEIGHT +
+                " FROM " + TABLE_CRITERIA +
+                " WHERE " + CRITERIA_NAME + " = '" + criteriaName + "'"+
+                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId;
+        Cursor cursor = db.rawQuery(query, null);
+        Double weight=0.0;
+        if ( cursor.moveToFirst() )
+        {
+            weight = cursor.getDouble(0);
+        }
+        db.close();
+        return weight;
+    }
+    public List<Double> getAllCriteria_Weights(int homeworkId){
+        List<Double> weightList = new ArrayList<Double>();
+        String selectQuery  = "SELECT " + CRITERIA_WEIGHT +
+                " FROM " + TABLE_CRITERIA +
+                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                weightList.add(cursor.getDouble(0));
+            }while (cursor.moveToNext());
+        }
+        return weightList;
+    }
 }
