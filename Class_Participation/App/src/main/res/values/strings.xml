@@ -33,6 +33,6 @@
     <string name="item_addCriteria">Add Criteria</string>
     <string name="save_homework">Save Homework</string>
     <string name="title_criteria">Criteria</string>
-
+    <string name="title_activity_check_homework">CheckHomework</string>
 
 </resources>

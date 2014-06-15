@@ -55,6 +55,10 @@
             android:name=".CreateHomework"
             android:label="@string/title_activity_create_homework" >
         </activity>
+        <activity
+            android:name=".CheckHomework"
+            android:label="@string/title_activity_check_homework" >
+        </activity>
     </application>
 
 </manifest>

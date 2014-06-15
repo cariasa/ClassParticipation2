@@ -2,12 +2,14 @@ package edu.unitec.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,7 +65,21 @@ public class StudentItemAdapter extends BaseAdapter {
                 }
             }
         });
-        //Override the method onClick rom buttonStatistics
+        //Override onClick method from buttonHomework
+        Button buttonHomework = (Button) customView.findViewById(R.id.button_student_homework);
+        buttonHomework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( activity instanceof StudentActivity){
+                    ListView listview = (ListView) ((StudentActivity) activity).findViewById(R.id.listViewCheckHomework);
+                    Intent intent = new Intent(activity.getApplicationContext(), CheckHomework.class);
+                    intent.putExtra("Section", (int)(((StudentActivity)activity).getCurrentSection().get_CourseId()));
+                    intent.putExtra("StudentName",((StudentActivity)activity).getCurrentStudentNamesList().get(position));
+                    activity.startActivity(intent);
+                }
+            }
+        });
+        //Override onClick method from buttonStatistics
         Button buttonStatistics = (Button) customView.findViewById(R.id.button_student_statistics);
         buttonStatistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,4 +108,5 @@ public class StudentItemAdapter extends BaseAdapter {
         });
         return customView;
     }
+
 }

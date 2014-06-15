@@ -429,6 +429,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_HOMEWORK, null, values);
         db.close();
     }
+    public List<Homework> getAll_Homework(int sectionId){
+        List<Homework> homeworkList = new ArrayList<Homework>();
+        String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
+                              " WHERE "+ HOMEWORK_SECID + " = " + sectionId +
+                              " ORDER BY " + HOMEWORK_ID + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                homeworkList.add(new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2)));
+            }while (cursor.moveToNext());
+        }
+        return homeworkList;
+    }
     boolean homeworkExist(Homework homework,int SectionId)
     {
         SQLiteDatabase db = this.getReadableDatabase();

@@ -34,6 +34,10 @@ public class StudentActivity extends Activity{
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
 
+    public Section getCurrentSection() {
+        return currentSection;
+    }
+
     StudentItemAdapter arrayAdapter;
     //List<String> listViewStudentNameList;
     ArrayList<StudentItem> arrayStudentItem;
