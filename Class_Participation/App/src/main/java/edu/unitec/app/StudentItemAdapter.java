@@ -3,6 +3,7 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,8 +74,9 @@ public class StudentItemAdapter extends BaseAdapter {
                 if( activity instanceof StudentActivity){
                     ListView listview = (ListView) ((StudentActivity) activity).findViewById(R.id.listViewCheckHomework);
                     Intent intent = new Intent(activity.getApplicationContext(), CheckHomework.class);
-                    intent.putExtra("Section", (int)(((StudentActivity)activity).getCurrentSection().get_CourseId()));
+                    intent.putExtra("Section", (int)(((StudentActivity)activity).getCurrentSection().get_SectionId()));
                     intent.putExtra("StudentName",((StudentActivity)activity).getCurrentStudentNamesList().get(position));
+                    intent.putExtra("studentId",((StudentActivity)activity).getCurrentStudentIdList().get(position));
                     activity.startActivity(intent);
                 }
             }

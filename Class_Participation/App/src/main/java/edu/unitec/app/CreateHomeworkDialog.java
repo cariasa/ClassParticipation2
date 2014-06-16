@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
-
 /**
  * Created by Alberto on 11/06/2014.
  */
@@ -82,7 +80,9 @@ public class CreateHomeworkDialog extends DialogFragment {
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
                             if(!db.homeworkExist(homework,currentSection.get_SectionId())){
                                 db.addHomework(homework);
-                                ((CreateHomework)getActivity()).homework=homework;
+                                //send the homework from de database to the activity
+                                homework=db.getLastHomework();
+                                ((HomeworkActivity)getActivity()).setHomework(homework);
                                 getActivity().setTitle(homeworkName.getText().toString());
                                 db.close();
                             }else{

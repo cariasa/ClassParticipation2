@@ -4,19 +4,15 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -143,8 +139,9 @@ public class StudentActivity extends Activity{
                 showDeleteStudentDialog();
                 return true;
             case R.id.item_newHomework:
-                Intent intentHomework = new Intent(this, CreateHomework.class);
+                Intent intentHomework = new Intent(this, HomeworkActivity.class);
                 intentHomework.putExtra("Section", currentSection);
+                intentHomework.putExtra("isCreating",true);
                 startActivity(intentHomework);
                 return true;
             default:

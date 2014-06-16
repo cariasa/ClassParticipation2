@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="edu.unitec.app.CreateHomework" >
+    tools:context="edu.unitec.app.HomeworkActivity" >
     <item
         android:id="@+id/item_addCriteria"
         android:title="@string/item_addCriteria"

@@ -52,7 +52,7 @@
             android:label="@string/title_activity_homework" >
         </activity>
         <activity
-            android:name=".CreateHomework"
+            android:name=".HomeworkActivity"
             android:label="@string/title_activity_create_homework" >
         </activity>
         <activity

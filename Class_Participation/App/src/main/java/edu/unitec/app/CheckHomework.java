@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class CheckHomework extends Activity {
     int sectionId;
+    int studentId;
     List<Homework> currentHomeworkList;
     ArrayAdapter arrayAdapter;
 
@@ -23,7 +26,8 @@ public class CheckHomework extends Activity {
         setContentView(R.layout.activity_check_homework);
         Intent intent=getIntent();
         String student_name = intent.getStringExtra("StudentName");
-        setTitle(student_name);
+        studentId=intent.getIntExtra("studentId",0);
+        setTitle(student_name+" Homeworks");
         sectionId = intent.getIntExtra("Section",0);
         try
         {
@@ -42,6 +46,7 @@ public class CheckHomework extends Activity {
         }
         arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayHomework);
         listViewHomework.setAdapter(arrayAdapter);
+        ClickCallback();
     }
 
 
@@ -49,6 +54,7 @@ public class CheckHomework extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.check_homework, menu);
+
         return true;
     }
 
@@ -62,5 +68,19 @@ public class CheckHomework extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void ClickCallback(){
+        ListView listview = (ListView) findViewById(R.id.listViewCheckHomework);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
+            {
+                Intent intent = new Intent(view.getContext(), HomeworkActivity.class);
+                intent.putExtra("Homework", currentHomeworkList.get(position));
+                intent.putExtra("studentId",studentId);
+                startActivity(intent);
+            }
+        });
     }
 }

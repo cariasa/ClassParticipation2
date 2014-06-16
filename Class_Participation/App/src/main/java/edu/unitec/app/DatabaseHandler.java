@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CRITERIA_WEIGHT = "CriteriaWeight";
 
     // Homework Per Student Table
-    private static final String TABLE_HOMESTU = "homeworkstudent";
+    private static final String TABLE_HOMESTU = "homeworkStudent";
     // Table Homework - Table Fields
     private static final String HOMESTU_ID = "HomeworkStudentId";
     private static final String HOMESTU_CriteriaId = "CriteriaId";
@@ -429,6 +429,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_HOMEWORK, null, values);
         db.close();
     }
+    public Homework getLastHomework(){
+        Homework homework=null;
+        String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
+                " ORDER BY " + HOMEWORK_ID + " DESC LIMIT 1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+            }while (cursor.moveToNext());
+        }
+        return homework;
+    }
     public List<Homework> getAll_Homework(int sectionId){
         List<Homework> homeworkList = new ArrayList<Homework>();
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
@@ -513,5 +526,98 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return weightList;
+    }
+    public List<Criteria> getAllCriteriaByHomework(int homeworkId){
+        List<Criteria> criteriaList = new ArrayList<Criteria>();
+        String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA +
+                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                criteriaList.add(new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3)));
+            }while (cursor.moveToNext());
+        }
+        return criteriaList;
+    }
+    public void printHomeworkTable(){
+        String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
+                " ORDER BY " + HOMEWORK_ID + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                Homework homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+                Log.e(DatabaseHandler.class.toString(),homework.toString()+"\n");
+            }while (cursor.moveToNext());
+        }
+    }
+    public void printCriteriaTable(){
+        String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA
+                            +" ORDER BY " + CRITERIA_ID + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                Criteria criteria= new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3));
+                Log.e(DatabaseHandler.class.toString(),criteria.toString()+"\n");
+            }while (cursor.moveToNext());
+        }
+    }
+    public void addHomeworkStudent(Double grade,int criteriaId,int studentId){
+        SQLiteDatabase	db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HOMESTU_Grade, grade);
+        values.put(HOMESTU_CriteriaId,criteriaId);
+        values.put(HOMESTU_StudentId,studentId);
+        db.insert(TABLE_HOMESTU, null, values);
+        db.close();
+    }
+    public void printHomeworkStudentTable(){
+        String selectQuery  = "SELECT * FROM " + TABLE_HOMESTU
+                +" ORDER BY " + HOMESTU_ID+ " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                Log.e(DatabaseHandler.class.toString(),"Homestu_Id= "+cursor.getInt(0)+
+                                                      " Homestu_Grade= "+cursor.getDouble(1)+
+                                                      " Homestu_CriteriaId= "+cursor.getInt(2)+
+                                                      " Homestu_StudentId= "+cursor.getInt(3)+"\n");
+            }while (cursor.moveToNext());
+        }
+    }
+    public boolean homeworkStudentExist(int criteriaId,int studentId){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + HOMESTU_ID +
+                " FROM " + TABLE_HOMESTU +
+                " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'"+
+                " AND " + HOMESTU_StudentId + " = " + studentId, null);
+        if ( cursor.getCount() > 0 )
+        {
+            return true;
+        }
+
+        return false;
+    }
+    public int getHomeworkStudentId(int criteriaId,int studentId){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + HOMESTU_ID +
+                " FROM " + TABLE_HOMESTU +
+                " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'"+
+                " AND " + HOMESTU_StudentId + " = " + studentId, null);
+        if ( cursor.moveToFirst() )
+        {
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    public void updateHomeworkStudent(int homeworkStudentId,double grade){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String strSQL = "UPDATE "+TABLE_HOMESTU+" SET "+HOMESTU_Grade+" = " + grade +
+                        " WHERE "+HOMESTU_ID+" = " +homeworkStudentId;
+        db.execSQL(strSQL);
     }
 }

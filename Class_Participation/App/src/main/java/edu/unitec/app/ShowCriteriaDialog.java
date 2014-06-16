@@ -46,7 +46,7 @@ public class ShowCriteriaDialog extends DialogFragment {
 
         TextView txtCriteriaPercentage=(TextView)view.findViewById(R.id.textViewCriteriaPercentage);
         double percentage=(weight/acum)*100;
-        txtCriteriaPercentage.setText("Size: "+weightlist.size()+"\nTotal: "+acum+"\nPercentage: "+percentage);
+        txtCriteriaPercentage.setText(Math.round(percentage)+"%");
         db.close();
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
