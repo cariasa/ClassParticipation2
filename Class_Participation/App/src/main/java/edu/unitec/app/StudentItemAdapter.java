@@ -88,23 +88,21 @@ public class StudentItemAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if( activity instanceof StudentActivity){
                     List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
+                    List<String> currentStudentHomeworks = new ArrayList<String>();
                     double finalGrade = 0;
-
-                    try
-                    {
+                    try{
                         int currentStudentSectionId = ((StudentActivity)activity).getCurrentStudentSectionIdList().get(position);
-
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
                         currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                         finalGrade = db.getFinalGrade(currentStudentSectionId);
+                        Log.d("adaasdsda", Integer.toString(((StudentActivity)activity).getCurrentStudentIdList().get(position)));
+                        currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),currentStudentSectionId);
+                        StudentDialog dialog = new StudentDialog(currentStudentParticipationList, ((StudentActivity)activity).getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks);
+                        dialog.show(((StudentActivity)activity).getFragmentManager(), "dialog_student");
                         db.close();
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-
-                    catch (Exception e)
-                    {
-                    }
-                    StudentDialog dialog = new StudentDialog(currentStudentParticipationList, ((StudentActivity)activity).getCurrentStudentNamesList().get(position), finalGrade);
-                    dialog.show(((StudentActivity)activity).getFragmentManager(), "dialog_student");
                 }
             }
         });

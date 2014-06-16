@@ -77,7 +77,7 @@ public class ParticipationDialog extends DialogFragment
                     //-------------------------Save the participation & update final note-----------------------------------
 
                     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
-                    String comment="ERROR";
+                    String comment="";
                     if ( ((RadioButton)view.findViewById(R.id.radioButton)).isChecked()){
                         comment=((RadioButton)view.findViewById(R.id.radioButton)).getText().toString();
                     }else if ( ((RadioButton)view.findViewById(R.id.radioButton2)).isChecked()){

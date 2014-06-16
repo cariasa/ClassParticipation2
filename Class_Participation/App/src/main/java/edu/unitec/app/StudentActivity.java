@@ -416,17 +416,20 @@ public class StudentActivity extends Activity{
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
             {
                 List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
+                List<String> currentStudentHomeworks = new ArrayList<String>();
                 double finalGrade = 0;
                 try{
                     int currentStudentSectionId = getCurrentStudentSectionIdList().get(position);
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
                     currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                     finalGrade = db.getFinalGrade(currentStudentSectionId);
+                    currentStudentHomeworks = db.getHomeworkNameAndGrade(getCurrentStudentIdList().get(position),currentStudentSectionId);
                     db.close();
+                    StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks);
+                    dialog.show(getFragmentManager(), "dialog_student");
                 }catch (Exception e){
+                    e.printStackTrace();
                 }
-                StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade);
-                dialog.show(getFragmentManager(), "dialog_student");
             }
         });
     }
