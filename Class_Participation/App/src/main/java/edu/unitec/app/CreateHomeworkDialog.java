@@ -5,8 +5,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -60,7 +63,21 @@ public class CreateHomeworkDialog extends DialogFragment {
     public void onStart(){
         super.onStart();    //super.onStart() is where dialog.show() is actually called on the underlying dialog, so we have to do it after this point
         AlertDialog dialog = (AlertDialog)getDialog();
-
+        //disable the clicks outside the dialog
+        Window window = this.getDialog().getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        //override the onKey method to close the activity when back is pressed
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode==event.KEYCODE_BACK){
+                    dialog.dismiss();
+                    getActivity().finish();
+                }
+                return false;
+            }
+        });
         if(dialog != null){
             Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 
