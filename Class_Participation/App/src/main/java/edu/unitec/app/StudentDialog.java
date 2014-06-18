@@ -104,11 +104,12 @@ public class StudentDialog extends DialogFragment
         tableLayout2.addView(tableRowHeadHW);
 
         for (int a = 0; a < homeworks.size(); a++){
+
             String[] homework_parts = (homeworks.get(a)).split("HOLAHELLO");
             TableRow tableRowHW = new TableRow(view.getContext());
 
             TextView textViewGradeHW2 = new TextView(view.getContext());
-            textViewGradeHW2.setText(homework_parts[1]);
+            textViewGradeHW2.setText(Math.round(Double.parseDouble(homework_parts[1]))+"%");
             textViewGradeHW2.setPadding(5, 10, 35, 10);
             tableRowHW.addView(textViewGradeHW2);
 

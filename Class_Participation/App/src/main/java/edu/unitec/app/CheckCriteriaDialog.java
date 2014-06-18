@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Alberto on 15/06/2014.
@@ -21,10 +23,12 @@ import java.util.Date;
 public class CheckCriteriaDialog extends DialogFragment {
     int studentId;
     Criteria currentCriteria;
+    ArrayAdapter arrayAdapter;
 
-    public CheckCriteriaDialog(int studentId, Criteria currentCriteria) {
+    public CheckCriteriaDialog(int studentId, Criteria currentCriteria,ArrayAdapter arrayAdapter) {
         this.studentId = studentId;
         this.currentCriteria = currentCriteria;
+        this.arrayAdapter =arrayAdapter;
     }
 
     @Override
@@ -32,7 +36,6 @@ public class CheckCriteriaDialog extends DialogFragment {
     {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_checkcriteria, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(currentCriteria.getCriteriaName());
         builder.setView(view);
@@ -86,6 +89,8 @@ public class CheckCriteriaDialog extends DialogFragment {
                         db.addHomeworkStudent(grade, currentCriteria.getCriteriaId(), studentId);
                         db.close();
                     }
+                    arrayAdapter.notifyDataSetChanged();
+
                 }
 
                 catch (Exception e)

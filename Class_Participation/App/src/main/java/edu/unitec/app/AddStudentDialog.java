@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -110,9 +111,28 @@ public class AddStudentDialog extends DialogFragment
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
                             if(!db.studentExist(Integer.parseInt(studentId.getText().toString()))){
+                                if(db.tableStudentIsEmpty()) {
+                                    //if table student is empty show the invisible menuItems
+                                    MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);
+                                    MenuItem item_student = ((StudentActivity) getActivity()).menu.findItem(R.id.item_Student);
+                                    MenuItem save_student = ((StudentActivity) getActivity()).menu.findItem(R.id.item_addStudent);
+                                    MenuItem save_students = ((StudentActivity) getActivity()).menu.findItem(R.id.save_students);
+                                    MenuItem delete_student = ((StudentActivity) getActivity()).menu.findItem(R.id.delete_students);
+                                    MenuItem newAssignment = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newAssignment);
+                                    MenuItem newHomework = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newHomework);
+                                    MenuItem newParticipation = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newParticipation);
+                                    item_statistics.setVisible(true);
+                                    item_student.setVisible(true);
+                                    save_student.setVisible(true);
+                                    save_students.setVisible(false);
+                                    newAssignment.setVisible(true);
+                                    newHomework.setVisible(true);
+                                    newParticipation.setVisible(true);
+                                    delete_student.setVisible(true);
+                                }
                                 db.addStudent(student);
+                                db.addStudentTable(student, currentSection);
                             }
-                            db.addStudentTable(student, currentSection);
                             db.close();
 
                             //Update the listView of student activity

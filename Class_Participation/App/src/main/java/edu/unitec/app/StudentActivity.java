@@ -27,6 +27,7 @@ import java.util.Random;
  */
 public class StudentActivity extends Activity{
 
+    public Menu menu;
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
 
@@ -81,6 +82,7 @@ public class StudentActivity extends Activity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.student, menu);
+        this.menu=menu;
         MenuItem item_statistics = menu.findItem(R.id.item_statistics);
         MenuItem item_student = menu.findItem(R.id.item_Student);
         MenuItem save_student = menu.findItem(R.id.item_addStudent);

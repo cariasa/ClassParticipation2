@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class HomeworkActivity extends Activity {
     public Homework homework;
     private Section currentSection = new Section();
     private int studentId;
-    private ArrayAdapter arrayAdapter;
+    private ArrayAdapter<String> arrayAdapter;
     private List<String> listCriteria;
     private  ListView criteriaListView;
     private boolean isCreating;
@@ -49,9 +51,15 @@ public class HomeworkActivity extends Activity {
             List<Criteria> criteriaList=getCurrentCriteriaList();
             for(int i=0;i<criteriaList.size();i++){
                 listCriteria.add(criteriaList.get(i).getCriteriaName());
+                //Fill TABLE_HOMESTU with grades of 0 if the registry doesn't exist
+                DatabaseHandler db=new DatabaseHandler(getApplicationContext());
+                if(!db.homeworkStudentExist(criteriaList.get(i).getCriteriaId(),studentId)){
+                    db.addHomeworkStudent(0.0,criteriaList.get(i).getCriteriaId(),studentId);
+                }
+                db.close();
             }
         }
-        arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listCriteria);
+        arrayAdapter = new MyListAdapter();
         criteriaListView.setAdapter(arrayAdapter);
         ClickCallback();
     }
@@ -99,8 +107,7 @@ public class HomeworkActivity extends Activity {
                     ShowCriteriaDialog dialog = new ShowCriteriaDialog(homework, listCriteria.get(position));
                     dialog.show(getFragmentManager(), "dialog_show_criteria");
                 }else{
-
-                    CheckCriteriaDialog dialog = new CheckCriteriaDialog(studentId,getCurrentCriteriaList().get(position));
+                    CheckCriteriaDialog dialog = new CheckCriteriaDialog(studentId,getCurrentCriteriaList().get(position),arrayAdapter);
                     dialog.show(getFragmentManager(), "dialog_check_criteria");
                 }
 
@@ -111,4 +118,49 @@ public class HomeworkActivity extends Activity {
         DatabaseHandler db=new DatabaseHandler(this);
         return db.getAllCriteriaByHomework(homework.getHomeworkId());
     }
+    //class myAdapter for my personal style listView
+    public class MyListAdapter extends ArrayAdapter<String>{
+        public MyListAdapter(){
+            super( HomeworkActivity.this, R.layout.item_listview_homework, listCriteria);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent ){
+            View itemView = convertView;
+            //if itemView is null we create a new one
+            if(itemView == null ){
+                itemView = getLayoutInflater().inflate(R.layout.item_listview_homework, parent, false);
+            }
+            //find the course to work with and the section
+            try{
+
+                //homework name view
+                TextView item_name = (TextView)itemView.findViewById(R.id.item_homework_name);
+                item_name.setText("" + listCriteria.get(position));
+
+                //Percentage view
+                TextView  txtPercentage= (TextView)itemView.findViewById(R.id.item_homework_percentage);
+                DatabaseHandler db=new DatabaseHandler(this.getContext());
+                if(isCreating){
+                    double weight=db.getCriteriaWeight(listCriteria.get(position),homework.getHomeworkId());
+                    List<Double> weightlist=db.getAllCriteria_Weights(homework.getHomeworkId());
+                    double acum=0;
+                    for(int i=0;i<weightlist.size();i++){
+                        acum+=weightlist.get(i);
+                    }
+                    double percentage=(weight/acum)*100;
+                    txtPercentage.setText(Math.round(percentage)+"%");
+                }else{
+                    double percentage=db.getCriteriaGrade(studentId,getCurrentCriteriaList().get(position).getCriteriaId());
+                    txtPercentage.setText(Math.round(percentage)+"%");
+                }
+
+                db.close();
+            }catch(Exception e){
+            }
+
+            return itemView;
+        }
+    }
+
 }

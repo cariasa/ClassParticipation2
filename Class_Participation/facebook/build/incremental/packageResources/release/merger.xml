@@ -2,324 +2,324 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res" >
+        <source path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res" >
             <file
                 name="com_facebook_button_check"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_check.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_check_off"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_off.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_check_off.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_check_on"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_on.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_check_on.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_focused.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_grey_focused.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_normal.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_grey_normal.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_pressed.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_button_grey_pressed.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_close.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_close.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_icon.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_icon.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_list_divider"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_divider.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_list_divider.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_list_section_header_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_section_header_background.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_list_section_header_background.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_loginbutton_blue.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_focused.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_loginbutton_blue_focused.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_normal.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_loginbutton_blue_normal.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_pressed.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_loginbutton_blue_pressed.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_silver"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_silver.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_loginbutton_silver.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_logo.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_logo.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_item_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_item_background.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_item_background.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_focused.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_focused.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_longpressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_longpressed.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_longpressed.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_pressed.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_pressed.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_selector"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_selector.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_selector_background_transition"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_background_transition.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_selector_background_transition.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_list_selector_disabled"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_disabled.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_list_selector_disabled.9.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_picker_top_button"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_top_button.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_picker_top_button.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_place_default_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_place_default_icon.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_place_default_icon.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_profile_default_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_default_icon.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_profile_default_icon.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_profile_picture_blank_portrait"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_portrait.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_profile_picture_blank_portrait.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_profile_picture_blank_square"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_square.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_profile_picture_blank_square.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_top_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_background.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_top_background.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_top_button"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_button.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_top_button.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_usersettingsfragment_background_gradient"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_usersettingsfragment_background_gradient.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable\com_facebook_usersettingsfragment_background_gradient.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_focused.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_button_grey_focused.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_normal.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_button_grey_normal.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_pressed.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_button_grey_pressed.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_close.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_close.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_icon.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_icon.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_focused.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_loginbutton_blue_focused.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_normal.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_loginbutton_blue_normal.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_pressed.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_loginbutton_blue_pressed.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_logo.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-hdpi\com_facebook_logo.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_close.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-ldpi\com_facebook_close.png"
                 qualifiers="ldpi"
                 type="drawable" />
             <file
                 name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_icon.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-ldpi\com_facebook_icon.png"
                 qualifiers="ldpi"
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_focused.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_button_grey_focused.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_normal.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_button_grey_normal.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_pressed.9.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_button_grey_pressed.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_close.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_close.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_focused.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_loginbutton_blue_focused.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_normal.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_loginbutton_blue_normal.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_pressed.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_loginbutton_blue_pressed.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_logo.png"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\drawable-xhdpi\com_facebook_logo.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="com_facebook_friendpickerfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_friendpickerfragment.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_friendpickerfragment.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_login_activity_layout"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_login_activity_layout.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_login_activity_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_activity_circle_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_activity_circle_row.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_activity_circle_row.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_checkbox"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_checkbox.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_checkbox.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_image"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_image.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_image.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_list_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_row.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_list_row.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_list_section_header"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_section_header.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_list_section_header.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_search_box"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_search_box.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_search_box.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_title_bar"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_title_bar.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_picker_title_bar_stub"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar_stub.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_picker_title_bar_stub.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_placepickerfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_placepickerfragment.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_placepickerfragment_list_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment_list_row.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_placepickerfragment_list_row.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="com_facebook_usersettingsfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_usersettingsfragment.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\layout\com_facebook_usersettingsfragment.xml"
                 qualifiers=""
                 type="layout" />
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/attrs.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values\attrs.xml"
                 qualifiers="" >
                 <declare-styleable name="com_facebook_login_view" >
                     <attr
@@ -397,7 +397,7 @@
                 </declare-styleable>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/strings.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values\strings.xml"
                 qualifiers="" >
                 <string name="com_facebook_picker_done_button_text" >Done
                 </string>
@@ -451,7 +451,7 @@
                 </string>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values\styles.xml"
                 qualifiers="" >
                 <dimen name="com_facebook_profilepictureview_preset_size_large" >180dp
                 </dimen>
@@ -549,7 +549,7 @@ center
                 </dimen>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-es/strings.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values-es\strings.xml"
                 qualifiers="es" >
                 <string name="com_facebook_logo_content_description" >Logo de Facebook
                 </string>
@@ -603,7 +603,7 @@ center
                 </string>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-he/strings.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values-he\strings.xml"
                 qualifiers="he" >
                 <string name="com_facebook_picker_done_button_text" >בצע
                 </string>
@@ -657,7 +657,7 @@ center
                 </string>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-iw/strings.xml"
+                path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\res\values-iw\strings.xml"
                 qualifiers="iw" >
                 <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d היו פה
                 </string>
@@ -711,11 +711,11 @@ center
                 </string>
             </file>
         </source>
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/build/res/rs/release" />
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/build/res/generated/release" />
+        <source path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\build\res\rs\release" />
+        <source path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\build\res\generated\release" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/src/release/res" />
+        <source path="C:\Users\Alberto\Documents\GitHub\ClassParticipation2\Class_Participation\facebook\src\release\res" />
     </dataSet>
 
 </merger>

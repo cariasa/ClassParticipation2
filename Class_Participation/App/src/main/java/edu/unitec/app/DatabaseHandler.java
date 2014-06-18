@@ -305,6 +305,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return false;
     }
+    boolean tableStudentIsEmpty()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT, null);
+
+        if ( cursor.getCount() > 0 )
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     boolean studentSectionExist(Section section, int studentId)
     {
@@ -623,18 +636,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<String> getHomeworkNameAndGrade(int StudentID, int SectionID){
         SQLiteDatabase db = this.getReadableDatabase();
-
+        //query to get the Homeworks of the section
         Cursor homeworks = db.rawQuery("SELECT " + HOMEWORK_ID + ", " + HOMEWORK_NAME + " FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_SECID + "=" + SectionID, null);
         homeworks.moveToFirst();
-
-        double total_criteria_percentage = 0;//Sum of all percentages obtained in all criteria of a homework
+        double total_criteria_percentage=0;//Sum of all percentages obtained in all criteria of a homework
         double total_points_criteria = 0;//Total points possible per homework / Sum of all criteria weight per homework
-        int quantity_of_criteria=0;
         List<String> homeworks_return=new ArrayList<String>();
 
         for(int i=0; i<homeworks.getCount(); i++){
             int id_homework = homeworks.getInt(0);
             String name_homework = homeworks.getString(1);
+            //query to get all the criteria "id and weight" from a homework
             Cursor criteria_homework = db.rawQuery("SELECT " + CRITERIA_ID + ", " + CRITERIA_WEIGHT + " FROM " + TABLE_CRITERIA + " WHERE " + CRITERIA_HOMEWORK + "=" + id_homework,null);
             criteria_homework.moveToFirst();
             total_criteria_percentage = 0;
@@ -642,19 +654,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             for(int j=0; j<criteria_homework.getCount(); j++){
                 int criteria_id_homework=criteria_homework.getInt(0);
                 double homework_weigth=criteria_homework.getDouble(1);
+                //get the grades of the criterias
                 Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade + " FROM " + TABLE_HOMESTU + " WHERE " + HOMESTU_CriteriaId + "=" + criteria_id_homework + " AND " + HOMESTU_StudentId + "=" + StudentID,null);
-                grade_criteria.moveToFirst();
-                total_criteria_percentage += grade_criteria.getDouble(0);
-                total_points_criteria+=homework_weigth;
-                criteria_homework.moveToNext();
-                quantity_of_criteria=j;
-            }
-
-            homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage/(quantity_of_criteria+1))));
+                if(grade_criteria.getCount()>0) {
+                    grade_criteria.moveToFirst();
+                    total_criteria_percentage += (grade_criteria.getDouble(0)*homework_weigth)/100;
+                    total_points_criteria += homework_weigth;
+                    criteria_homework.moveToNext();
+                }
+            }homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria)*100));
             homeworks.moveToNext();
         }
         db.close();
         return homeworks_return;
+    }
+    public Double getCriteriaGrade(int studentId, int criteriaId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade +
+                                            " FROM " + TABLE_HOMESTU +
+                                            " WHERE " + HOMESTU_CriteriaId + "=" + criteriaId +
+                                            " AND " + HOMESTU_StudentId + "=" + studentId,null);
+        //if the criteria has been checked
+        if(grade_criteria.getCount()>0){
+            grade_criteria.moveToFirst();
+            return grade_criteria.getDouble(0);
+        }
+        //if the criteria hasn't been checked
+        return 0.0;
+
     }
 
 }

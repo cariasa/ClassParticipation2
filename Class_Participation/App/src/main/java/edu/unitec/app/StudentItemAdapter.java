@@ -95,13 +95,11 @@ public class StudentItemAdapter extends BaseAdapter {
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
                         currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                         finalGrade = db.getFinalGrade(currentStudentSectionId);
-                        Log.d("adaasdsda", Integer.toString(((StudentActivity)activity).getCurrentStudentIdList().get(position)));
-                        currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),currentStudentSectionId);
+                        currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId());
                         StudentDialog dialog = new StudentDialog(currentStudentParticipationList, ((StudentActivity)activity).getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks);
                         dialog.show(((StudentActivity)activity).getFragmentManager(), "dialog_student");
                         db.close();
                     }catch (Exception e){
-                        e.printStackTrace();
                     }
                 }
             }
