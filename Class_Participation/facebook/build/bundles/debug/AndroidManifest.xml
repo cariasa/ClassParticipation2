@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---><!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.facebook.android">
+--><!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.facebook.android">
     <application/>
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
     <uses-permission android:name="android.permission.INTERNET"/>

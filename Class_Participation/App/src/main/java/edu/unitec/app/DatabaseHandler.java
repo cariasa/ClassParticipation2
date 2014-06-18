@@ -285,6 +285,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             strSQL = "DELETE FROM studentSection WHERE StudentId=" + toDelete.get(i);
             db.execSQL(strSQL);
 
+            //Eliminar referencia del estudiante de tabla de criterios
+            String query2 = "SELECT CriteriaId FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
+            Cursor cursor2 = db.rawQuery(query2, null);
+            int cursor_position2=0;
+            if ( cursor2.moveToFirst() ){
+                do{
+                    //Log.d("cursor: ", cursor.getInt(cursor_position));
+                    strSQL = "DELETE FROM criteria WHERE CriteriaId=" + cursor2.getInt(cursor_position2);
+                    db.execSQL(strSQL);
+                    cursor_position2++;
+                }while ( cursor2.moveToNext() );
+            }
+
+            //Eliminar referencia del estudiante de tabla de criterios
+            strSQL = "DELETE FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
+            db.execSQL(strSQL);
+
+
             //Eliminar referencia del estudiante de tabla de estudiantes
             strSQL = "DELETE FROM student WHERE StudentId=" + toDelete.get(i);
             db.execSQL(strSQL);
