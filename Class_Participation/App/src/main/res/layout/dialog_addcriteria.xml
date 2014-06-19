@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextCriteriaName"
         android:layout_gravity="center_horizontal"
-        android:hint="Name:"
+        android:hint="Name"
         android:inputType="text" />
 
     <EditText
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextCriteriaWeight"
         android:layout_gravity="center_horizontal"
-        android:hint="Weight:"
+        android:hint="Weight"
         android:inputType="number"/>
 
 </LinearLayout>

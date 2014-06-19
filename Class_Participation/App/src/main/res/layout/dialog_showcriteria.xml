@@ -11,27 +11,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewWeightCaption"
         android:layout_gravity="right"
-        android:text="Weight: "
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="Weight "
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textViewCriteriaWeight"
+        android:layout_marginTop="23dp"
+        android:singleLine="false" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewCriteriaWeight"
         android:layout_gravity="right"
         android:text="weight"
-        android:layout_alignBaseline="@+id/textViewWeightCaption"
-        android:layout_alignBottom="@+id/textViewWeightCaption"
-        android:layout_toRightOf="@+id/textViewWeightCaption" />
+        android:layout_alignTop="@+id/textViewWeightCaption"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="150dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewPercentageCaption"
         android:layout_gravity="right"
-        android:text="Percentage: "
+        android:text="Percentage "
         android:layout_below="@+id/textViewWeightCaption"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/textViewCriteriaWeight" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
         android:layout_gravity="right"
         android:text="%"
         android:layout_below="@+id/textViewCriteriaWeight"
-        android:layout_toRightOf="@+id/textViewPercentageCaption" />
+        android:layout_toRightOf="@+id/textViewWeightCaption" />
 
 
 </RelativeLayout>

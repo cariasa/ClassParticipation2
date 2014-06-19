@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextCreateHomeworkName"
         android:layout_gravity="center_horizontal"
-        android:hint="Homework Name:"
+        android:hint="Homework Name"
         android:inputType="text" />
 
 </LinearLayout>
