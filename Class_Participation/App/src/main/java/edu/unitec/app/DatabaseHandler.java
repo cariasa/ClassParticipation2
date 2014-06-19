@@ -479,7 +479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL;
         for(int i=0; i<toDelete.size(); i++){
-            //Log.d("toDelete: ", toDelete.get(i));
+            Log.d("toDelete: ", Integer.toString(toDelete.get(i)));
 
             //Eliminar referencia del estudiante de tabla de participaciones por estudiante
             List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
@@ -502,13 +502,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             //Eliminar referencia del estudiante de tabla de criterios
             String query2 = "SELECT CriteriaId FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
             Cursor cursor2 = db.rawQuery(query2, null);
-            int cursor_position2=0;
+            //int cursor_position2=0;
             if ( cursor2.moveToFirst() ){
                 do{
                     //Log.d("cursor: ", cursor.getInt(cursor_position));
-                    strSQL = "DELETE FROM criteria WHERE CriteriaId=" + cursor2.getInt(cursor_position2);
+                    strSQL = "DELETE FROM criteria WHERE CriteriaId=" + Integer.toString(cursor2.getInt(0));
                     db.execSQL(strSQL);
-                    cursor_position2++;
+                    //cursor_position2++;
                 }while ( cursor2.moveToNext() );
             }
 
@@ -524,53 +524,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    boolean studentExist(int studentId)
-    {
+    boolean studentExist(int studentId){
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId, null);
-
-        if ( cursor.getCount() > 0 )
-        {
+        if ( cursor.getCount() > 0 ){
             return true;
         }
-
         return false;
     }
-    boolean tableStudentIsEmpty(int sectionId)
-    {
+    boolean tableStudentIsEmpty(int sectionId){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
                                     " WHERE " + STUSEC_SECT + " = " + sectionId, null);
-
-        if ( cursor.getCount() > 0 )
-        {
+        if ( cursor.getCount() > 0 ){
             return false;
         }
-
         return true;
     }
 
-    boolean studentSectionExist(Section section, int studentId)
-    {
+    boolean studentSectionExist(Section section, int studentId){
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.rawQuery("SELECT " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
                 " WHERE " + STUSEC_SECT + " = " + section.get_SectionId(), null);
-
-        if ( cursor.moveToFirst() )
-        {
-            do
-            {
-                if ( cursor.getInt(0) == studentId )
-                {
+        if ( cursor.moveToFirst() )        {
+            do{
+                if ( cursor.getInt(0) == studentId ){
                     return true;
                 }
 
-            } while ( cursor.moveToNext() );
+            }while ( cursor.moveToNext() );
         }
-
         return false;
     }
 

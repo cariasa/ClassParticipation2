@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -91,6 +93,7 @@ public class DeleteStudentDialog extends DialogFragment {
                 @Override
                 public void onClick(View v){
                     ArrayList<Integer> StudentID_toErase = new ArrayList<Integer>();
+                    Collections.sort(SelectedIdxToDelete);
                     for(int i=0; i<SelectedIdxToDelete.size(); i++){
                         StudentID_toErase.add(list_StudentID.get(SelectedIdxToDelete.get(i)));
                     }
@@ -118,12 +121,12 @@ public class DeleteStudentDialog extends DialogFragment {
                         }
                         db.close();
                     }catch (Exception e){
-
+                        e.printStackTrace();
                     }
-                    for(int i=0; i<SelectedIdxToDelete.size(); i++){
-                        if(listViewStudentNameList.size()==1){
-                            listViewStudentNameList.remove(0);
-                        }else {
+                    if(listViewStudentNameList.size()==1){
+                        listViewStudentNameList.remove(0);
+                    }else{
+                        for (int i = SelectedIdxToDelete.size()-1; i >=0; i--) {
                             listViewStudentNameList.remove((int) SelectedIdxToDelete.get(i));
                             arrayAdapter.notifyDataSetChanged();
                         }
