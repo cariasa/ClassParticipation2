@@ -60,6 +60,12 @@
                 android:orderInCategory="1"
                 android:showAsAction="always"
                 android:icon="@drawable/ic_action_delete_student"/>
+
+            <item
+                android:id="@+id/export_students"
+                android:title="Export Students"
+                android:showAsAction="always"
+                android:icon="@drawable/export"/>
         </menu>
     </item>
 </menu>

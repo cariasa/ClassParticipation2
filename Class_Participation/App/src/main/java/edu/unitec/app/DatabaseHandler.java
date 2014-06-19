@@ -931,4 +931,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return 0;
     }
 
+    public List<String> exportStudentGrades(){
+        String to_write;
+        List<String> all_grades = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor courseid_cursor = db.rawQuery("SELECT " + COURSE_ID +","+ COURSE_CODE +","+ COURSE_NAME + " FROM " + TABLE_COURSE, null);
+        courseid_cursor.moveToFirst();
+        do{
+            to_write="";
+            int courseid = courseid_cursor.getInt(0);
+            to_write="Course CODE:" + courseid_cursor.getString(1) + "\n";
+            to_write+="Course NAME:" + courseid_cursor.getString(2) + "\n" + "\n";
+            Cursor sectionid_cursor = db.rawQuery("SELECT " + SECT_ID +","+ SECT_CODE + " FROM " + TABLE_SECTION + " WHERE " + SECT_COURSE + "=" + courseid, null);
+            sectionid_cursor.moveToFirst();
+            do{
+                int sectionid = sectionid_cursor.getInt(0);
+                to_write+=("Section CODE:" + sectionid_cursor.getString(1) + "\n");
+                Cursor studentsectionid_cursor = db.rawQuery("SELECT " + STUSEC_ID +","+ STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + "=" + sectionid, null);
+                studentsectionid_cursor.moveToFirst();
+                do{
+                    Cursor student = db.rawQuery("SELECT " + STU_ID +","+ STU_NAME + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + "=" + studentsectionid_cursor.getInt(1), null);
+                    student.moveToFirst();
+                    to_write+=("  + Student ID:" + Integer.toString(student.getInt(0)) + "\n" + "    Name:" + student.getString(1) + "\n");
+
+                    int studentsectionid = studentsectionid_cursor.getInt(0);
+                    int studentid = studentsectionid_cursor.getInt(1);
+
+                    List<String> tareas_estudiante = getHomeworkNameAndGrade(studentid, sectionid);
+                    to_write+="     >Homeworks\n";
+                    for(String s: tareas_estudiante){
+                        String[] homework_parts = (s.split("HOLAHELLO"));
+                        to_write+=("        * " + homework_parts[0] + " " + homework_parts[1] + "\n");
+                        //Log.d("TAREA", s);
+                    }
+                    db = this.getReadableDatabase();
+                    List<Participation> participaciones_estudiantes = getStudentParticipationList(studentsectionid);
+                    to_write+="     >Paticipations\n";
+                    for(Participation p: participaciones_estudiantes){
+                        to_write+=("        * " + Double.toString(p.get_ParticipationGrade()) + " - " + p.get_ParticipationDate() + " - " + p.get_ParticipationComment() + "\n");
+                    }
+                    db = this.getReadableDatabase();
+                }while(studentsectionid_cursor.moveToNext());
+            }while(sectionid_cursor.moveToNext());
+            all_grades.add(to_write);
+        }while(courseid_cursor.moveToNext());
+        db.close();
+        return all_grades;
+    }
 }

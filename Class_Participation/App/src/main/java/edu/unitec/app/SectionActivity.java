@@ -19,10 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
-/**
- * Created by Henry on 12-02-13.
- */
 public class SectionActivity extends Activity
 {
 

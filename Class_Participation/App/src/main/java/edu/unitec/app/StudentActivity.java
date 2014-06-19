@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -128,7 +129,7 @@ public class StudentActivity extends Activity{
                 Intent intent;
                 chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
                 chooseFile.setType("file/*");
-                intent = Intent.createChooser(chooseFile, "Choose a file");
+                intent = Intent.createChooser(chooseFile, "Choose File");
                 startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
                 return true;
             case R.id.item_newParticipation:
@@ -139,6 +140,21 @@ public class StudentActivity extends Activity{
                 return true;
             case R.id.delete_students:
                 showDeleteStudentDialog();
+                return true;
+            case  R.id.export_students:
+                try {
+                    ReadWriteFileManager fm = new ReadWriteFileManager();
+                    DatabaseHandler db = new DatabaseHandler(this);
+                    List<String> grades = db.exportStudentGrades();
+                    String filepath = fm.exportStudentGrades(grades);
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("file/*");
+                    sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filepath)));
+                    startActivity(Intent.createChooser(sendIntent, "Export"));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 return true;
             case R.id.item_newHomework:
                 Intent intentHomework = new Intent(this, HomeworkActivity.class);
