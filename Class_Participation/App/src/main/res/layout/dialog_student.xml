@@ -1,33 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/maincontainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="horizontal|vertical"
-        android:layout_marginTop="5dip"
-        android:scrollbarStyle="outsideInset"
-        android:fillViewport="true">
-
-        <HorizontalScrollView
+        android:layout_height="200dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Participations"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal|vertical"
-            android:layout_marginTop="5dip">
+            android:scrollbarStyle="outsideInset"
+            android:fillViewport="true"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/scrollView">
 
-            <TableLayout
-                android:id="@+id/tableLayout"
-                android:stretchColumns="0,1"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TableLayout>
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                android:layout_marginTop="5dip">
 
-        </HorizontalScrollView>
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:stretchColumns="0,1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TableLayout>
 
-    </ScrollView>
+            </HorizontalScrollView>
 
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/maincontainer2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/maincontainer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Homeworks"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal|vertical"
+            android:scrollbarStyle="outsideInset"
+            android:fillViewport="true"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/scrollView2">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                android:layout_marginTop="5dip">
+
+                <TableLayout
+                    android:id="@+id/tableLayout2"
+                    android:stretchColumns="0,1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

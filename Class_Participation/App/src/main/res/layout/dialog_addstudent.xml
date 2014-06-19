@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextStudentId"
         android:layout_gravity="center_horizontal"
-        android:hint="Id:"
+        android:hint="ID"
         android:inputType="number" />
 
     <EditText
@@ -17,13 +17,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextStudentName"
         android:layout_gravity="center_horizontal"
-        android:hint="Name:" />
+        android:hint="Name" />
 
     <EditText
         android:layout_width="191dp"
         android:layout_height="wrap_content"
         android:id="@+id/editTextStudentMajor"
         android:layout_gravity="center_horizontal"
-        android:hint="Major:" />
+        android:hint="Major" />
 
 </LinearLayout>

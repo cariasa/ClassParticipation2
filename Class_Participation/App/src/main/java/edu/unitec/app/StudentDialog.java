@@ -13,36 +13,35 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Ariel on 12-14-13.
- */
+
 public class StudentDialog extends DialogFragment
 {
     List<Participation> studentParticipationList;
     String studentName;
     double finalGrade;
+    List<String> homeworks;
 
-    StudentDialog(List<Participation> list, String studentName, double finalGrade)
-    {
+    StudentDialog(List<Participation> list, String studentName, double finalGrade, List<String> homework){
         studentParticipationList = list;
         this.studentName = studentName;
         this.finalGrade = finalGrade/list.size();
+        this.homeworks = homework;
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState){
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_student, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(studentName + " (" + Double.toString((double)Math.round(finalGrade*100)/100) + "%)");
+        builder.setTitle(studentName);
         builder.setView(view);
         builder.setPositiveButton("OK", null);
 
-        //-----------------------------------------------------------------------------------------
+        //------------------------Participations-------------------------------------------------------------
 
         TableLayout tableLayout = (TableLayout)view.findViewById(R.id.tableLayout);
 
@@ -65,8 +64,7 @@ public class StudentDialog extends DialogFragment
 
         tableLayout.addView(tableRowHead);
 
-        for (int a = 0; a < studentParticipationList.size(); a++)
-        {
+        for (int a = 0; a < studentParticipationList.size(); a++){
             TableRow tableRow = new TableRow(view.getContext());
 
             TextView textViewGrade2 = new TextView(view.getContext());
@@ -85,6 +83,42 @@ public class StudentDialog extends DialogFragment
             tableRow.addView(textViewComment2);
 
             tableLayout.addView(tableRow);
+        }
+
+        //------------------------Homeworks-------------------------------------------------------------
+        TableLayout tableLayout2 = (TableLayout)view.findViewById(R.id.tableLayout2);
+
+        TableRow tableRowHeadHW = new TableRow(view.getContext());
+
+        TextView textViewGradeHW = new TextView(view.getContext());
+        textViewGradeHW.setText("Grade");
+        textViewGradeHW.setPadding(5, 5, 35, 5);
+        tableRowHeadHW.addView(textViewGradeHW);
+
+
+        TextView textViewNameHW = new TextView(view.getContext());
+        textViewNameHW.setText("Name");
+        textViewNameHW.setPadding(5, 5, 30, 5);
+        tableRowHeadHW.addView(textViewNameHW);
+
+        tableLayout2.addView(tableRowHeadHW);
+
+        for (int a = 0; a < homeworks.size(); a++){
+
+            String[] homework_parts = (homeworks.get(a)).split("HOLAHELLO");
+            TableRow tableRowHW = new TableRow(view.getContext());
+
+            TextView textViewGradeHW2 = new TextView(view.getContext());
+            textViewGradeHW2.setText(Math.round(Double.parseDouble(homework_parts[1]))+"%");
+            textViewGradeHW2.setPadding(5, 10, 35, 10);
+            tableRowHW.addView(textViewGradeHW2);
+
+            TextView textViewNameHW2 = new TextView(view.getContext());
+            textViewNameHW2.setText(homework_parts[0]);
+            textViewNameHW2.setPadding(5, 10, 30, 10);
+            tableRowHW.addView(textViewNameHW2);
+
+            tableLayout2.addView(tableRowHW);
         }
 
         return builder.create();

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,7 +77,16 @@ public class ParticipationDialog extends DialogFragment
                     //-------------------------Save the participation & update final note-----------------------------------
 
                     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
-                    String comment = ((EditText)view.findViewById(R.id.editTextComment)).getText().toString();
+                    String comment="";
+                    if ( ((RadioButton)view.findViewById(R.id.radioButton)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton2)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton2)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton3)).isChecked()){
+                        comment=((RadioButton)view.findViewById(R.id.radioButton3)).getText().toString();
+                    }else if ( ((RadioButton)view.findViewById(R.id.radioButton4)).isChecked()){
+                        comment = ((EditText)view.findViewById(R.id.editTextComment)).getText().toString();
+                    }
 
                     //Database
                     DatabaseHandler db = new DatabaseHandler(view.getContext());

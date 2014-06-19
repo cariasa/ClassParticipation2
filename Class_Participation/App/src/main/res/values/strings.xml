@@ -6,9 +6,13 @@
     <string name="sectionActivity">Section</string>
     <string name="courses">Add Course</string>
     <string name="sections">Add Section</string>
+    <string name="students_statistics">Statistics</string>
     <string name="student">Add Student</string>
+    <string name="removestudent">Delete Student</string>
     <string name="students">Add Students</string>
+    <string name="student_newAssignment">New Assignment</string>
     <string name="student_newParticipation">New Participation</string>
+    <string name="student_newHomework">New Homework</string>
     <string name="abouts">About</string>
     <string name="course_code">Progra4</string>
     <string name="course_name">Programación 4</string>
@@ -16,9 +20,19 @@
     <string name="save_course">save course</string>
     <string name="listView">Course</string>
     <string name="home">home</string>
-    <string name ="StudentActivity">Student</string>
-    <string name ="facebook">facebook</string>
+    <string name="StudentActivity">Student</string>
+    <string name="facebook">facebook</string>
     <string name="app_id">558500024224460</string>
     <string name="post_facebook">post</string>
+    <string name="title_activity_dialog_deletestudent">dialog_deletestudent</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_homework">homework</string>
+    <string name="title_activity_create_homework">CreateHomework</string>
+    <string name="item_addCriteria">Add Criteria</string>
+    <string name="save_homework">Save Homework</string>
+    <string name="title_criteria">Criteria</string>
+    <string name="title_activity_check_homework">CheckHomework</string>
 
 </resources>

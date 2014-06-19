@@ -59,8 +59,7 @@ public class StudentSection
     {
 		return _StudentSectionFinal;
 	}
-	public void set_StudentSectionFinal(double _StudentSectionFinal)
-    {
+	public void set_StudentSectionFinal(double _StudentSectionFinal){
 		this._StudentSectionFinal = _StudentSectionFinal;
 	}
 }

@@ -3,27 +3,69 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_newParticipation"
-        android:title="@string/student_newParticipation"
+        android:id="@+id/item_statistics"
+        android:title="@string/students_statistics"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_new_participation"/>
+        android:icon="@drawable/ic_action_statistics"/>
+    <item
+        android:id="@+id/item_newAssignment"
+        android:title="@string/student_newAssignment"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_assignment">
+        <menu>
+            <item
+                android:id="@+id/item_newParticipation"
+                android:title="@string/student_newParticipation"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_new_participation"/>
+
+            #android:onClick="onclickItem"
+
+            <item
+                android:id="@+id/item_newHomework"
+                android:title="@string/student_newHomework"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_new_homework"/>
+
+            # android:onClick="onclickItem"
+        </menu>
+    </item>
 
     #android:onClick="onclickItem"
-
-    <item
-        android:id="@+id/item_addStudent"
-        android:title="@string/student"
+    <item android:id="@+id/item_Student"
+        android:title="Student"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_add_student"/>
+        android:icon="@drawable/ic_action_student">
 
-    #android:onClick="onclickItem"
+        <menu>
+            <item
+                android:id="@+id/item_addStudent"
+                android:title="@string/student"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_add_student"/>
 
-    <item
-        android:id="@+id/save_students"
-        android:title="@string/students"
-        android:showAsAction="always"
-        android:icon="@drawable/ic_action_add_group"/>
+            #android:onClick="onclickItem"
 
-    # android:onClick="onclickItem"
+            <item
+                android:id="@+id/save_students"
+                android:title="@string/students"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_add_group"/>
 
+            # android:onClick="onclickItem"
+
+            <item
+                android:id="@+id/delete_students"
+                android:title="@string/removestudent"
+                android:orderInCategory="1"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_delete_student"/>
+
+            <item
+                android:id="@+id/export_students"
+                android:title="Export Students"
+                android:showAsAction="always"
+                android:icon="@drawable/export"/>
+        </menu>
+    </item>
 </menu>

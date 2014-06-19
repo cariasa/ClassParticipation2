@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/maincontainerStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Participations"
+            android:id="@+id/textViewStatistics"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+         <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewParticipationsCaption"
+                android:text="Participations"
+             android:layout_above="@+id/textViewAverageSectionCaption"
+             android:layout_alignRight="@+id/textViewAverageSectionCaption"
+             android:layout_alignEnd="@+id/textViewAverageSectionCaption"
+             android:textStyle="bold" />
+         <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewParticipations"
+                android:text="0"
+             android:layout_above="@+id/textViewAverageSection"
+             android:layout_alignLeft="@+id/textViewAverageSection"
+             android:layout_alignStart="@+id/textViewAverageSection" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewAverageSectionCaption"
+            android:text="Section Average"
+            android:layout_above="@+id/textViewLowestAverageCaption"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="34dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewAverageSection"
+            android:text="0"
+            android:layout_alignBaseline="@+id/textViewAverageSectionCaption"
+            android:layout_alignBottom="@+id/textViewAverageSectionCaption"
+            android:layout_toRightOf="@+id/textViewAverageSectionCaption"
+            android:layout_marginLeft="32dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHighestAverageCaption"
+            android:text="Highest Average"
+            android:layout_below="@+id/textViewLowestAverageCaption"
+            android:layout_alignRight="@+id/textViewLowestAverageCaption"
+            android:layout_alignEnd="@+id/textViewLowestAverageCaption"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHighestAverage"
+            android:text="NameHigh"
+            android:layout_alignBaseline="@+id/textViewLowestAverageCaption"
+            android:layout_alignBottom="@+id/textViewLowestAverageCaption"
+            android:layout_alignLeft="@+id/textViewAverageSection"
+            android:layout_alignStart="@+id/textViewAverageSection" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLowestAverageCaption"
+            android:text="Lowest Average"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/textViewAverageSectionCaption"
+            android:layout_alignEnd="@+id/textViewAverageSectionCaption"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLowestAverage"
+            android:text="NameLow"
+            android:layout_alignBaseline="@+id/textViewHighestAverageCaption"
+            android:layout_alignBottom="@+id/textViewHighestAverageCaption"
+            android:layout_alignLeft="@+id/textViewHighestAverage"
+            android:layout_alignStart="@+id/textViewHighestAverage" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/maincontainer2Statistics"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/maincontainerStatistics"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Homeworks"
+            android:id="@+id/textView2StatisticsHW"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHomeworksCaptionHW"
+            android:text="Homeworks"
+            android:layout_alignTop="@+id/textViewHomeworks"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="66dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHomeworks"
+            android:text="0"
+            android:layout_above="@+id/textViewAverageSectionHW"
+            android:layout_toRightOf="@+id/textViewHighestAverageCaptionHW"
+            android:layout_marginLeft="25dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewAverageSectionCaptionHW"
+            android:text="Section Average"
+            android:layout_below="@+id/textViewHomeworks"
+            android:layout_alignRight="@+id/textViewHomeworksCaptionHW"
+            android:layout_alignEnd="@+id/textViewHomeworksCaptionHW"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewAverageSectionHW"
+            android:text="0"
+            android:layout_above="@+id/textViewHighestAverageCaptionHW"
+            android:layout_alignLeft="@+id/textViewHomeworks"
+            android:layout_alignStart="@+id/textViewHomeworks" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHighestAverageCaptionHW"
+            android:text="Highest Average"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/textViewAverageSectionCaptionHW"
+            android:layout_alignStart="@+id/textViewAverageSectionCaptionHW"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHighestAverageHW"
+            android:text="NameHigh"
+            android:layout_below="@+id/textViewAverageSectionHW"
+            android:layout_alignLeft="@+id/textViewAverageSectionHW"
+            android:layout_alignStart="@+id/textViewAverageSectionHW" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLowestAverageCaptionHW"
+            android:text="Lowest Average"
+            android:layout_below="@+id/textViewHighestAverageCaptionHW"
+            android:layout_alignRight="@+id/textViewHighestAverageCaptionHW"
+            android:layout_alignEnd="@+id/textViewHighestAverageCaptionHW"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLowestAverageHW"
+            android:text="NameLow"
+            android:layout_below="@+id/textViewHighestAverageHW"
+            android:layout_alignLeft="@+id/textViewHighestAverageHW"
+            android:layout_alignStart="@+id/textViewHighestAverageHW" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

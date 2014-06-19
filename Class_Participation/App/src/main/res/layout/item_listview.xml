@@ -34,18 +34,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="item_sectionId"
+        android:text="Section ID"
         android:id="@+id/item_idSection"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/item_image"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="35dp" />
+        android:layout_alignTop="@+id/item_quarter"
+        android:layout_toRightOf="@+id/item_course_name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="year"
+        android:text="Year"
         android:id="@+id/item_year"
         android:layout_alignTop="@+id/item_quarter"
         android:layout_toRightOf="@+id/item_image" />
@@ -54,11 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="quarter"
+        android:text="Quarter"
         android:id="@+id/item_quarter"
-        android:layout_alignTop="@+id/item_idSection"
-        android:layout_alignLeft="@+id/item_course_name"
-        android:layout_marginLeft="52dp" />
+        android:layout_below="@+id/item_image"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
