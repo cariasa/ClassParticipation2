@@ -146,6 +146,9 @@ public class StudentActivity extends Activity{
                 intentHomework.putExtra("isCreating",true);
                 startActivity(intentHomework);
                 return true;
+            case R.id.item_statistics:
+                showStatisticsDialog();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -362,6 +365,12 @@ public class StudentActivity extends Activity{
             studentIndex = random.nextInt(studentSectionIdList.size());
         }
         return studentIndex;
+    }
+    public void showStatisticsDialog(){
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+            String courseName=db.getCourseName(currentSection.get_CourseId());
+            StatisticsDialog dialog = new StatisticsDialog(courseName,currentSection.get_SectionId());
+            dialog.show(getFragmentManager(), "dialog_statistics");
     }
 
     public void showParticipationDialog(){

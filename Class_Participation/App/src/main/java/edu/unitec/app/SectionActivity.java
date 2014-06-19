@@ -68,6 +68,37 @@ public class SectionActivity extends Activity
         ((Spinner)findViewById(R.id.spinnerCourse)).setAdapter(dataAdapter);
     }
 
+    public int getCurrentSemester(){
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+        if ( month <= 5 ){
+            return 1;
+        }
+        return 2;
+    }
+
+    public int getCurrentQuarter(){
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH); //January == 0
+        int currentSemester = getCurrentSemester();
+        int currentQuarter = 0;
+
+        if ( currentSemester == 1 ){
+            if ( currentMonth <= 2 ){
+                currentQuarter = 1;
+            }else{
+                currentQuarter = 2;
+            }
+        }else if ( currentSemester == 2 ){
+            if ( currentMonth <= 8 ){
+                currentQuarter = 3;
+            }else{
+                currentQuarter = 4;
+            }
+        }
+        return currentQuarter;
+    }
+
     public boolean isValidQuarter()
     {
         if ( ((RadioButton)findViewById(R.id.radioButtonQuarter1)).isChecked() &&
@@ -141,18 +172,26 @@ public class SectionActivity extends Activity
             }else{
                 semester = 2;
             }
+            if(getCurrentQuarter()==quarter && getCurrentSemester()==semester) {
 
-            //Database
-            SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-            db.execSQL("INSERT INTO section(CourseId, SectionQuarter, SectionSemester, SectionYear, SectionCode) VALUES(" +
-                    courseId + ", " + quarter + ", " + semester + ", " + year + ", \"" + sectionCode + "\")");
-            db.close();
+                //Database
+                SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+                db.execSQL("INSERT INTO section(CourseId, SectionQuarter, SectionSemester, SectionYear, SectionCode) VALUES(" +
+                        courseId + ", " + quarter + ", " + semester + ", " + year + ", \"" + sectionCode + "\")");
+                db.close();
 
-            //Show a message
-            CharSequence message = "Success!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getApplicationContext(), message, duration);
-            toast.show();
+                //Show a message
+                CharSequence message = "Success!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+                toast.show();
+            }else{
+                //Show a message
+                CharSequence message = "quarter and semester not valid!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getApplicationContext(), message, duration);
+                toast.show();
+            }
         }
     }
 

@@ -194,6 +194,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    List<Integer> getStudentIdListBySectionId(int sectionId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+STUSEC_STUD+
+                " FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        Cursor cursor = db.rawQuery(query, null);
+        List<Integer> studentIdList=new ArrayList<Integer>();
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            for(int i=0;i<cursor.getCount();i++){
+                studentIdList.add(cursor.getInt(0));
+                cursor.moveToNext();
+            }
+
+        }
+        return  studentIdList;
+    }
+
     void addParticipation(Participation participation){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -205,6 +222,203 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<Participation> getParticipationList(int sectionId){
+        List<Participation> participationList=new ArrayList<Participation>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+STUSEC_ID+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        Cursor studentsSections = db.rawQuery(query, null);
+        studentsSections.moveToFirst();
+        for(int i=0;i<studentsSections.getCount();i++){
+            query = "SELECT "+PART_ID+", "+PART_GRADE+ ", "+PART_DATE+", "+PART_COMMENT+
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+            Cursor participations = db.rawQuery(query, null);
+            if(participations.getCount()>0) {
+                participations.moveToFirst();
+                do {
+                    participationList.add(new Participation(
+                            participations.getInt(0),
+                            participations.getDouble(1),
+                            participations.getString(2),
+                            participations.getString(3)));
+                } while (participations.moveToNext());
+            }
+            studentsSections.moveToNext();
+        }
+        return participationList;
+    }
+    public String getMaxAverageStudentParticipation(int sectionId){
+        //internal class to get the Name of the student and the average
+        class StudentAndAverage{
+            String name;
+            Double average;
+            StudentAndAverage(String name,Double avg){
+                this.name=name;
+                this.average=avg;
+            }
+            StudentAndAverage(){
+                name="";
+                average=0.0;
+            }
+        }
+        List<StudentAndAverage> averagesList=new ArrayList<StudentAndAverage>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        Cursor studentsSections = db.rawQuery(query, null);
+        studentsSections.moveToFirst();
+
+        for(int i=0;i<studentsSections.getCount();i++){
+            double acumGrades=0,average=0;
+            int quantityOfGrades=0;
+            query = "SELECT "+PART_GRADE+
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+            Cursor participations = db.rawQuery(query, null);
+            if(participations.getCount()>0) {
+                participations.moveToFirst();
+                do {
+                    acumGrades+=participations.getDouble(0);
+                    quantityOfGrades++;
+                } while (participations.moveToNext());
+                average=acumGrades/quantityOfGrades;
+                String name=this.getStudentName(studentsSections.getInt(1));
+                averagesList.add(new StudentAndAverage(name,average));
+            }
+            studentsSections.moveToNext();
+        }
+        //find the Highest Average
+        if(averagesList.size()>0) {
+            double max = 0;
+            String maxName = "";
+            for (int i = 0; i < averagesList.size(); i++) {
+                if (averagesList.get(i).average > max) {
+                    max = averagesList.get(i).average;
+                    maxName = averagesList.get(i).name;
+                }
+            }
+            return maxName + "\t" + Math.round(max) + "%";
+        }
+        return "N/A";
+    }
+
+    public String getMinAverageStudentParticipation(int sectionId){
+        try {
+            //internal class to get the Name of the student and the average
+            class StudentAndAverage {
+                String name;
+                Double average;
+
+                StudentAndAverage(String name, Double avg) {
+                    this.name = name;
+                    this.average = avg;
+                }
+
+                StudentAndAverage() {
+                    name = "";
+                    average = 0.0;
+                }
+            }
+
+            List<StudentAndAverage> averagesList = new ArrayList<StudentAndAverage>();
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId;
+            Cursor studentsSections = db.rawQuery(query, null);
+            studentsSections.moveToFirst();
+
+            for (int i = 0; i < studentsSections.getCount(); i++) {
+                double acumGrades = 0, average = 0;
+                int quantityOfGrades = 0;
+                query = "SELECT " + PART_GRADE +
+                        " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0);
+                Cursor participations = db.rawQuery(query, null);
+                if (participations.getCount() > 0) {
+                    participations.moveToFirst();
+                    do {
+                        acumGrades += participations.getDouble(0);
+                        quantityOfGrades++;
+                    } while (participations.moveToNext());
+                    average = acumGrades / quantityOfGrades;
+                    String name = this.getStudentName(studentsSections.getInt(1));
+                    averagesList.add(new StudentAndAverage(name, average));
+                }
+                studentsSections.moveToNext();
+            }
+            //find the Lowest Average
+            if(averagesList.size()>0) {
+                double min = averagesList.get(0).average;
+                String minName = averagesList.get(0).name;
+                for (int i = 0; i < averagesList.size(); i++) {
+                    if (averagesList.get(i).average < min) {
+                        min = averagesList.get(i).average;
+                        minName = averagesList.get(i).name;
+                    }
+                }
+                return minName + "\t" + Math.round(min) + "%";
+            }else{
+                return "N/A";
+            }
+        }catch(Exception e){
+            return "N/A";
+        }
+    }
+    public String getMaxAverageStudentHomework(int sectionId){
+        //internal class to get the Name of the student and the average
+        class StudentAndAverage{
+            String name;
+            Double average;
+            StudentAndAverage(String name,Double avg){
+                this.name=name;
+                this.average=avg;
+            }
+            StudentAndAverage(){
+                name="";
+                average=0.0;
+            }
+        }
+        List<StudentAndAverage> averagesList=new ArrayList<StudentAndAverage>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        Cursor studentsSections = db.rawQuery(query, null);
+        studentsSections.moveToFirst();
+
+        for(int i=0;i<studentsSections.getCount();i++){
+            double acumGrades=0,average=0;
+            int quantityOfGrades=0;
+            query = "SELECT "+PART_GRADE+
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+            Cursor participations = db.rawQuery(query, null);
+            if(participations.getCount()>0) {
+                participations.moveToFirst();
+                do {
+                    acumGrades+=participations.getDouble(0);
+                    quantityOfGrades++;
+                } while (participations.moveToNext());
+                average=acumGrades/quantityOfGrades;
+                String name=this.getStudentName(studentsSections.getInt(1));
+                averagesList.add(new StudentAndAverage(name,average));
+            }
+            studentsSections.moveToNext();
+        }
+        //find the Highest Average
+        double max=0;
+        String maxName="";
+        for(int i=0;i<averagesList.size();i++){
+            if(averagesList.get(i).average>max){
+                max=averagesList.get(i).average;
+                maxName=averagesList.get(i).name;
+            }
+        }
+        return maxName+"\t"+Math.round(max)+"%";
+    }
+    String getStudentName(int studentId){
+        String name="";
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+STU_NAME+" FROM "+TABLE_STUDENT+" WHERE "+STU_ID+" = "+studentId;
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            name=cursor.getString(0);
+        }
+        return name;
+    }
     List<Participation> getStudentParticipationList(int studentSectionId)
     {
         List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
@@ -323,11 +537,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return false;
     }
-    boolean tableStudentIsEmpty()
+    boolean tableStudentIsEmpty(int sectionId)
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT, null);
+        Cursor cursor = db.rawQuery("SELECT " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
+                                    " WHERE " + STUSEC_SECT + " = " + sectionId, null);
 
         if ( cursor.getCount() > 0 )
         {
@@ -375,6 +590,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(2),
                 cursor.getString(3));
         return course;
+    }
+    public String getCourseName(int courseId){
+        List<Course> courseList = new ArrayList<Course>();
+        String selectQuery  = "SELECT "+COURSE_NAME+" FROM " + TABLE_COURSE + " WHERE " + COURSE_ID + " = "+courseId;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount()>0){
+            return cursor.getString(0);
+        }
+        return cursor.getString(0);
     }
     public List<Course> getAllCourses(){
         List<Course> courseList = new ArrayList<Course>();
@@ -487,6 +713,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return homeworkList;
     }
+
     boolean homeworkExist(Homework homework,int SectionId)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -668,6 +895,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             Cursor criteria_homework = db.rawQuery("SELECT " + CRITERIA_ID + ", " + CRITERIA_WEIGHT + " FROM " + TABLE_CRITERIA + " WHERE " + CRITERIA_HOMEWORK + "=" + id_homework,null);
             criteria_homework.moveToFirst();
             total_criteria_percentage = 0;
+            total_points_criteria=0;
 
             for(int j=0; j<criteria_homework.getCount(); j++){
                 int criteria_id_homework=criteria_homework.getInt(0);
@@ -680,13 +908,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     total_points_criteria += homework_weigth;
                     criteria_homework.moveToNext();
                 }
-            }homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria)*100));
+
+            }
+            homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria)*100));
             homeworks.moveToNext();
         }
         db.close();
         return homeworks_return;
     }
-    public Double getCriteriaGrade(int studentId, int criteriaId){
+    public double getCriteriaGrade(int studentId, int criteriaId){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade +
                                             " FROM " + TABLE_HOMESTU +
@@ -698,8 +928,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return grade_criteria.getDouble(0);
         }
         //if the criteria hasn't been checked
-        return 0.0;
-
+        return 0;
     }
 
 }

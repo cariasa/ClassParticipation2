@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -95,7 +96,27 @@ public class DeleteStudentDialog extends DialogFragment {
                     }
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        db.deleteStudent(StudentID_toErase);db.close();
+                        db.deleteStudent(StudentID_toErase);
+                        if(db.tableStudentIsEmpty(currentSection.get_SectionId())) {
+                            //if table student is empty show the invisible menuItems
+                            MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);
+                            MenuItem item_student = ((StudentActivity) getActivity()).menu.findItem(R.id.item_Student);
+                            MenuItem save_student = ((StudentActivity) getActivity()).menu.findItem(R.id.item_addStudent);
+                            MenuItem save_students = ((StudentActivity) getActivity()).menu.findItem(R.id.save_students);
+                            MenuItem delete_student = ((StudentActivity) getActivity()).menu.findItem(R.id.delete_students);
+                            MenuItem newAssignment = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newAssignment);
+                            MenuItem newHomework = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newHomework);
+                            MenuItem newParticipation = ((StudentActivity) getActivity()).menu.findItem(R.id.item_newParticipation);
+                            item_statistics.setVisible(false);
+                            item_student.setVisible(true);
+                            save_student.setVisible(true);
+                            save_students.setVisible(true);
+                            newAssignment.setVisible(false);
+                            newHomework.setVisible(false);
+                            newParticipation.setVisible(false);
+                            delete_student.setVisible(false);
+                        }
+                        db.close();
                     }catch (Exception e){
 
                     }
@@ -107,6 +128,9 @@ public class DeleteStudentDialog extends DialogFragment {
                             arrayAdapter.notifyDataSetChanged();
                         }
                     }
+                    arrayAdapter.notifyDataSetChanged();
+
+                    dismiss();
                 }
             });
         }
