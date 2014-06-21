@@ -22,13 +22,17 @@ public class StudentDialog extends DialogFragment
     List<Participation> studentParticipationList;
     String studentName;
     double finalGrade;
+    double percentageParticipation;
+    double percentageHomework;
     List<String> homeworks;
 
-    StudentDialog(List<Participation> list, String studentName, double finalGrade, List<String> homework){
+    StudentDialog(List<Participation> list, String studentName, double finalGrade, List<String> homework,double percentageParticipation, double percentageHomework){
         studentParticipationList = list;
         this.studentName = studentName;
         this.finalGrade = finalGrade/list.size();
         this.homeworks = homework;
+        this.percentageHomework=percentageHomework;
+        this.percentageParticipation=percentageParticipation;
     }
 
     @Override
@@ -46,6 +50,9 @@ public class StudentDialog extends DialogFragment
         TableLayout tableLayout = (TableLayout)view.findViewById(R.id.tableLayout);
 
         TableRow tableRowHead = new TableRow(view.getContext());
+        //Set the average of participations
+        TextView textViewParticipationsTitle=(TextView)view.findViewById(R.id.textViewParticipationsTitle);
+        textViewParticipationsTitle.setText("Participations "+Math.round(percentageParticipation)+"%");
 
         TextView textViewGrade = new TextView(view.getContext());
         textViewGrade.setText("Grade");
@@ -89,6 +96,9 @@ public class StudentDialog extends DialogFragment
         TableLayout tableLayout2 = (TableLayout)view.findViewById(R.id.tableLayout2);
 
         TableRow tableRowHeadHW = new TableRow(view.getContext());
+        //set the average of Homeworks
+        TextView textViewHomeworksTitle=(TextView)view.findViewById(R.id.textViewHomeworksTitle);
+        textViewHomeworksTitle.setText("Homeworks "+Math.round(percentageHomework)+"%");
 
         TextView textViewGradeHW = new TextView(view.getContext());
         textViewGradeHW.setText("Grade");

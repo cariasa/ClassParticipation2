@@ -96,7 +96,21 @@ public class StudentItemAdapter extends BaseAdapter {
                         currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                         finalGrade = db.getFinalGrade(currentStudentSectionId);
                         currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId());
-                        StudentDialog dialog = new StudentDialog(currentStudentParticipationList, ((StudentActivity)activity).getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks);
+
+                        double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
+                        //get the average of the Homeworks
+                        for(int i=0;i<currentStudentHomeworks.size();i++){
+                            acumHomeworks+=Double.parseDouble(currentStudentHomeworks.get(i).split("HOLAHELLO")[1]);
+                        }
+                        percentageHomeworks=acumHomeworks/currentStudentHomeworks.size();
+                        //get the average of participations
+                        for(int i=0;i<currentStudentParticipationList.size();i++){
+                            acumParticipations+=currentStudentParticipationList.get(i).get_ParticipationGrade();
+                        }
+                        percentageParticipations=acumParticipations/currentStudentParticipationList.size();
+
+
+                        StudentDialog dialog = new StudentDialog(currentStudentParticipationList, ((StudentActivity)activity).getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks,percentageParticipations,percentageHomeworks);
                         dialog.show(((StudentActivity)activity).getFragmentManager(), "dialog_student");
                         db.close();
                     }catch (Exception e){

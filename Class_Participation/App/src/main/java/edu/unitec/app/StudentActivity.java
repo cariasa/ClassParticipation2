@@ -451,8 +451,22 @@ public class StudentActivity extends Activity{
                     currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
                     finalGrade = db.getFinalGrade(currentStudentSectionId);
                     currentStudentHomeworks = db.getHomeworkNameAndGrade(getCurrentStudentIdList().get(position),currentStudentSectionId);
+                    double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
+
+                    //get the average of the Homeworks
+                    for(int i=0;i<currentStudentHomeworks.size();i++){
+                        acumHomeworks+=Double.parseDouble(currentStudentHomeworks.get(i).split("HOLAHELLO")[1]);
+                    }
+                    percentageHomeworks=acumHomeworks/currentStudentHomeworks.size();
+
+                    //get the average of participations
+                    for(int i=0;i<currentStudentParticipationList.size();i++){
+                        acumParticipations+=currentStudentParticipationList.get(i).get_ParticipationGrade();
+                    }
+                    percentageParticipations=acumParticipations/currentStudentParticipationList.size();
+
                     db.close();
-                    StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks);
+                    StudentDialog dialog = new StudentDialog(currentStudentParticipationList, getCurrentStudentNamesList().get(position), finalGrade, currentStudentHomeworks,percentageParticipations,percentageHomeworks);
                     dialog.show(getFragmentManager(), "dialog_student");
                 }catch (Exception e){
                     e.printStackTrace();

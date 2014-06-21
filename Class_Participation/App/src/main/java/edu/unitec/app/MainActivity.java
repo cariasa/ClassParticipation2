@@ -191,7 +191,7 @@ public class MainActivity extends Activity{
 
                 //section id view
                 TextView item_IdSection = (TextView)itemView.findViewById(R.id.item_idSection);
-                item_IdSection.setText("Section ID: " + sectionsList.get(position).get_SectionId());
+                item_IdSection.setText("Section Code: " + sectionsList.get(position).get_SectionCode());
             }catch(Exception e){
             }
 

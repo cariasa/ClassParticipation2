@@ -59,19 +59,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewHighestAverageCaption"
             android:text="Highest Average"
-            android:layout_below="@+id/textViewLowestAverageCaption"
-            android:layout_alignRight="@+id/textViewLowestAverageCaption"
-            android:layout_alignEnd="@+id/textViewLowestAverageCaption"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@+id/textViewLowestAverage"
+            android:layout_alignRight="@+id/textViewAverageSectionCaption"
+            android:layout_alignEnd="@+id/textViewAverageSectionCaption" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewHighestAverage"
             android:text="NameHigh"
-            android:layout_alignBaseline="@+id/textViewLowestAverageCaption"
-            android:layout_alignBottom="@+id/textViewLowestAverageCaption"
-            android:layout_alignLeft="@+id/textViewAverageSection"
-            android:layout_alignStart="@+id/textViewAverageSection" />
+            android:layout_below="@+id/textViewLowestAverage"
+            android:layout_alignLeft="@+id/textViewLowestAverage"
+            android:layout_alignStart="@+id/textViewLowestAverage" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,10 +85,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewLowestAverage"
             android:text="NameLow"
-            android:layout_alignBaseline="@+id/textViewHighestAverageCaption"
-            android:layout_alignBottom="@+id/textViewHighestAverageCaption"
-            android:layout_alignLeft="@+id/textViewHighestAverage"
-            android:layout_alignStart="@+id/textViewHighestAverage" />
+            android:layout_below="@+id/textViewAverageSection"
+            android:layout_alignLeft="@+id/textViewAverageSection"
+            android:layout_alignStart="@+id/textViewAverageSection" />
 
 
     </RelativeLayout>
@@ -169,10 +167,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewLowestAverageCaptionHW"
             android:text="Lowest Average"
-            android:layout_below="@+id/textViewHighestAverageCaptionHW"
-            android:layout_alignRight="@+id/textViewHighestAverageCaptionHW"
-            android:layout_alignEnd="@+id/textViewHighestAverageCaptionHW"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/textViewLowestAverageHW"
+            android:layout_toLeftOf="@+id/textViewHomeworks" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Participations"
-            android:id="@+id/textView"
+            android:id="@+id/textViewParticipationsTitle"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Homeworks"
-            android:id="@+id/textView2"
+            android:id="@+id/textViewHomeworksTitle"
             android:layout_gravity="center_horizontal" />
 
         <ScrollView

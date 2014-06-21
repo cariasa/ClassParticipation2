@@ -43,22 +43,15 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
-
-        <activity
-            android:name=".DeleteStudentDialog"
-            android:label="@string/title_activity_dialog_deletestudent" >
-        </activity>
-        <activity
-            android:name=".CreateHomeworkActivity"
-            android:label="@string/title_activity_homework" >
-        </activity>
         <activity
             android:name=".HomeworkActivity"
-            android:label="@string/title_activity_create_homework" >
+            android:label="@string/title_activity_create_homework"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".CheckHomework"
-            android:label="@string/title_activity_check_homework" >
+            android:label="@string/title_activity_check_homework"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

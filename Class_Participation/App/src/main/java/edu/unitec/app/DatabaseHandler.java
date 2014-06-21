@@ -479,19 +479,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL;
         for(int i=0; i<toDelete.size(); i++){
-            Log.d("toDelete: ", Integer.toString(toDelete.get(i)));
-
             //Eliminar referencia del estudiante de tabla de participaciones por estudiante
             List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
             String query = "SELECT StudentSectionId FROM studentSection WHERE StudentId=" + toDelete.get(i);
             Cursor cursor = db.rawQuery(query, null);
-            int cursor_position=0;
             if ( cursor.moveToFirst() ){
                 do{
-                    //Log.d("cursor: ", cursor.getInt(cursor_position));
-                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(cursor_position);
+                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(0);
                     db.execSQL(strSQL);
-                    cursor_position++;
                 }while ( cursor.moveToNext() );
             }
 
@@ -499,18 +494,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             strSQL = "DELETE FROM studentSection WHERE StudentId=" + toDelete.get(i);
             db.execSQL(strSQL);
 
-            //Eliminar referencia del estudiante de tabla de criterios
+            /*//Eliminar referencia del estudiante de tabla de criterios
             String query2 = "SELECT CriteriaId FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
             Cursor cursor2 = db.rawQuery(query2, null);
-            //int cursor_position2=0;
             if ( cursor2.moveToFirst() ){
                 do{
-                    //Log.d("cursor: ", cursor.getInt(cursor_position));
                     strSQL = "DELETE FROM criteria WHERE CriteriaId=" + Integer.toString(cursor2.getInt(0));
                     db.execSQL(strSQL);
-                    //cursor_position2++;
                 }while ( cursor2.moveToNext() );
-            }
+            }*/
 
             //Eliminar referencia del estudiante de tabla de criterios
             strSQL = "DELETE FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
@@ -883,16 +875,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             for(int j=0; j<criteria_homework.getCount(); j++){
                 int criteria_id_homework=criteria_homework.getInt(0);
-                double homework_weigth=criteria_homework.getDouble(1);
+                double criteria_weight=criteria_homework.getDouble(1);
                 //get the grades of the criterias
                 Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade + " FROM " + TABLE_HOMESTU + " WHERE " + HOMESTU_CriteriaId + "=" + criteria_id_homework + " AND " + HOMESTU_StudentId + "=" + StudentID,null);
                 if(grade_criteria.getCount()>0) {
                     grade_criteria.moveToFirst();
-                    total_criteria_percentage += (grade_criteria.getDouble(0)*homework_weigth)/100;
-                    total_points_criteria += homework_weigth;
+                    total_criteria_percentage += (grade_criteria.getDouble(0)*criteria_weight)/100;
                     criteria_homework.moveToNext();
                 }
-
+                total_points_criteria += criteria_weight;
             }
             homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria)*100));
             homeworks.moveToNext();

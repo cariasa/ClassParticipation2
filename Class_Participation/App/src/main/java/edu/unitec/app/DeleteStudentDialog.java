@@ -27,6 +27,7 @@ public class DeleteStudentDialog extends DialogFragment {
     Section currentSection;
     String elements[];
 
+    DeleteStudentDialog(){}
     DeleteStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list, List<Integer> list2)
     {
         this.currentSection = currentSection;
