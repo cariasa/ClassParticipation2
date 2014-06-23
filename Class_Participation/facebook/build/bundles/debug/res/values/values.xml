@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
+    <!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
     <eat-comment />
 
     <color name="com_facebook_blue">#3B5998</color>
@@ -9,7 +9,7 @@
     <color name="com_facebook_usersettingsfragment_connected_shadow_color">#000000</color>
     <color name="com_facebook_usersettingsfragment_connected_text_color">#FFFFFF</color>
     <color name="com_facebook_usersettingsfragment_not_connected_text_color">#A6AED7</color>
-    <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/values/attrs.xml -->
+    <!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/attrs.xml -->
     <eat-comment />
 
     <declare-styleable name="com_facebook_friend_picker_fragment">
@@ -46,7 +46,7 @@
         </attr>
         <attr name="is_cropped" format="boolean" />
     </declare-styleable>
-    <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
+    <!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
     <eat-comment />
 
     <dimen name="com_facebook_loginview_height">44dp</dimen>
@@ -61,7 +61,7 @@
     <dimen name="com_facebook_profilepictureview_preset_size_small">50dp</dimen>
     <dimen name="com_facebook_usersettingsfragment_profile_picture_height">64dp</dimen>
     <dimen name="com_facebook_usersettingsfragment_profile_picture_width">64dp</dimen>
-    <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/values/strings.xml -->
+    <!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/strings.xml -->
     <eat-comment />
 
     <string name="com_facebook_choose_friends">Choose Friends</string>
@@ -89,7 +89,7 @@
     <string name="com_facebook_usersettingsfragment_log_in_button">Log In…</string>
     <string name="com_facebook_usersettingsfragment_logged_in">Logged In</string>
     <string name="com_facebook_usersettingsfragment_not_logged_in">Not Logged In</string>
-    <!-- From: file:/C:/Users/Alberto/Documents/GitHub/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
+    <!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml -->
     <eat-comment />
 
     <style name="com_facebook_loginview_default_style" parent="@android:style/Widget.Button">
