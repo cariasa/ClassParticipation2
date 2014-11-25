@@ -95,6 +95,7 @@ public class CheckCriteriaDialog extends DialogFragment {
 
                 catch (Exception e)
                 {
+
                 }
             }
         });

@@ -22,4 +22,4 @@
     android:layout_height="50dip"
     android:layout_gravity="center_vertical"
     android:src="@drawable/com_facebook_profile_default_icon" />
-<!-- From: file:/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_image.xml -->
+<!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_image.xml -->
