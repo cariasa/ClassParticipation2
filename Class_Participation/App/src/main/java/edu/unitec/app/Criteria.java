@@ -8,18 +8,21 @@ public class Criteria {
     private String CriteriaName;
     private double CriteriaWeight;
     private int CriteriaHomeworkId;
+    private String CriteriaUUID;
 
-    public Criteria(String criteriaName, double criteriaWeight, int criteriaHomeworkId) {
+    public Criteria(String criteriaName, double criteriaWeight, int criteriaHomeworkId , String UUID) {
         CriteriaName = criteriaName;
         CriteriaWeight = criteriaWeight;
         CriteriaHomeworkId = criteriaHomeworkId;
+        CriteriaUUID = UUID;
     }
 
-    public Criteria(int criteriaId, String criteriaName, double criteriaWeight, int criteriaHomeworkId) {
+    public Criteria(int criteriaId, String criteriaName, double criteriaWeight, int criteriaHomeworkId, String UUID) {
         CriteriaId = criteriaId;
         CriteriaName = criteriaName;
         CriteriaWeight = criteriaWeight;
         CriteriaHomeworkId = criteriaHomeworkId;
+        CriteriaUUID = UUID;
     }
 
     public int getCriteriaId() {
@@ -52,6 +55,14 @@ public class Criteria {
 
     public void setCriteriaHomeworkId(int criteriaHomeworkId) {
         CriteriaHomeworkId = criteriaHomeworkId;
+    }
+
+    public String getCriteriaUUID() {
+        return CriteriaUUID;
+    }
+
+    public void setCriteriaUUID(String criteriaUUID) {
+        CriteriaUUID = criteriaUUID;
     }
 
     @Override

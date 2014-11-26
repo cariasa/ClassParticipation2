@@ -113,6 +113,7 @@ public class MainActivity extends Activity{
                     sectionsList.add(section);
                 } while ( cursorSectionIdAndCourseId.moveToNext() );
             }
+            cursorSectionIdAndCourseId.close();
             db.close();
         }catch (Exception ignored){
         }

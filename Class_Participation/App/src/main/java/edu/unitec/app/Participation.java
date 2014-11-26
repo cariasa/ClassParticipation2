@@ -11,11 +11,12 @@ public class  Participation
 	private double _ParticipationGrade;
 	private String _ParticipationDate;
 	private String _ParticipationComment;
+    private String _ParcicipationUUID;
 
     public Participation(){}
     public Participation(int _ParticipationId, int _StudentSectionId,
 			double _ParticipationGrade, String _ParticipationDate,
-			String _ParticipationComment)
+			String _ParticipationComment,String UUID)
     {
 		super();
 		this._ParticipationId = _ParticipationId;
@@ -23,41 +24,46 @@ public class  Participation
 		this._ParticipationGrade = _ParticipationGrade;
 		this._ParticipationDate = _ParticipationDate;
 		this._ParticipationComment = _ParticipationComment;
+        this._ParcicipationUUID = UUID;
 	}
 	public Participation(int _ParticipationId, int _StudentSectionId,
-			double _ParticipationGrade, String _ParticipationDate)
+			double _ParticipationGrade, String _ParticipationDate,String UUID)
     {
 		super();
 		this._ParticipationId = _ParticipationId;
 		this._StudentSectionId = _StudentSectionId;
 		this._ParticipationGrade = _ParticipationGrade;
 		this._ParticipationDate = _ParticipationDate;
+        this._ParcicipationUUID = UUID;
 	}
 	public Participation(int _ParticipationId, int _StudentSectionId,
-			double _ParticipationGrade)
+			double _ParticipationGrade,String UUID)
     {
 		super();
 		this._ParticipationId = _ParticipationId;
 		this._StudentSectionId = _StudentSectionId;
 		this._ParticipationGrade = _ParticipationGrade;
 		this._ParticipationDate = new java.sql.Timestamp(new java.util.Date().getTime()).toString();
+        this._ParcicipationUUID = UUID;
 	}
-	public Participation(int _ParticipationId, int _StudentSectionId)
+	public Participation(int _ParticipationId, int _StudentSectionId,String UUID)
     {
 		super();
 		this._ParticipationId = _ParticipationId;
 		this._StudentSectionId = _StudentSectionId;
 		this._ParticipationGrade = 0.0;
 		this._ParticipationDate = new java.sql.Timestamp(new java.util.Date().getTime()).toString();
+        this._ParcicipationUUID = UUID;
 	}
     public Participation(int _StudentSectionId, double _ParticipationGrade, String _ParticipationDate,
-                         String _ParticipationComment)
+                         String _ParticipationComment, String UUID)
     {
         super();
         this._StudentSectionId = _StudentSectionId;
         this._ParticipationGrade = _ParticipationGrade;
         this._ParticipationDate = _ParticipationDate;
         this._ParticipationComment = _ParticipationComment;
+        this._ParcicipationUUID = UUID;
     }
 
 	public int get_ParticipationId()
@@ -100,4 +106,12 @@ public class  Participation
     {
 		this._ParticipationComment = _ParticipationComment;
 	}
+
+    public String get_ParcicipationUUID() {
+        return _ParcicipationUUID;
+    }
+
+    public void set_ParcicipationUUID(String _ParcicipationUUID) {
+        this._ParcicipationUUID = _ParcicipationUUID;
+    }
 }
