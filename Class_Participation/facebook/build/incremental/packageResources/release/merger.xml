@@ -2,456 +2,108 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res" >
-            <file
-                name="com_facebook_button_check"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_check_off"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_off.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_check_on"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_on.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_focused.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_normal.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_pressed.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_close.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_icon.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_list_divider"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_divider.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_list_section_header_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_section_header_background.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_focused.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_normal.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_pressed.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_silver"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_silver.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_logo.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_item_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_item_background.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_focused.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_longpressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_longpressed.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_pressed.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_selector"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_selector_background_transition"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_background_transition.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_list_selector_disabled"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_disabled.9.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_picker_top_button"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_top_button.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_place_default_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_place_default_icon.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_profile_default_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_default_icon.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_profile_picture_blank_portrait"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_portrait.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_profile_picture_blank_square"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_square.png"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_top_background"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_background.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_top_button"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_button.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_usersettingsfragment_background_gradient"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_usersettingsfragment_background_gradient.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_focused.9.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_normal.9.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_pressed.9.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_close.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_icon.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_focused.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_normal.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_pressed.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_logo.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_close.png"
-                qualifiers="ldpi"
-                type="drawable" />
-            <file
-                name="com_facebook_icon"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_icon.png"
-                qualifiers="ldpi"
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_focused.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_normal.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_button_grey_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_pressed.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_close"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_close.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_focused"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_focused.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_normal"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_normal.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_loginbutton_blue_pressed"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_pressed.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_logo"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_logo.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="com_facebook_friendpickerfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_friendpickerfragment.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_login_activity_layout"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_login_activity_layout.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_activity_circle_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_activity_circle_row.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_checkbox"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_checkbox.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_image"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_image.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_list_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_row.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_list_section_header"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_section_header.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_search_box"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_search_box.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_title_bar"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_picker_title_bar_stub"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar_stub.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_placepickerfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_placepickerfragment_list_row"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment_list_row.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="com_facebook_usersettingsfragment"
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_usersettingsfragment.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/attrs.xml"
-                qualifiers="" >
-                <declare-styleable name="com_facebook_login_view" >
-                    <attr
-                        name="confirm_logout"
-                        format="boolean" />
-                    <attr
-                        name="fetch_user_info"
-                        format="boolean" />
-                    <attr
-                        name="login_text"
-                        format="string" />
-                    <attr
-                        name="logout_text"
-                        format="string" />
-                </declare-styleable>
-                <declare-styleable name="com_facebook_place_picker_fragment" >
-                    <attr
-                        name="radius_in_meters"
-                        format="integer" />
-                    <attr
-                        name="results_limit"
-                        format="integer" />
-                    <attr
-                        name="search_text"
-                        format="string" />
-                    <attr
-                        name="show_search_box"
-                        format="boolean" />
-                </declare-styleable>
-                <declare-styleable name="com_facebook_picker_fragment" >
-                    <attr
-                        name="show_pictures"
-                        format="boolean" />
-                    <attr
-                        name="extra_fields"
-                        format="string" />
-                    <attr
-                        name="show_title_bar"
-                        format="boolean" />
-                    <attr
-                        name="title_text"
-                        format="string" />
-                    <attr
-                        name="done_button_text"
-                        format="string" />
-                    <attr
-                        name="title_bar_background"
-                        format="reference" />
-                    <attr
-                        name="done_button_background"
-                        format="reference" />
-                </declare-styleable>
-                <declare-styleable name="com_facebook_profile_picture_view" >
-                    <attr name="preset_size" >
-
-                        <!-- Keep in sync with constants in ProfilePictureView -->
-                        <enum
-                            name="small"
-                            value="-2" />
-                        <enum
-                            name="normal"
-                            value="-3" />
-                        <enum
-                            name="large"
-                            value="-4" />
-                    </attr>
-                    <attr
-                        name="is_cropped"
-                        format="boolean" />
-                </declare-styleable>
-                <declare-styleable name="com_facebook_friend_picker_fragment" >
-                    <attr
-                        name="multi_select"
-                        format="boolean" />
-                </declare-styleable>
-            </file>
-            <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/strings.xml"
-                qualifiers="" >
-                <string name="com_facebook_picker_done_button_text" >Done
+        <source path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res" >
+            <file
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values-he/strings.xml"
+                qualifiers="he" >
+                <string name="com_facebook_picker_done_button_text" >בצע
                 </string>
-                <string name="com_facebook_loginview_logged_in_using_facebook" >Logged in using Facebook
+                <string name="com_facebook_logo_content_description" >פייסבוק לוגו
                 </string>
-                <string name="com_facebook_requesterror_reconnect" >Please log into this app again to reconnect your Facebook account.
+                <string name="com_facebook_placepicker_subtitle_were_here_only_format" >%1$,d היו פה
                 </string>
-                <string name="com_facebook_placepicker_subtitle_were_here_only_format" >%1$,d were here
+                <string name="com_facebook_requesterror_web_login" >.כדי לאפשר מחדש לאפליקציה להתחבר עם פייסבוק https://www.facebook.com או https://m.facebook.com אנא היכנס דרך
                 </string>
-                <string name="com_facebook_usersettingsfragment_log_in_button" >Log In…
-                </string>
-                <string name="com_facebook_loginview_logged_in_as" >Logged in as: %1$s
-                </string>
-                <string name="com_facebook_choose_friends" >Choose Friends
-                </string>
-                <string name="com_facebook_loginview_log_out_action" >Log Out
-                </string>
-                <string name="com_facebook_internet_permission_error_title" >AndroidManifest Error
-                </string>
-                <string name="com_facebook_loginview_log_in_button" >Log In
-                </string>
-                <string name="com_facebook_logo_content_description" >Facebook Logo
-                </string>
-                <string name="com_facebook_requesterror_relogin" >Please log into this app again to reconnect your Facebook account.
-                </string>
-                <string name="com_facebook_requesterror_password_changed" >Your Facebook password has changed. Please log into this app again to reconnect your Facebook account.
-                </string>
-                <string name="com_facebook_usersettingsfragment_logged_in" >Logged In
-                </string>
-                <string name="com_facebook_requesterror_web_login" >Your Facebook account is locked. Please log into www.facebook.com to continue.
-                </string>
-                <string name="com_facebook_loginview_cancel_action" >Cancel
-                </string>
-                <string name="com_facebook_requesterror_permissions" >This app doesn’t have permission to do this. To change permissions, try logging into the app again.
-                </string>
-                <string name="com_facebook_loading" >Loading...
+                <string name="com_facebook_usersettingsfragment_not_logged_in" >לא מחובר
                 </string>
                 <string name="com_facebook_placepicker_subtitle_catetory_only_format" >%1$s
                 </string>
-                <string name="com_facebook_loginview_log_out_button" >Log Out
+                <string name="com_facebook_loginview_logged_in_as" >מחובר בשם: %1$s
                 </string>
-                <string name="com_facebook_dialogloginactivity_ok_button" >OK
+                <string name="com_facebook_loading" >..מעלה
                 </string>
-                <string name="com_facebook_internet_permission_error_message" >WebView login requires INTERNET permission
+                <string name="com_facebook_choose_friends" >בחר חברים
                 </string>
-                <string name="com_facebook_nearby" >Nearby
+                <string name="com_facebook_loginview_logged_in_using_facebook" >מחובר באמצעות פייסבוק
                 </string>
-                <string name="com_facebook_usersettingsfragment_not_logged_in" >Not Logged In
+                <string name="com_facebook_loginview_cancel_action" >בטל
                 </string>
-                <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d were here
+                <string name="com_facebook_loginview_log_in_button" >התחבר
+                </string>
+                <string name="com_facebook_requesterror_password_changed" >.הסיסמה שלך בפייסבוק השתנתה, אנא חבר מחדש את האפליקציה עם פייסבוק
+                </string>
+                <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d היו פה
+                </string>
+                <string name="com_facebook_nearby" >קרוב אליי
+                </string>
+                <string name="com_facebook_usersettingsfragment_log_in_button" >התחבר…
+                </string>
+                <string name="com_facebook_internet_permission_error_title" >AndroidManifest שגיאת
+                </string>
+                <string name="com_facebook_loginview_log_out_button" >התנתק
+                </string>
+                <string name="com_facebook_usersettingsfragment_logged_in" >מחובר
+                </string>
+                <string name="com_facebook_loginview_log_out_action" >התנתק
+                </string>
+                <string name="com_facebook_requesterror_permissions" >.חיבור האפליקציה עם פייסבוק נכשל בשל הרשאות לא מספקות, אנא הענק הרשאות לאפליקציה בכדי שהפעולה תוכל להתבצע
+                </string>
+                <string name="com_facebook_requesterror_relogin" >.האפליקציה אינה מחוברת לפייסבוק, אנא היכנס וחבר מחדש את האפליקציה
+                </string>
+                <string name="com_facebook_requesterror_reconnect" >.ארעה שגיאה בעת החיבור עם פייסבוק, חבר בבקשה מחדש את האפליקציה עם פייסבוק
+                </string>
+                <string name="com_facebook_dialogloginactivity_ok_button" >אישור
+                </string>
+                <string name="com_facebook_internet_permission_error_message" >ההתחברות לתצוגת אתר דורשת אישור אינטרנט
                 </string>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml"
+                name="com_facebook_icon"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_icon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_close"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_close.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_pressed.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_focused.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_normal.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_normal.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_logo"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_logo.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_button_grey_focused.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-hdpi/com_facebook_loginbutton_blue_pressed.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values/styles.xml"
                 qualifiers="" >
                 <dimen name="com_facebook_profilepictureview_preset_size_large" >180dp
                 </dimen>
@@ -549,7 +201,359 @@ center
                 </dimen>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-es/strings.xml"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values/strings.xml"
+                qualifiers="" >
+                <string name="com_facebook_picker_done_button_text" >Done
+                </string>
+                <string name="com_facebook_loginview_logged_in_using_facebook" >Logged in using Facebook
+                </string>
+                <string name="com_facebook_requesterror_reconnect" >Please log into this app again to reconnect your Facebook account.
+                </string>
+                <string name="com_facebook_placepicker_subtitle_were_here_only_format" >%1$,d were here
+                </string>
+                <string name="com_facebook_usersettingsfragment_log_in_button" >Log In…
+                </string>
+                <string name="com_facebook_loginview_logged_in_as" >Logged in as: %1$s
+                </string>
+                <string name="com_facebook_choose_friends" >Choose Friends
+                </string>
+                <string name="com_facebook_loginview_log_out_action" >Log Out
+                </string>
+                <string name="com_facebook_internet_permission_error_title" >AndroidManifest Error
+                </string>
+                <string name="com_facebook_loginview_log_in_button" >Log In
+                </string>
+                <string name="com_facebook_logo_content_description" >Facebook Logo
+                </string>
+                <string name="com_facebook_requesterror_relogin" >Please log into this app again to reconnect your Facebook account.
+                </string>
+                <string name="com_facebook_requesterror_password_changed" >Your Facebook password has changed. Please log into this app again to reconnect your Facebook account.
+                </string>
+                <string name="com_facebook_usersettingsfragment_logged_in" >Logged In
+                </string>
+                <string name="com_facebook_requesterror_web_login" >Your Facebook account is locked. Please log into www.facebook.com to continue.
+                </string>
+                <string name="com_facebook_loginview_cancel_action" >Cancel
+                </string>
+                <string name="com_facebook_requesterror_permissions" >This app doesn’t have permission to do this. To change permissions, try logging into the app again.
+                </string>
+                <string name="com_facebook_loading" >Loading...
+                </string>
+                <string name="com_facebook_placepicker_subtitle_catetory_only_format" >%1$s
+                </string>
+                <string name="com_facebook_loginview_log_out_button" >Log Out
+                </string>
+                <string name="com_facebook_dialogloginactivity_ok_button" >OK
+                </string>
+                <string name="com_facebook_internet_permission_error_message" >WebView login requires INTERNET permission
+                </string>
+                <string name="com_facebook_nearby" >Nearby
+                </string>
+                <string name="com_facebook_usersettingsfragment_not_logged_in" >Not Logged In
+                </string>
+                <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d were here
+                </string>
+            </file>
+            <file
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values/attrs.xml"
+                qualifiers="" >
+                <declare-styleable name="com_facebook_login_view" >
+                    <attr
+                        name="confirm_logout"
+                        format="boolean" />
+                    <attr
+                        name="fetch_user_info"
+                        format="boolean" />
+                    <attr
+                        name="login_text"
+                        format="string" />
+                    <attr
+                        name="logout_text"
+                        format="string" />
+                </declare-styleable>
+                <declare-styleable name="com_facebook_place_picker_fragment" >
+                    <attr
+                        name="radius_in_meters"
+                        format="integer" />
+                    <attr
+                        name="results_limit"
+                        format="integer" />
+                    <attr
+                        name="search_text"
+                        format="string" />
+                    <attr
+                        name="show_search_box"
+                        format="boolean" />
+                </declare-styleable>
+                <declare-styleable name="com_facebook_picker_fragment" >
+                    <attr
+                        name="show_pictures"
+                        format="boolean" />
+                    <attr
+                        name="extra_fields"
+                        format="string" />
+                    <attr
+                        name="show_title_bar"
+                        format="boolean" />
+                    <attr
+                        name="title_text"
+                        format="string" />
+                    <attr
+                        name="done_button_text"
+                        format="string" />
+                    <attr
+                        name="title_bar_background"
+                        format="reference" />
+                    <attr
+                        name="done_button_background"
+                        format="reference" />
+                </declare-styleable>
+                <declare-styleable name="com_facebook_profile_picture_view" >
+                    <attr name="preset_size" >
+
+                        <!-- Keep in sync with constants in ProfilePictureView -->
+                        <enum
+                            name="small"
+                            value="-2" />
+                        <enum
+                            name="normal"
+                            value="-3" />
+                        <enum
+                            name="large"
+                            value="-4" />
+                    </attr>
+                    <attr
+                        name="is_cropped"
+                        format="boolean" />
+                </declare-styleable>
+                <declare-styleable name="com_facebook_friend_picker_fragment" >
+                    <attr
+                        name="multi_select"
+                        format="boolean" />
+                </declare-styleable>
+            </file>
+            <file
+                name="com_facebook_top_background"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_icon"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_focused.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_item_background"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_item_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_check_off"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_off.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_close"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_close.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_pressed.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_check"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_silver"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_silver.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_pressed.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_selector"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_focused.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_profile_picture_blank_square"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_square.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_list_section_header_background"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_section_header_background.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_check_on"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_check_on.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_normal.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_place_default_icon"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_place_default_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_selector_disabled"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_disabled.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_profile_picture_blank_portrait"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_picture_blank_portrait.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_longpressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_longpressed.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_normal.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_top_button"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_top_button.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_usersettingsfragment_background_gradient"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_usersettingsfragment_background_gradient.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_logo"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_logo.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_button_grey_focused.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_list_divider"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_list_divider.9.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_loginbutton_blue_pressed.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_selector_background_transition"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_list_selector_background_transition.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_top_button"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_picker_top_button.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_profile_default_icon"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable/com_facebook_profile_default_icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="com_facebook_picker_list_section_header"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_section_header.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_activity_circle_row"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_activity_circle_row.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_usersettingsfragment"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_usersettingsfragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_search_box"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_search_box.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_list_row"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_list_row.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_checkbox"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_checkbox.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_placepickerfragment_list_row"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment_list_row.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_placepickerfragment"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_placepickerfragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_title_bar_stub"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar_stub.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_login_activity_layout"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_login_activity_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_image"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_image.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_friendpickerfragment"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_friendpickerfragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="com_facebook_picker_title_bar"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/layout/com_facebook_picker_title_bar.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values-es/strings.xml"
                 qualifiers="es" >
                 <string name="com_facebook_logo_content_description" >Logo de Facebook
                 </string>
@@ -603,61 +607,7 @@ center
                 </string>
             </file>
             <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-he/strings.xml"
-                qualifiers="he" >
-                <string name="com_facebook_picker_done_button_text" >בצע
-                </string>
-                <string name="com_facebook_logo_content_description" >פייסבוק לוגו
-                </string>
-                <string name="com_facebook_placepicker_subtitle_were_here_only_format" >%1$,d היו פה
-                </string>
-                <string name="com_facebook_requesterror_web_login" >.כדי לאפשר מחדש לאפליקציה להתחבר עם פייסבוק https://www.facebook.com או https://m.facebook.com אנא היכנס דרך
-                </string>
-                <string name="com_facebook_usersettingsfragment_not_logged_in" >לא מחובר
-                </string>
-                <string name="com_facebook_placepicker_subtitle_catetory_only_format" >%1$s
-                </string>
-                <string name="com_facebook_loginview_logged_in_as" >מחובר בשם: %1$s
-                </string>
-                <string name="com_facebook_loading" >..מעלה
-                </string>
-                <string name="com_facebook_choose_friends" >בחר חברים
-                </string>
-                <string name="com_facebook_loginview_logged_in_using_facebook" >מחובר באמצעות פייסבוק
-                </string>
-                <string name="com_facebook_loginview_cancel_action" >בטל
-                </string>
-                <string name="com_facebook_loginview_log_in_button" >התחבר
-                </string>
-                <string name="com_facebook_requesterror_password_changed" >.הסיסמה שלך בפייסבוק השתנתה, אנא חבר מחדש את האפליקציה עם פייסבוק
-                </string>
-                <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d היו פה
-                </string>
-                <string name="com_facebook_nearby" >קרוב אליי
-                </string>
-                <string name="com_facebook_usersettingsfragment_log_in_button" >התחבר…
-                </string>
-                <string name="com_facebook_internet_permission_error_title" >AndroidManifest שגיאת
-                </string>
-                <string name="com_facebook_loginview_log_out_button" >התנתק
-                </string>
-                <string name="com_facebook_usersettingsfragment_logged_in" >מחובר
-                </string>
-                <string name="com_facebook_loginview_log_out_action" >התנתק
-                </string>
-                <string name="com_facebook_requesterror_permissions" >.חיבור האפליקציה עם פייסבוק נכשל בשל הרשאות לא מספקות, אנא הענק הרשאות לאפליקציה בכדי שהפעולה תוכל להתבצע
-                </string>
-                <string name="com_facebook_requesterror_relogin" >.האפליקציה אינה מחוברת לפייסבוק, אנא היכנס וחבר מחדש את האפליקציה
-                </string>
-                <string name="com_facebook_requesterror_reconnect" >.ארעה שגיאה בעת החיבור עם פייסבוק, חבר בבקשה מחדש את האפליקציה עם פייסבוק
-                </string>
-                <string name="com_facebook_dialogloginactivity_ok_button" >אישור
-                </string>
-                <string name="com_facebook_internet_permission_error_message" >ההתחברות לתצוגת אתר דורשת אישור אינטרנט
-                </string>
-            </file>
-            <file
-                path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/res/values-iw/strings.xml"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/values-iw/strings.xml"
                 qualifiers="iw" >
                 <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d היו פה
                 </string>
@@ -710,12 +660,62 @@ center
                 <string name="com_facebook_requesterror_web_login" >.כדי לאפשר מחדש לאפליקציה להתחבר עם פייסבוק https://www.facebook.com או https://m.facebook.com אנא היכנס דרך
                 </string>
             </file>
+            <file
+                name="com_facebook_icon"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_icon.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="com_facebook_close"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-ldpi/com_facebook_close.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="com_facebook_close"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_close.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_pressed.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_focused.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_normal.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_normal"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_normal.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_logo"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_logo.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_button_grey_focused"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_button_grey_focused.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="com_facebook_loginbutton_blue_pressed"
+                path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/res/drawable-xhdpi/com_facebook_loginbutton_blue_pressed.png"
+                qualifiers="xhdpi"
+                type="drawable" />
         </source>
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/build/res/rs/release" />
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/build/res/generated/release" />
+        <source path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/build/res/rs/release" />
+        <source path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/build/res/generated/release" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/Users/cbanegas/AndroidStudioProjects/Progra4/ClassParticipation2/Class_Participation/facebook/src/release/res" />
+        <source path="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/facebook/src/release/res" />
     </dataSet>
 
 </merger>
