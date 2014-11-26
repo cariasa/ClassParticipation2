@@ -29,14 +29,17 @@ public class AddStudentDialog extends DialogFragment
     EditText studentName;
     EditText studentMajor;
 
+    String UUID;
+
     StudentItemAdapter arrayAdapter;
     List<StudentItem> listViewStudentNameList;
 
-    AddStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list)
+    AddStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list,String UUID)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
         this.listViewStudentNameList = list;
+        this.UUID = UUID;
     }
 
     @Override
@@ -91,7 +94,7 @@ public class AddStudentDialog extends DialogFragment
 
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()));
+                        studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()),UUID);
                         db.close();
                     }catch (Exception e){
 

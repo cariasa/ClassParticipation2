@@ -22,11 +22,16 @@ import java.util.List;
 public class SectionActivity extends Activity
 {
 
+    private String UUID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section);
+
+        Intent intent = getIntent();
+        UUID = intent.getStringExtra("UUID");
 
         loadYears();
         loadCourses();
@@ -58,7 +63,7 @@ public class SectionActivity extends Activity
 
     public void loadCourses()
     {
-        List<String> courseList = new DatabaseHandler(this).getAllName_Courses();
+        List<String> courseList = new DatabaseHandler(this).getAllName_Courses(UUID);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner)findViewById(R.id.spinnerCourse)).setAdapter(dataAdapter);

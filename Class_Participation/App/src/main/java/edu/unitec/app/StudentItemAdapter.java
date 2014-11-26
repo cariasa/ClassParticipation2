@@ -23,9 +23,11 @@ public class StudentItemAdapter extends BaseAdapter {
 
     protected Context activity;
     protected ArrayList<StudentItem> items;
-    public StudentItemAdapter(Context activity, ArrayList<StudentItem> items) {
+    private String UUID;
+    public StudentItemAdapter(Context activity, ArrayList<StudentItem> items,String UUID) {
         this.activity = activity;
         this.items = items;
+        this.UUID = UUID;
     }
 
 
@@ -93,9 +95,9 @@ public class StudentItemAdapter extends BaseAdapter {
                     try{
                         int currentStudentSectionId = ((StudentActivity)activity).getCurrentStudentSectionIdList().get(position);
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
-                        finalGrade = db.getFinalGrade(currentStudentSectionId);
-                        currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId());
+                        currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId,UUID);
+                        finalGrade = db.getFinalGrade(currentStudentSectionId,UUID);
+                        currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId(),UUID);
 
                         double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
                         //get the average of the Homeworks

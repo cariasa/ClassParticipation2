@@ -22,11 +22,13 @@ public class ParticipationDialog extends DialogFragment
 {
     int studentSectionId;
     String studentName;
+    String UUID;
 
-    ParticipationDialog(int studentSectionId, String studentName)
+    ParticipationDialog(int studentSectionId, String studentName,String UUID)
     {
         this.studentSectionId = studentSectionId;
         this.studentName = studentName;
+        this.UUID = UUID;
     }
 
     @Override
@@ -90,9 +92,9 @@ public class ParticipationDialog extends DialogFragment
 
                     //Database
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
-                    db.addParticipation(new Participation(studentSectionId,grade,date,comment));
-                    double studentSectionFinal = db.getFinalGrade(studentSectionId) + grade;
-                    db.UpdateparticipationStudent(studentSectionId, studentSectionFinal);
+                    db.addParticipation(new Participation(studentSectionId,grade,date,comment,UUID));
+                    double studentSectionFinal = db.getFinalGrade(studentSectionId,UUID) + grade;
+                    db.UpdateparticipationStudent(studentSectionId, studentSectionFinal,UUID);
                     db.close();
                 }
 

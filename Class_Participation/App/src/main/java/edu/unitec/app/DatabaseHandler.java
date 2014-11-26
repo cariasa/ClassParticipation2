@@ -105,7 +105,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TEACHER_TABLE = "CREATE TABLE "+TABLE_TEACHER+" (" +
                 TEACHER_UUID+" TEXT PRIMARY KEY," +
-                TEACHER_NAME+" ,"+
+                TEACHER_NAME+" TEXT"+
                 ")";
 
 

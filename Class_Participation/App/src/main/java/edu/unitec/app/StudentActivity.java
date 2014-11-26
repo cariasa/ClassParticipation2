@@ -31,6 +31,7 @@ public class StudentActivity extends Activity{
     public Menu menu;
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
+    private String UUID;
 
     public Section getCurrentSection() {
         return currentSection;
@@ -48,6 +49,7 @@ public class StudentActivity extends Activity{
         Intent intent = getIntent();
         currentSection = (Section)intent.getSerializableExtra("Section");
         String course_name = intent.getStringExtra("Course");
+        UUID = intent.getStringExtra("UUID");
         setTitle(course_name);
 
         //------------------Connect ArrayAdapter with a List for the ListView----------------------
@@ -65,7 +67,7 @@ public class StudentActivity extends Activity{
             StudentItem studentitem = new StudentItem (getCurrentStudentNamesList().get(i));
             arrayStudentItem.add(studentitem);
         }
-        arrayAdapter = new StudentItemAdapter(this,arrayStudentItem);
+        arrayAdapter = new StudentItemAdapter(this,arrayStudentItem,UUID);
         studentsList.setAdapter(arrayAdapter);
         //------------------------------------------------------------------------------------------
 
@@ -145,7 +147,7 @@ public class StudentActivity extends Activity{
                 try {
                     ReadWriteFileManager fm = new ReadWriteFileManager();
                     DatabaseHandler db = new DatabaseHandler(this);
-                    List<String> grades = db.exportStudentGrades();
+                    List<String> grades = db.exportStudentGrades(UUID);
                     String filepath = fm.exportStudentGrades(grades);
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
@@ -160,6 +162,7 @@ public class StudentActivity extends Activity{
                 Intent intentHomework = new Intent(this, HomeworkActivity.class);
                 intentHomework.putExtra("Section", currentSection);
                 intentHomework.putExtra("isCreating",true);
+                intentHomework.putExtra("UUID",UUID);
                 startActivity(intentHomework);
                 return true;
             case R.id.item_statistics:
@@ -250,8 +253,11 @@ public class StudentActivity extends Activity{
         {
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
-            Cursor cursorStudentSectionId = db.rawQuery("SELECT StudentSectionId FROM studentSection WHERE SectionId = " +
-                    currentSection.get_SectionId() + " ORDER BY SectionId ASC", null);
+            Cursor cursorStudentSectionId = db.rawQuery("SELECT StudentSectionId FROM studentSection " +
+                    "WHERE SectionId = " +
+                    currentSection.get_SectionId() + " " +
+                    "AND TeacherUUID = '" + UUID +"'"+
+                    " ORDER BY SectionId ASC", null);
 
             if ( cursorStudentSectionId.moveToFirst() ){
                 do
@@ -278,7 +284,9 @@ public class StudentActivity extends Activity{
         {
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionId = db.rawQuery("SELECT StudentId FROM studentSection WHERE SectionId = " +
-                    currentSection.get_SectionId() + " ORDER BY SectionId ASC", null);
+                    currentSection.get_SectionId() + " " +
+                    "AND TeacherUUID = '" + UUID +"'"+
+                    " ORDER BY SectionId ASC", null);
             if ( cursorSectionId.moveToFirst() )
             {
                 do
@@ -303,8 +311,11 @@ public class StudentActivity extends Activity{
         List<Integer> studentSectionIdList = getCurrentStudentSectionIdList();
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
-        Cursor absent_check = db.rawQuery("SELECT ParticipationComment, ParticipationDate FROM participationStudent WHERE StudentSectionId = "
-                + studentSectionIdList.get(index_StudentSectionIDList) + " ORDER BY ParticipationId DESC LIMIT 1", null);
+        Cursor absent_check = db.rawQuery("SELECT ParticipationComment, ParticipationDate FROM participationStudent " +
+                "WHERE StudentSectionId = "
+                + studentSectionIdList.get(index_StudentSectionIDList) + " " +
+                "AND TeacherUUID = '" + UUID +"'"+
+                " ORDER BY ParticipationId DESC LIMIT 1", null);
 
         Date cDate = new Date();
         String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
@@ -325,7 +336,9 @@ public class StudentActivity extends Activity{
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         for (Integer aStudentId : studentId) {
             Cursor cursorStudentName = db.rawQuery("SELECT StudentName FROM student WHERE StudentId = " +
-                    aStudentId + " ORDER BY StudentId ASC", null);
+                    aStudentId +
+                    " AND TeacherUUID = '" + UUID +"'"+
+                    " ORDER BY StudentId ASC", null);
 
             if (cursorStudentName.moveToFirst()) {
                 studentNamesList.add(cursorStudentName.getString(0));
@@ -360,7 +373,8 @@ public class StudentActivity extends Activity{
 
         for (int a = 0; a < studentSectionIdList.size(); a++){
             Cursor cursor = db.rawQuery("SELECT * FROM participationStudent WHERE StudentSectionId = " +
-                    studentSectionIdList.get(a), null);
+                    studentSectionIdList.get(a)+
+                    " AND TeacherUUID = '" + UUID +"'", null);
             studentSectionIdCounters[a] = cursor.getCount();
             cursor.close();
         }
@@ -384,8 +398,8 @@ public class StudentActivity extends Activity{
     }
     public void showStatisticsDialog(){
             DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-            String courseName=db.getCourseName(currentSection.get_CourseId());
-            StatisticsDialog dialog = new StatisticsDialog(courseName,currentSection.get_SectionId());
+            String courseName=db.getCourseName(currentSection.get_CourseId(),UUID);
+            StatisticsDialog dialog = new StatisticsDialog(courseName,currentSection.get_SectionId(),UUID);
             dialog.show(getFragmentManager(), "dialog_statistics");
     }
 
@@ -408,7 +422,7 @@ public class StudentActivity extends Activity{
             }while(check_absence(studentIndex));
 
             ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
-                    getCurrentStudentNamesList().get(studentIndex));
+                    getCurrentStudentNamesList().get(studentIndex),UUID);
 
             dialog.show(getFragmentManager(), "dialog_participation");
         }
@@ -418,14 +432,14 @@ public class StudentActivity extends Activity{
         if ( getCurrentStudentNamesList().size() > 0 ){
             int studentIndex = listIndex;
             ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
-                    getCurrentStudentNamesList().get(studentIndex));
+                    getCurrentStudentNamesList().get(studentIndex),UUID);
             dialog.show(getFragmentManager(), "dialog_participation");
         }
     }
 
 
     public void showAddStudentDialog(){
-        AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, arrayStudentItem);
+        AddStudentDialog dialog = new AddStudentDialog(currentSection, arrayAdapter, arrayStudentItem,UUID);
         dialog.show(getFragmentManager(), "dialog_addstudent");
     }
 
@@ -448,9 +462,9 @@ public class StudentActivity extends Activity{
                 try{
                     int currentStudentSectionId = getCurrentStudentSectionIdList().get(position);
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
-                    currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId);
-                    finalGrade = db.getFinalGrade(currentStudentSectionId);
-                    currentStudentHomeworks = db.getHomeworkNameAndGrade(getCurrentStudentIdList().get(position),currentStudentSectionId);
+                    currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId,UUID);
+                    finalGrade = db.getFinalGrade(currentStudentSectionId,UUID);
+                    currentStudentHomeworks = db.getHomeworkNameAndGrade(getCurrentStudentIdList().get(position),currentStudentSectionId,UUID);
                     double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
 
                     //get the average of the Homeworks

@@ -19,10 +19,13 @@ public class ShowCriteriaDialog extends DialogFragment {
     Homework currentHomework;
 
     String criteriaName;
-    public ShowCriteriaDialog(Homework currenthomework,String criteriaName)
+    String UUID;
+
+    public ShowCriteriaDialog(Homework currenthomework,String criteriaName,String UUID)
     {
         this.currentHomework = currenthomework;
         this.criteriaName=criteriaName;
+        this.UUID = UUID;
     }
 
     @Override
@@ -34,11 +37,11 @@ public class ShowCriteriaDialog extends DialogFragment {
         txtCriteriaWeight = (TextView)view.findViewById(R.id.textViewCriteriaWeight);
 
         DatabaseHandler db=new DatabaseHandler(this.getActivity());
-        double weight=db.getCriteriaWeight(criteriaName,currentHomework.getHomeworkId());
+        double weight=db.getCriteriaWeight(criteriaName,currentHomework.getHomeworkId(),UUID);
         txtCriteriaWeight.setText(""+weight);
 
         List<Double> weightlist;
-        weightlist=db.getAllCriteria_Weights(currentHomework.getHomeworkId());
+        weightlist=db.getAllCriteria_Weights(currentHomework.getHomeworkId(),UUID);
         double acum=0;
         for(int i=0;i<weightlist.size();i++){
             acum+=weightlist.get(i);

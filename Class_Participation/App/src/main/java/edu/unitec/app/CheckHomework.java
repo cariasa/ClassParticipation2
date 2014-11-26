@@ -21,6 +21,7 @@ import java.util.List;
 public class CheckHomework extends Activity {
     int sectionId;
     int studentId;
+    String UUID = "";
     List<Homework> currentHomeworkList;
     ArrayAdapter<Homework> arrayAdapter;
 
@@ -33,10 +34,11 @@ public class CheckHomework extends Activity {
         studentId=intent.getIntExtra("studentId",0);
         setTitle(student_name+" Homeworks");
         sectionId = intent.getIntExtra("Section",0);
+        UUID = intent.getStringExtra("UUID");
         try
         {
             DatabaseHandler db = new DatabaseHandler(this.getApplicationContext());
-            currentHomeworkList = db.getAll_Homework(sectionId);
+            currentHomeworkList = db.getAll_Homework(sectionId,UUID);
             db.close();
         }
 
@@ -116,7 +118,7 @@ public class CheckHomework extends Activity {
                 //Percentage view
                 TextView  txtPercentage= (TextView)itemView.findViewById(R.id.item_homework_percentage);
                 DatabaseHandler db=new DatabaseHandler(this.getContext());
-                String nameAndGrade=db.getHomeworkNameAndGrade(studentId,sectionId).get(position);
+                String nameAndGrade=db.getHomeworkNameAndGrade(studentId,sectionId,UUID).get(position);
 //                Log.e(CheckHomework.class.toString(), "NameAndGrade="+nameAndGrade);
                 String[] split=nameAndGrade.split("HOLAHELLO");
                 Double percentage=Double.parseDouble(split[1]);

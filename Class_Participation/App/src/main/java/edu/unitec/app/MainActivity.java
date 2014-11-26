@@ -42,6 +42,9 @@ public class MainActivity extends Activity{
     //Facebook fb;
     //SharedPreferences sp;
 
+    //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
+    String UUID = "ID1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -104,12 +107,14 @@ public class MainActivity extends Activity{
         try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
-                    quarter + " AND SectionYear = " + year + " ORDER BY SectionId ASC", null);
+                    quarter + " AND SectionYear = " + year + " " +
+                    " AND TeacherUUID = '"+UUID+"'"+
+                    " ORDER BY SectionId ASC", null);
 
             if ( cursorSectionIdAndCourseId.moveToFirst() ){
                 do{
                     Section section = new Section(cursorSectionIdAndCourseId.getInt(0), cursorSectionIdAndCourseId.getInt(1),
-                            quarter, semester, year, cursorSectionIdAndCourseId.getString(2));
+                            quarter, semester, year, cursorSectionIdAndCourseId.getString(2),UUID);
                     sectionsList.add(section);
                 } while ( cursorSectionIdAndCourseId.moveToNext() );
             }
@@ -127,7 +132,9 @@ public class MainActivity extends Activity{
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         for (Section aSectionsList : sectionsList) {
             Cursor cursorCourseName = db.rawQuery("SELECT CourseName FROM course WHERE CourseId = " +
-                    aSectionsList.get_CourseId() + " ORDER BY CourseId ASC", null);
+                    aSectionsList.get_CourseId() + " " +
+                    " AND TeacherUUID = '" +UUID +"'"+
+                    "ORDER BY CourseId ASC", null);
             if (cursorCourseName.moveToFirst()) {
                 coursesNamesList.add(cursorCourseName.getString(0));
             }
@@ -156,6 +163,7 @@ public class MainActivity extends Activity{
                 Intent intent = new Intent(view.getContext(), StudentActivity.class);
                 intent.putExtra("Section", getCurrentSectionsList().get(position));
                 intent.putExtra("Course", listview.getItemAtPosition(position).toString());
+                intent.putExtra("UUID",UUID);
                 startActivity(intent);
             }
         });
@@ -242,12 +250,16 @@ public class MainActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         switch ( item.getItemId() ) {
             case R.id.course:
-                startActivity(new Intent(this, CourseActivity.class));
+                Intent intent = new Intent(this, CourseActivity.class);
+                intent.putExtra("UUID",UUID);
+                startActivity(intent);
                 return true;
 
             case R.id.section:
                 //startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
-                startActivity(new Intent(this, SectionActivity.class));
+                Intent intents = new Intent(this, SectionActivity.class);
+                intents.putExtra("UUID",UUID);
+                startActivity(intents);
                 return true;
 
             case R.id.about:

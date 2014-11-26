@@ -21,6 +21,7 @@ public class HomeworkActivity extends Activity {
 
 
     public Homework homework;
+    private String UUID;
     private Section currentSection = new Section();
     private int studentId;
     private ArrayAdapter<String> arrayAdapter;
@@ -37,6 +38,7 @@ public class HomeworkActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework);
         Intent intent = getIntent();
+        UUID = intent.getStringExtra("UUID");
         currentSection = (Section)intent.getSerializableExtra("Section");
         isCreating=intent.getBooleanExtra("isCreating",false);
         studentId=intent.getIntExtra("studentId",0);
@@ -53,8 +55,8 @@ public class HomeworkActivity extends Activity {
                 listCriteria.add(criteriaList.get(i).getCriteriaName());
                 //Fill TABLE_HOMESTU with grades of 0 if the registry doesn't exist
                 DatabaseHandler db=new DatabaseHandler(getApplicationContext());
-                if(!db.homeworkStudentExist(criteriaList.get(i).getCriteriaId(),studentId)){
-                    db.addHomeworkStudent(0.0,criteriaList.get(i).getCriteriaId(),studentId);
+                if(!db.homeworkStudentExist(criteriaList.get(i).getCriteriaId(),studentId,UUID)){
+                    db.addHomeworkStudent(0.0,criteriaList.get(i).getCriteriaId(),studentId,UUID);
                 }
                 db.close();
             }
@@ -85,14 +87,14 @@ public class HomeworkActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.item_addCriteria) {
-            AddCriteriaDialog dialog = new AddCriteriaDialog(homework,arrayAdapter,listCriteria);
+            AddCriteriaDialog dialog = new AddCriteriaDialog(homework,arrayAdapter,listCriteria,UUID);
             dialog.show(getFragmentManager(), "dialog_create_homework");
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
     public void showCreateHomeworkDialog(){
-        CreateHomeworkDialog dialog = new CreateHomeworkDialog(currentSection);
+        CreateHomeworkDialog dialog = new CreateHomeworkDialog(currentSection,UUID);
         dialog.show(getFragmentManager(), "dialog_create_homework");
     }
     private void ClickCallback()
@@ -104,10 +106,10 @@ public class HomeworkActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
             {
                 if(isCreating){
-                    ShowCriteriaDialog dialog = new ShowCriteriaDialog(homework, listCriteria.get(position));
+                    ShowCriteriaDialog dialog = new ShowCriteriaDialog(homework, listCriteria.get(position),UUID);
                     dialog.show(getFragmentManager(), "dialog_show_criteria");
                 }else{
-                    CheckCriteriaDialog dialog = new CheckCriteriaDialog(studentId,getCurrentCriteriaList().get(position),arrayAdapter);
+                    CheckCriteriaDialog dialog = new CheckCriteriaDialog(studentId,getCurrentCriteriaList().get(position),arrayAdapter,UUID);
                     dialog.show(getFragmentManager(), "dialog_check_criteria");
                 }
 
@@ -116,7 +118,7 @@ public class HomeworkActivity extends Activity {
     }
     public List<Criteria> getCurrentCriteriaList(){
         DatabaseHandler db=new DatabaseHandler(this);
-        return db.getAllCriteriaByHomework(homework.getHomeworkId());
+        return db.getAllCriteriaByHomework(homework.getHomeworkId(),UUID);
     }
     //class myAdapter for my personal style listView
     public class MyListAdapter extends ArrayAdapter<String>{
@@ -142,8 +144,8 @@ public class HomeworkActivity extends Activity {
                 TextView  txtPercentage= (TextView)itemView.findViewById(R.id.item_homework_percentage);
                 DatabaseHandler db=new DatabaseHandler(this.getContext());
                 if(isCreating){
-                    double weight=db.getCriteriaWeight(listCriteria.get(position),homework.getHomeworkId());
-                    List<Double> weightlist=db.getAllCriteria_Weights(homework.getHomeworkId());
+                    double weight=db.getCriteriaWeight(listCriteria.get(position),homework.getHomeworkId(),UUID);
+                    List<Double> weightlist=db.getAllCriteria_Weights(homework.getHomeworkId(),UUID);
                     double acum=0;
                     for(int i=0;i<weightlist.size();i++){
                         acum+=weightlist.get(i);
@@ -151,7 +153,7 @@ public class HomeworkActivity extends Activity {
                     double percentage=(weight/acum)*100;
                     txtPercentage.setText(Math.round(percentage)+"%");
                 }else{
-                    double percentage=db.getCriteriaGrade(studentId,getCurrentCriteriaList().get(position).getCriteriaId());
+                    double percentage=db.getCriteriaGrade(studentId,getCurrentCriteriaList().get(position).getCriteriaId(),UUID);
                     txtPercentage.setText(Math.round(percentage)+"%");
                 }
 
