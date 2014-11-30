@@ -79,6 +79,7 @@ public class StudentItemAdapter extends BaseAdapter {
                     intent.putExtra("Section", (int)(((StudentActivity)activity).getCurrentSection().get_SectionId()));
                     intent.putExtra("StudentName",((StudentActivity)activity).getCurrentStudentNamesList().get(position));
                     intent.putExtra("studentId",((StudentActivity)activity).getCurrentStudentIdList().get(position));
+                    intent.putExtra("UUID",UUID);
                     activity.startActivity(intent);
                 }
             }

@@ -111,85 +111,93 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_COURSE_TABLE =
                 "CREATE TABLE " + TABLE_COURSE + " (" +
-                        COURSE_UUID+" TEXT PRIMARY KEY, " +
-                        COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COURSE_ID + " INTEGER, " +
+                        COURSE_UUID+" TEXT, " +
                         COURSE_CODE + " TEXT," +
                         COURSE_NAME + " TEXT," +
-                        COURSE_DESC + " TEXT" +
+                        COURSE_DESC + " TEXT, " +
+
+                        "PRIMARY KEY ("+COURSE_UUID+","+COURSE_ID+"), "+
                         "FOREIGN KEY("+ COURSE_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_SECTION_TABLE =
                 "CREATE TABLE " + TABLE_SECTION + " (" +
-                        SECT_UUID + "TEXT PRIMARY KEY, " +
-                        SECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        SECT_UUID + " TEXT , " +
+                        SECT_ID + " INTEGER , " +
                         SECT_COURSE + " INTEGER," +
                         SECT_QTR + " INTEGER," +
                         SECT_SEM + " INTEGER," +
                         SECT_YEA + " INTEGER, " +
                         SECT_CODE + " TEXT," +
-                        "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + ")" +
+                        "PRIMARY KEY ("+SECT_UUID+","+SECT_ID+"), "+
+                        "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + "), " +
                         "FOREIGN KEY("+ SECT_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_STUDENT_TABLE =
                 "CREATE TABLE " + TABLE_STUDENT + " (" +
-                        STU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        STU_ID + " INTEGER ," +
                         STU_NAME + " TEXT," +
-                        STU_MAJOR + " TEXT" +
-                        STU_EMAIL + " TEXT" +
-                        STU_PASSWORD + "TEXT" +
+                        STU_MAJOR + " TEXT," +
+                        STU_EMAIL + " TEXT PRIMARY KEY," +
+                        STU_PASSWORD + " TEXT" +
                         ")";
 
         String CREATE_STUDENTSECTION_TABLE =
                 "CREATE TABLE " + TABLE_STUDENTSECTION + " (" +
-                        STUSEC_UUID + "TEXT PRIMARY KEY, "+
-                        STUSEC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        STUSEC_UUID + " TEXT, "+
+                        STUSEC_ID + " INTEGER," +
                         STUSEC_SECT + " INTEGER," +
                         STUSEC_STUD + " INTEGER," +
                         STUSEC_FINAL + " REAL," +
+                        "PRIMARY KEY ("+STUSEC_UUID+","+STUSEC_ID+"), "+
                         "FOREIGN KEY(" + STUSEC_SECT + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + "), " +
-                        "FOREIGN KEY(" + STUSEC_STUD + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")" +
+                        "FOREIGN KEY(" + STUSEC_STUD + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
                         "FOREIGN KEY("+ STUSEC_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_PARTICIPATION_TABLE =
                 "CREATE TABLE " + TABLE_PARTICIPATION + " (" +
-                        PART_UUID + "TEXT PRIMARY KEY, "+
-                        PART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        PART_UUID + " TEXT, "+
+                        PART_ID + " INTEGER," +
                         PART_STUSECT + " INTEGER," +
                         PART_GRADE + " REAL," +
                         PART_DATE + " TEXT," +
                         PART_COMMENT + " TEXT," +
-                        "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")" +
+                        "PRIMARY KEY ("+PART_UUID+","+PART_ID+"), "+
+                        "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")," +
                         "FOREIGN KEY("+ PART_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_HOMEWORK_TABLE =
                 "CREATE TABLE " + TABLE_HOMEWORK + " (" +
-                        HOMEWORK_UUID + "TEXT PRIMARY KEY, " +
-                        HOMEWORK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        HOMEWORK_UUID + " TEXT, " +
+                        HOMEWORK_ID + " INTEGER, " +
                         HOMEWORK_NAME + " TEXT," +
                         HOMEWORK_SECID + " INTEGER," +
-                        "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")" +
+                        "PRIMARY KEY ("+HOMEWORK_UUID+","+HOMEWORK_ID+"), "+
+                        "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")," +
                         "FOREIGN KEY("+ HOMEWORK_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_CRITERIA_TABLE =
                 "CREATE TABLE " + TABLE_CRITERIA + " (" +
-                        CRITERIA_UUID + "TEXT PRIMARY KEY, " +
-                        CRITERIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        CRITERIA_UUID + " TEXT, " +
+                        CRITERIA_ID + " INTEGER," +
                         CRITERIA_NAME + " TEXT," +
                         CRITERIA_WEIGHT + " REAL," +
                         CRITERIA_HOMEWORK + " INTEGER," +
-                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")" +
+                        "PRIMARY KEY ("+CRITERIA_UUID+","+CRITERIA_ID+"), "+
+                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")," +
                         "FOREIGN KEY("+ CRITERIA_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_HOMESTU_TABLE =
                 "CREATE TABLE " + TABLE_HOMESTU + " (" +
-                        HOMESTU_UUID + "TEXT PRIMARY KEY, "+
-                        HOMESTU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        HOMESTU_UUID + " TEXT, "+
+                        HOMESTU_ID + " INTEGER," +
                         HOMESTU_Grade + " REAL," +
                         HOMESTU_CriteriaId + " INTEGER," +
                         HOMESTU_StudentId + " INTEGER," +
                         HOMESTU_HomeworkStudentDate + "DATE, " +
+                        "PRIMARY KEY ("+HOMESTU_UUID+","+HOMESTU_ID+"), "+
                         "FOREIGN KEY(" + HOMESTU_CriteriaId + ") REFERENCES " + TABLE_CRITERIA + "(" + CRITERIA_ID + "), " +
-                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")" +
+                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
                         "FOREIGN KEY("+ HOMESTU_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
 
@@ -219,7 +227,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addCourse(Course course){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(COURSE_ID, course.getCourseId());
+
+        values.put(COURSE_ID, getLastCourseID(course.getCourseUUID()));
         values.put(COURSE_UUID, course.getCourseUUID());
         values.put(COURSE_CODE, course.getCourseCode());
         values.put(COURSE_NAME, course.getCourseName());
@@ -228,16 +237,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    int getLastCourseID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT CourseId FROM course WHERE TeacherUUID  = '"+UUID+"' ORDER BY CourseId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
     void addStudentTable(Student student, Section section){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(STUSEC_ID, getStudentSectionID(section.get_SectionUUID()));
         values.put(STUSEC_UUID,section.get_SectionUUID());
         values.put(STUSEC_SECT, section.get_SectionId());
         values.put(STUSEC_STUD, student.get_StudentId());
         values.put(STUSEC_FINAL, 0);
         db.insert(TABLE_STUDENTSECTION, null, values);
         db.close();
+    }
+
+    int getStudentSectionID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT StudentSectionId FROM studentSection WHERE TeacherUUID  = '"+UUID+"' ORDER BY StudentSectionId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
     }
 
     List<Integer> getStudentIdListBySectionId(int sectionId,String UUID){
@@ -262,6 +308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(PART_ID,getParticipationID(participation.get_ParcicipationUUID()));
         values.put(PART_UUID,participation.get_ParcicipationUUID());
         values.put(PART_STUSECT, participation.get_StudentSectionId());
         values.put(PART_GRADE, participation.get_ParticipationGrade());
@@ -269,6 +316,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(PART_COMMENT, participation.get_ParticipationComment());
         db.insert(TABLE_PARTICIPATION, null, values);
         db.close();
+    }
+
+    int getParticipationID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT ParticipationId FROM participationStudent WHERE TeacherUUID  = '"+UUID+"' ORDER BY ParticipationId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
     }
 
     public List<Participation> getParticipationList(int sectionId,String UUID){
@@ -538,6 +603,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(STU_ID, student.get_StudentId());
         values.put(STU_NAME, student.get_StudentName());
         values.put(STU_MAJOR, student.get_StudentMajor());
+        values.put(STU_EMAIL,student.get_StudentEmail());
+        values.put(STU_PASSWORD,student.get_StudentId());
         db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
@@ -624,13 +691,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    Course getCourse(int id){
+    Course getCourse(int id,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_COURSE,
                 new String[]{COURSE_ID, COURSE_UUID,COURSE_CODE, COURSE_NAME, COURSE_DESC},
-                COURSE_ID + "=?",
-                new String[]{String.valueOf(id)},
+                COURSE_ID + "=? and " + COURSE_UUID + " =?",
+                new String[]{String.valueOf(id),UUID},
                 null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -747,22 +814,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addHomework(Homework homework){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(HOMEWORK_ID,getHomeworkID(homework.getHomeworkUUID()));
         values.put(HOMEWORK_UUID, homework.getHomeworkUUID());
         values.put(HOMEWORK_NAME, homework.getHomeworkName());
         values.put(HOMEWORK_SECID, homework.getSectionId());
         db.insert(TABLE_HOMEWORK, null, values);
         db.close();
     }
+
+    int getHomeworkID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT HomeworkId FROM homework WHERE TeacherUUID  = '"+UUID+"' ORDER BY HomeworkId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
     public Homework getLastHomework(String UUID){
         Homework homework=null;
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
-                "WHERE " + HOMEWORK_UUID + " = '"+UUID+"'"+
+                " WHERE " + HOMEWORK_UUID + " = '"+UUID+"'"+
                 " ORDER BY " + HOMEWORK_ID + " DESC LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),UUID);
+                homework=new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID);
             }while (cursor.moveToNext());
         }
         cursor.close();
@@ -772,7 +860,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Homework> homeworkList = new ArrayList<Homework>();
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
                               " WHERE "+ HOMEWORK_SECID + " = " + sectionId +
-                              "AND "+ HOMEWORK_UUID+ " = '" + UUID + "'"+
+                              " AND "+ HOMEWORK_UUID+ " = '" + UUID + "'"+
                               " ORDER BY " + HOMEWORK_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -824,6 +912,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addCriteria(Criteria criteria){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(CRITERIA_ID,getCriteriaID(criteria.getCriteriaUUID()));
         values.put(CRITERIA_UUID,criteria.getCriteriaUUID());
         values.put(CRITERIA_NAME, criteria.getCriteriaName());
         values.put(CRITERIA_WEIGHT,criteria.getCriteriaWeight());
@@ -831,6 +921,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_CRITERIA, null, values);
         db.close();
     }
+
+    int getCriteriaID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT CriteriaId FROM criteria WHERE TeacherUUID  = '"+UUID+"' ORDER BY CriteriaId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
     public double getCriteriaWeight(String criteriaName,int homeworkId,String UUID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -911,6 +1020,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addHomeworkStudent(Double grade,int criteriaId,int studentId,String UUID){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(HOMESTU_ID,getHomeworkStudentID(UUID));
         values.put(HOMESTU_UUID,UUID);
         values.put(HOMESTU_Grade, grade);
         values.put(HOMESTU_CriteriaId,criteriaId);
@@ -918,6 +1029,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_HOMESTU, null, values);
         db.close();
     }
+
+    int getHomeworkStudentID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT HomeworkStudentId FROM homeworkStudent WHERE TeacherUUID  = '"+UUID+"' ORDER BY HomeworkStudentId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
     public void printHomeworkStudentTable(String UUID){
         String selectQuery  = "SELECT * FROM " + TABLE_HOMESTU
                 +" WHERE " + HOMESTU_UUID + " = '" + UUID +"'"

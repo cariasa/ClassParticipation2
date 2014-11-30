@@ -337,7 +337,6 @@ public class StudentActivity extends Activity{
         for (Integer aStudentId : studentId) {
             Cursor cursorStudentName = db.rawQuery("SELECT StudentName FROM student WHERE StudentId = " +
                     aStudentId +
-                    " AND TeacherUUID = '" + UUID +"'"+
                     " ORDER BY StudentId ASC", null);
 
             if (cursorStudentName.moveToFirst()) {

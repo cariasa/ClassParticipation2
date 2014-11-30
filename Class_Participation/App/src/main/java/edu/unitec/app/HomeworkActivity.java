@@ -44,6 +44,7 @@ public class HomeworkActivity extends Activity {
         studentId=intent.getIntExtra("studentId",0);
         criteriaListView = (ListView) findViewById(R.id.listView_criteria);
         listCriteria = new ArrayList<String>();
+
         if(isCreating){
             setTitle("CreateHomework");
             showCreateHomeworkDialog();

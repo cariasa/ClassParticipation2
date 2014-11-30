@@ -109,7 +109,7 @@ public class AddStudentDialog extends DialogFragment
                     }else{
                         Student student = new Student(Integer.parseInt(studentId.getText().toString()),
                                                       studentName.getText().toString(),
-                                                      studentMajor.getText().toString());
+                                                      studentId.getText().toString()+studentName.getText().toString());
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
