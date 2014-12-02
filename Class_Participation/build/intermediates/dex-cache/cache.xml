@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-c0296138d20b3b0d8000abb6b0808081a89e7057.jar"
+        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
+    <item
+        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/bolts-android-1.1.2-662e8ce2a4a76553d11d3af15e924c068e6b84ce.jar"
+        jar="/home/carlos/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7"/>
+    <item
+        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-72a90793231d546bf7f02406369749d7a1dae037.jar"
+        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="57e2551e2af0cb795f61017766050fb3a78e93c6"/>
+    <item
+        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/support-annotations-21.0.2-6fabdc301c7f39fd5238e025768e7b0bb5de3b43.jar"
+        jar="/home/carlos/as/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6"/>
+    <item
+        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-21.0.2-7983fffc51a3eb791e110a810216254ce0e91536.jar"
+        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f"/>
+
+</pre-dex-items>

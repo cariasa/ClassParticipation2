@@ -22,7 +22,7 @@
     <string name="home">home</string>
     <string name="StudentActivity">Student</string>
     <string name="facebook">facebook</string>
-    <string name="app_id">558500024224460</string>
+    <string name="facebook_app_id">507652182707818</string>
     <string name="post_facebook">post</string>
     <string name="title_activity_dialog_deletestudent">dialog_deletestudent</string>
     <string name="hello_world">Hello world!</string>
@@ -34,5 +34,6 @@
     <string name="save_homework">Save Homework</string>
     <string name="title_criteria">Criteria</string>
     <string name="title_activity_check_homework">CheckHomework</string>
+    <string name="title_activity_login">login</string>
 
 </resources>
