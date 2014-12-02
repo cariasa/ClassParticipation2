@@ -81,6 +81,7 @@ public class CheckHomework extends Activity {
                 Intent intent = new Intent(view.getContext(), HomeworkActivity.class);
                 intent.putExtra("Homework", currentHomeworkList.get(position));
                 intent.putExtra("studentId",studentId);
+                intent.putExtra("UUID",UUID);
                 startActivity(intent);
 
             }

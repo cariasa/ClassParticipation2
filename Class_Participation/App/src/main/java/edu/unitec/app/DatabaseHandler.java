@@ -353,7 +353,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             participations.getInt(0),
                             participations.getDouble(1),
                             participations.getString(2),
-                            participations.getString(3),participations.getString(4)));
+                            participations.getString(3),
+                            participations.getString(4)));
                 } while (participations.moveToNext());
             }
             participations.close();
@@ -561,9 +562,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             do
             {
-                currentStudentParticipationList.add(new Participation(cursor.getInt(0), cursor.getInt(1),
-                        cursor.getDouble(2), cursor.getString(3),
-                        cursor.getString(4)));
+                currentStudentParticipationList.add(new Participation(cursor.getInt(1), cursor.getInt(2),
+                        cursor.getDouble(3), cursor.getString(4),
+                        cursor.getString(5),cursor.getString(0)));
 
             } while ( cursor.moveToNext() );
         }
@@ -736,9 +737,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do{
                 Course course = new Course();
                 course.setCourseId(Integer.parseInt(cursor.getString(0)));
-                course.setCourseCode(cursor.getString(1));
-                course.setCourseName(cursor.getString(2));
-                course.setCourseDescription(cursor.getString(3));
+                course.setCourseCode(cursor.getString(2));
+                course.setCourseName(cursor.getString(3));
+                course.setCourseDescription(cursor.getString(4));
+                course.setCourseUUID(cursor.getString(1));
                 courseList.add(course);
             }while (cursor.moveToNext());
         }
@@ -755,11 +757,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 Section section = new Section();
-                section.set_SectionId(Integer.parseInt(cursor.getString(0)));
-                section.set_CourseId(Integer.parseInt(cursor.getString(1)));
-                section.set_SectionQuarter(Integer.parseInt(cursor.getString(2)));
-                section.set_SectionSemester(Integer.parseInt(cursor.getString(3)));
-                section.set_SectionYear(Integer.parseInt(cursor.getString(4)));
+                section.set_SectionUUID(cursor.getString(0));
+                section.set_SectionId(Integer.parseInt(cursor.getString(1)));
+                section.set_CourseId(Integer.parseInt(cursor.getString(2)));
+                section.set_SectionQuarter(Integer.parseInt(cursor.getString(3)));
+                section.set_SectionSemester(Integer.parseInt(cursor.getString(4)));
+                section.set_SectionYear(Integer.parseInt(cursor.getString(5)));
                 sectionList.add(section);
             }while (cursor.moveToNext());
         }
@@ -866,7 +869,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                homeworkList.add(new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),UUID));
+                homeworkList.add(new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID));
             }while (cursor.moveToNext());
         }
         cursor.close();
@@ -983,7 +986,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                criteriaList.add(new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3),UUID));
+                criteriaList.add(new Criteria(cursor.getInt(1),cursor.getString(2),cursor.getDouble(3),cursor.getInt(4),UUID));
             }while (cursor.moveToNext());
         }
         cursor.close();
@@ -997,7 +1000,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                Homework homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),UUID);
+                Homework homework=new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID);
                 Log.e(DatabaseHandler.class.toString(),homework.toString()+"\n");
             }while (cursor.moveToNext());
         }
@@ -1011,7 +1014,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                Criteria criteria= new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3),UUID);
+                Criteria criteria= new Criteria(cursor.getInt(1),cursor.getString(2),cursor.getDouble(3),cursor.getInt(4),UUID);
                 Log.e(DatabaseHandler.class.toString(),criteria.toString()+"\n");
             }while (cursor.moveToNext());
         }
