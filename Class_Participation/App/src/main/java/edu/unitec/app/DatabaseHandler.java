@@ -651,9 +651,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    boolean studentExist(int studentId){
+    boolean studentExist(String studentEmail){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId, null);
+        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_EMAIL + " = '" + studentEmail+"'", null);
         if ( cursor.getCount() > 0 ){
             cursor.close();
             return true;

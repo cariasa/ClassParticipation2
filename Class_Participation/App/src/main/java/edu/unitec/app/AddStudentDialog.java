@@ -113,7 +113,7 @@ public class AddStudentDialog extends DialogFragment
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-                            if(!db.studentExist(Integer.parseInt(studentId.getText().toString()))){
+                            if(!db.studentExist(studentId.getText().toString() + studentName.getText().toString())){
                                 if(db.tableStudentIsEmpty(currentSection.get_SectionId())) {
                                     //if table student is empty show the invisible menuItems
                                     MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);
