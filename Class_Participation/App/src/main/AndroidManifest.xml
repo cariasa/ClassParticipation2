@@ -4,13 +4,15 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -28,31 +30,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CourseActivity"
+            android:name="edu.unitec.app.CourseActivity"
             android:label="@string/courseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SectionActivity"
+            android:name="edu.unitec.app.SectionActivity"
             android:label="@string/sectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StudentActivity"
+            android:name="edu.unitec.app.StudentActivity"
             android:label="Student"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id" />
+            android:value="@string/facebook_app_id" />
+
         <activity
-            android:name=".HomeworkActivity"
+            android:name="edu.unitec.app.HomeworkActivity"
             android:label="@string/title_activity_create_homework"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CheckHomework"
+            android:name="edu.unitec.app.CheckHomework"
             android:label="@string/title_activity_check_homework"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="edu.unitec.app.MainActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+
+        <activity
+            android:name="com.facebook.LoginActivity"
+            >
+        </activity>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>
