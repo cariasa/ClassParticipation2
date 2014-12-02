@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +18,17 @@ import android.widget.Toast;
  */
 public class CourseActivity extends Activity {
 
+        String UUID;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_course);
             getWindow().setSoftInputMode(
                     WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+            Intent intent = getIntent();
+            UUID = intent.getStringExtra("UUID");
 
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -65,7 +71,7 @@ public class CourseActivity extends Activity {
                 if( !course_cod.isEmpty() && !course_nam.isEmpty() && !course_des.isEmpty() )
                 {
                     DatabaseHandler base = new DatabaseHandler(this);
-                    Course course = new Course(course_cod, course_nam, course_des);
+                    Course course = new Course(course_cod, course_nam, course_des,UUID);
                     base.addCourse(course);
                     Context context = getApplicationContext();
                     CharSequence text = "Success!!";
