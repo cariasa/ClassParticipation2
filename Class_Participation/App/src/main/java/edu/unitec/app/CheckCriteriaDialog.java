@@ -24,11 +24,13 @@ public class CheckCriteriaDialog extends DialogFragment {
     int studentId;
     Criteria currentCriteria;
     ArrayAdapter arrayAdapter;
+    String UUID ;
 
-    public CheckCriteriaDialog(int studentId, Criteria currentCriteria,ArrayAdapter arrayAdapter) {
+    public CheckCriteriaDialog(int studentId, Criteria currentCriteria,ArrayAdapter arrayAdapter,String UUID) {
         this.studentId = studentId;
         this.currentCriteria = currentCriteria;
         this.arrayAdapter =arrayAdapter;
+        this.UUID = UUID;
     }
 
     @Override
@@ -79,14 +81,14 @@ public class CheckCriteriaDialog extends DialogFragment {
                     //Database
                     DatabaseHandler db = new DatabaseHandler(view.getContext());
                     //if already exist
-                    if(db.homeworkStudentExist(currentCriteria.getCriteriaId(),studentId)){
+                    if(db.homeworkStudentExist(currentCriteria.getCriteriaId(),studentId,UUID)){
                         //get the ID of the table
-                        int homeworkStudentId=db.getHomeworkStudentId(currentCriteria.getCriteriaId(),studentId);
+                        int homeworkStudentId=db.getHomeworkStudentId(currentCriteria.getCriteriaId(),studentId,UUID);
                         //update the Grade
-                        db.updateHomeworkStudent(homeworkStudentId,grade);
+                        db.updateHomeworkStudent(homeworkStudentId,grade,UUID);
                     }else{//if doesn't exist
                         //add
-                        db.addHomeworkStudent(grade, currentCriteria.getCriteriaId(), studentId);
+                        db.addHomeworkStudent(grade, currentCriteria.getCriteriaId(), studentId,UUID);
                         db.close();
                     }
                     arrayAdapter.notifyDataSetChanged();

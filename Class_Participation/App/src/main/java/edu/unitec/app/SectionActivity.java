@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,11 +23,16 @@ import java.util.List;
 public class SectionActivity extends Activity
 {
 
+    private String UUID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section);
+
+        Intent intent = getIntent();
+        UUID = intent.getStringExtra("UUID");
 
         loadYears();
         loadCourses();
@@ -58,7 +64,7 @@ public class SectionActivity extends Activity
 
     public void loadCourses()
     {
-        List<String> courseList = new DatabaseHandler(this).getAllName_Courses();
+        List<String> courseList = new DatabaseHandler(this).getAllName_Courses(UUID);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner)findViewById(R.id.spinnerCourse)).setAdapter(dataAdapter);
@@ -172,8 +178,8 @@ public class SectionActivity extends Activity
 
                 //Database
                 SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-                db.execSQL("INSERT INTO section(CourseId, SectionQuarter, SectionSemester, SectionYear, SectionCode) VALUES(" +
-                        courseId + ", " + quarter + ", " + semester + ", " + year + ", \"" + sectionCode + "\")");
+                db.execSQL("INSERT INTO section(SectionId,TeacherUUID,CourseId, SectionQuarter, SectionSemester, SectionYear, SectionCode) VALUES(" +
+                        getSection(UUID,db)+", '"+UUID+"' ,"+courseId + ", " + quarter + ", " + semester + ", " + year + ", \"" + sectionCode + "\")");
                 db.close();
 
                 //Show a message
@@ -189,6 +195,24 @@ public class SectionActivity extends Activity
                 toast.show();
             }
         }
+    }
+
+    int getSection(String UUID,SQLiteDatabase databases){
+        SQLiteDatabase db = databases;
+        String query = "SELECT SectionId FROM section WHERE TeacherUUID  = '"+UUID+"' ORDER BY SectionId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
     }
 
     @Override

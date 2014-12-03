@@ -20,10 +20,13 @@ import android.widget.Toast;
 public class CreateHomeworkDialog extends DialogFragment {
     Section currentSection;
     EditText homeworkName;
+    String UUID;
 
-    CreateHomeworkDialog(Section currentSection)
+    CreateHomeworkDialog(Section currentSection,String UUID)
     {
+
         this.currentSection = currentSection;
+        this.UUID = UUID;
     }
 
     @Override
@@ -91,14 +94,14 @@ public class CreateHomeworkDialog extends DialogFragment {
                         homeworkName.requestFocus();
                     }else{
                         Homework homework = new Homework(homeworkName.getText().toString(),
-                                currentSection.get_SectionId());
+                                currentSection.get_SectionId(),UUID);
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-                            if(!db.homeworkExist(homework,currentSection.get_SectionId())){
+                            if(!db.homeworkExist(homework,currentSection.get_SectionId(),UUID)){
                                 db.addHomework(homework);
                                 //send the homework from de database to the activity
-                                homework=db.getLastHomework();
+                                homework=db.getLastHomework(UUID);
                                 ((HomeworkActivity)getActivity()).setHomework(homework);
                                 getActivity().setTitle(homeworkName.getText().toString());
                                 db.close();

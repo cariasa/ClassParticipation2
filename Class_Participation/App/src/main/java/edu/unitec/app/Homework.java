@@ -9,16 +9,19 @@ public class Homework implements Serializable {
     private int HomeworkId;
     private String HomeworkName;
     private int SectionId;
+    private String HomeworkUUID;
 
-    public Homework(int homeworkId, String homeworkName, int sectionId) {
+    public Homework(int homeworkId, String homeworkName, int sectionId , String UUID) {
         HomeworkId = homeworkId;
         HomeworkName = homeworkName;
         SectionId = sectionId;
+        HomeworkUUID = UUID;
     }
 
-    public Homework(String homeworkName, int sectionId) {
+    public Homework(String homeworkName, int sectionId , String UUID) {
         HomeworkName = homeworkName;
         SectionId = sectionId;
+        HomeworkUUID = UUID;
     }
 
     public int getHomeworkId() {
@@ -43,6 +46,14 @@ public class Homework implements Serializable {
 
     public void setSectionId(int sectionId) {
         SectionId = sectionId;
+    }
+
+    public String getHomeworkUUID() {
+        return HomeworkUUID;
+    }
+
+    public void setHomeworkUUID(String homeworkUUID) {
+        HomeworkUUID = homeworkUUID;
     }
 
     @Override

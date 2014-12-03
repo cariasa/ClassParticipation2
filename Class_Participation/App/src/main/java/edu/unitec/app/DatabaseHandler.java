@@ -19,6 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Course Table
     private static final String TABLE_COURSE = "course";
     // Table Course - Table Fields
+    private static final String COURSE_UUID = "TeacherUUID";
     private static final String COURSE_ID = "CourseId";
     private static final String COURSE_CODE = "CourseCode";
     private static final String COURSE_NAME = "CourseName";
@@ -27,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Section Table
     private static final String TABLE_SECTION = "section";
     // Table Section - Table Fields
+    private static final String SECT_UUID = "TeacherUUID";
     private static final String SECT_ID = "SectionId";
     private static final String SECT_COURSE = "CourseId";
     private static final String SECT_QTR = "SectionQuarter";
@@ -37,6 +39,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Students Table
     private static final String TABLE_STUDENT="student";
     // Table Students Fie- Table Fieldslds
+    private static final String STU_EMAIL = "StudentEmail";
+    private static final String STU_PASSWORD = "StudentPassword";
     private static final String STU_ID = "StudentId";
     private static final String STU_NAME = "StudentName";
     private static final String STU_MAJOR = "StudentMajor";
@@ -44,6 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Students Per Section Table
     private static final String TABLE_STUDENTSECTION = "studentSection";
     // Table Students Per Section - Table Fields
+    private static final String STUSEC_UUID = "TeacherUUID";
     private static final String STUSEC_ID = "StudentSectionId";
     private static final String STUSEC_SECT = "SectionId";
     private static final String STUSEC_STUD = "StudentId";
@@ -52,6 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Partipations Per Student Table
     private static final String TABLE_PARTICIPATION = "participationStudent";
     // Table Participations Per Student - Fields
+    private static final String PART_UUID = "TeacherUUID";
     private static final String PART_ID = "ParticipationId";
     private static final String PART_STUSECT = "StudentSectionId";
     private static final String PART_GRADE = "ParticipationGrade";
@@ -61,6 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Homework Table
     private static final String TABLE_HOMEWORK = "homework";
     // Table Homework - Table Fields
+    private static final String HOMEWORK_UUID = "TeacherUUID";
     private static final String HOMEWORK_ID = "HomeworkId";
     private static final String HOMEWORK_NAME = "HomeworkName";
     private static final String HOMEWORK_SECID = "SectionId";
@@ -68,6 +75,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Critera Per Homework Table
     private static final String TABLE_CRITERIA = "criteria";
     // Table Homework - Table Fields
+    private static final String CRITERIA_UUID = "TeacherUUID";
     private static final String CRITERIA_ID = "CriteriaId";
     private static final String CRITERIA_NAME = "CriteriaName";
     private static final String CRITERIA_HOMEWORK = "HomeworkId";
@@ -76,10 +84,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Homework Per Student Table
     private static final String TABLE_HOMESTU = "homeworkStudent";
     // Table Homework - Table Fields
+    private static final String HOMESTU_UUID = "TeacherUUID";
+    private static final String HOMESTU_HomeworkStudentDate = "HomeworkStudentDate";
     private static final String HOMESTU_ID = "HomeworkStudentId";
     private static final String HOMESTU_CriteriaId = "CriteriaId";
     private static final String HOMESTU_StudentId = "StudentId";
     private static final String HOMESTU_Grade = "HomeworkStudentGrade";
+
+    // Teacher Table
+    private static final String TABLE_TEACHER = "Teacher";
+    // Table Teacher - Table Fields
+    private static final String TEACHER_UUID = "TeacherUUID";
+    private static final String TEACHER_NAME = "TeacherName";
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -87,71 +103,105 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String CREATE_TEACHER_TABLE = "CREATE TABLE "+TABLE_TEACHER+" (" +
+                TEACHER_UUID+" TEXT PRIMARY KEY," +
+                TEACHER_NAME+" TEXT"+
+                ")";
+
+
         String CREATE_COURSE_TABLE =
                 "CREATE TABLE " + TABLE_COURSE + " (" +
-                        COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COURSE_ID + " INTEGER, " +
+                        COURSE_UUID+" TEXT, " +
                         COURSE_CODE + " TEXT," +
                         COURSE_NAME + " TEXT," +
-                        COURSE_DESC + " TEXT" +
+                        COURSE_DESC + " TEXT, " +
+
+                        "PRIMARY KEY ("+COURSE_UUID+","+COURSE_ID+"), "+
+                        "FOREIGN KEY("+ COURSE_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_SECTION_TABLE =
                 "CREATE TABLE " + TABLE_SECTION + " (" +
-                        SECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        SECT_UUID + " TEXT , " +
+                        SECT_ID + " INTEGER , " +
                         SECT_COURSE + " INTEGER," +
                         SECT_QTR + " INTEGER," +
                         SECT_SEM + " INTEGER," +
                         SECT_YEA + " INTEGER, " +
                         SECT_CODE + " TEXT," +
-                        "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + ")" +
+                        "PRIMARY KEY ("+SECT_UUID+","+SECT_ID+"), "+
+                        "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + "), " +
+                        "FOREIGN KEY("+ SECT_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_STUDENT_TABLE =
                 "CREATE TABLE " + TABLE_STUDENT + " (" +
-                        STU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        STU_ID + " INTEGER ," +
                         STU_NAME + " TEXT," +
-                        STU_MAJOR + " TEXT" + ")";
+                        STU_MAJOR + " TEXT," +
+                        STU_EMAIL + " TEXT PRIMARY KEY," +
+                        STU_PASSWORD + " TEXT" +
+                        ")";
+
         String CREATE_STUDENTSECTION_TABLE =
                 "CREATE TABLE " + TABLE_STUDENTSECTION + " (" +
-                        STUSEC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        STUSEC_UUID + " TEXT, "+
+                        STUSEC_ID + " INTEGER," +
                         STUSEC_SECT + " INTEGER," +
                         STUSEC_STUD + " INTEGER," +
                         STUSEC_FINAL + " REAL," +
+                        "PRIMARY KEY ("+STUSEC_UUID+","+STUSEC_ID+"), "+
                         "FOREIGN KEY(" + STUSEC_SECT + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + "), " +
-                        "FOREIGN KEY(" + STUSEC_STUD + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")" +
+                        "FOREIGN KEY(" + STUSEC_STUD + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
+                        "FOREIGN KEY("+ STUSEC_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_PARTICIPATION_TABLE =
                 "CREATE TABLE " + TABLE_PARTICIPATION + " (" +
-                        PART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        PART_UUID + " TEXT, "+
+                        PART_ID + " INTEGER," +
                         PART_STUSECT + " INTEGER," +
                         PART_GRADE + " REAL," +
                         PART_DATE + " TEXT," +
                         PART_COMMENT + " TEXT," +
-                        "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")" +
+                        "PRIMARY KEY ("+PART_UUID+","+PART_ID+"), "+
+                        "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")," +
+                        "FOREIGN KEY("+ PART_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_HOMEWORK_TABLE =
                 "CREATE TABLE " + TABLE_HOMEWORK + " (" +
-                        HOMEWORK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        HOMEWORK_UUID + " TEXT, " +
+                        HOMEWORK_ID + " INTEGER, " +
                         HOMEWORK_NAME + " TEXT," +
                         HOMEWORK_SECID + " INTEGER," +
-                        "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")" +
+                        "PRIMARY KEY ("+HOMEWORK_UUID+","+HOMEWORK_ID+"), "+
+                        "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")," +
+                        "FOREIGN KEY("+ HOMEWORK_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_CRITERIA_TABLE =
                 "CREATE TABLE " + TABLE_CRITERIA + " (" +
-                        CRITERIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        CRITERIA_UUID + " TEXT, " +
+                        CRITERIA_ID + " INTEGER," +
                         CRITERIA_NAME + " TEXT," +
                         CRITERIA_WEIGHT + " REAL," +
                         CRITERIA_HOMEWORK + " INTEGER," +
-                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")" +
+                        "PRIMARY KEY ("+CRITERIA_UUID+","+CRITERIA_ID+"), "+
+                        "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")," +
+                        "FOREIGN KEY("+ CRITERIA_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
         String CREATE_HOMESTU_TABLE =
                 "CREATE TABLE " + TABLE_HOMESTU + " (" +
-                        HOMESTU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        HOMESTU_UUID + " TEXT, "+
+                        HOMESTU_ID + " INTEGER," +
                         HOMESTU_Grade + " REAL," +
                         HOMESTU_CriteriaId + " INTEGER," +
                         HOMESTU_StudentId + " INTEGER," +
+                        HOMESTU_HomeworkStudentDate + "DATE, " +
+                        "PRIMARY KEY ("+HOMESTU_UUID+","+HOMESTU_ID+"), "+
                         "FOREIGN KEY(" + HOMESTU_CriteriaId + ") REFERENCES " + TABLE_CRITERIA + "(" + CRITERIA_ID + "), " +
-                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")" +
+                        "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
+                        "FOREIGN KEY("+ HOMESTU_UUID +") REFERENCES "+ TABLE_TEACHER +"("+ TEACHER_UUID +")" +
                         ")";
 
+        db.execSQL(CREATE_TEACHER_TABLE);
         db.execSQL(CREATE_COURSE_TABLE);
         db.execSQL(CREATE_SECTION_TABLE);
         db.execSQL(CREATE_STUDENT_TABLE);
@@ -163,6 +213,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SECTION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
@@ -176,7 +227,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addCourse(Course course){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(COURSE_ID, course.getCourseId());
+
+        values.put(COURSE_ID, getLastCourseID(course.getCourseUUID()));
+        values.put(COURSE_UUID, course.getCourseUUID());
         values.put(COURSE_CODE, course.getCourseCode());
         values.put(COURSE_NAME, course.getCourseName());
         values.put(COURSE_DESC, course.getCourseDescription());
@@ -184,9 +237,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    int getLastCourseID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT CourseId FROM course WHERE TeacherUUID  = '"+UUID+"' ORDER BY CourseId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
     void addStudentTable(Student student, Section section){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(STUSEC_ID, getStudentSectionID(section.get_SectionUUID()));
+        values.put(STUSEC_UUID,section.get_SectionUUID());
         values.put(STUSEC_SECT, section.get_SectionId());
         values.put(STUSEC_STUD, student.get_StudentId());
         values.put(STUSEC_FINAL, 0);
@@ -194,10 +268,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    List<Integer> getStudentIdListBySectionId(int sectionId){
+    int getStudentSectionID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT StudentSectionId FROM studentSection WHERE TeacherUUID  = '"+UUID+"' ORDER BY StudentSectionId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
+    List<Integer> getStudentIdListBySectionId(int sectionId,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT "+STUSEC_STUD+
-                " FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+                " FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId +" AND " + STUSEC_UUID + " = '"+UUID+"' ";
         Cursor cursor = db.rawQuery(query, null);
         List<Integer> studentIdList=new ArrayList<Integer>();
         if(cursor.getCount()>0){
@@ -215,6 +307,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addParticipation(Participation participation){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(PART_ID,getParticipationID(participation.get_ParcicipationUUID()));
+        values.put(PART_UUID,participation.get_ParcicipationUUID());
         values.put(PART_STUSECT, participation.get_StudentSectionId());
         values.put(PART_GRADE, participation.get_ParticipationGrade());
         values.put(PART_DATE, participation.get_ParticipationDate());
@@ -223,15 +318,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Participation> getParticipationList(int sectionId){
+    int getParticipationID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT ParticipationId FROM participationStudent WHERE TeacherUUID  = '"+UUID+"' ORDER BY ParticipationId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
+    public List<Participation> getParticipationList(int sectionId,String UUID){
         List<Participation> participationList=new ArrayList<Participation>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT "+STUSEC_ID+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        String query = "SELECT "+STUSEC_ID+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId + " AND " + STUSEC_UUID + " = '"+UUID+"' ";
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
         for(int i=0;i<studentsSections.getCount();i++){
-            query = "SELECT "+PART_ID+", "+PART_GRADE+ ", "+PART_DATE+", "+PART_COMMENT+
-                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+            query = "SELECT "+PART_ID+", "+PART_GRADE+ ", "+PART_DATE+", "+PART_COMMENT + ", " + PART_UUID +
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID+"'";
             Cursor participations = db.rawQuery(query, null);
             if(participations.getCount()>0) {
                 participations.moveToFirst();
@@ -240,7 +353,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             participations.getInt(0),
                             participations.getDouble(1),
                             participations.getString(2),
-                            participations.getString(3)));
+                            participations.getString(3),
+                            participations.getString(4)));
                 } while (participations.moveToNext());
             }
             participations.close();
@@ -249,7 +363,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         studentsSections.close();
         return participationList;
     }
-    public String getMaxAverageStudentParticipation(int sectionId){
+    public String getMaxAverageStudentParticipation(int sectionId,String UUID){
         //internal class to get the Name of the student and the average
         class StudentAndAverage{
             String name;
@@ -265,7 +379,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         List<StudentAndAverage> averagesList=new ArrayList<StudentAndAverage>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId + " AND " + STUSEC_UUID + " = '"+UUID+"'" ;
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
 
@@ -273,7 +387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             double acumGrades=0,average=0;
             int quantityOfGrades=0;
             query = "SELECT "+PART_GRADE+
-                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "'";
             Cursor participations = db.rawQuery(query, null);
             if(participations.getCount()>0) {
                 participations.moveToFirst();
@@ -304,7 +418,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return "N/A";
     }
 
-    public String getMinAverageStudentParticipation(int sectionId){
+    public String getMinAverageStudentParticipation(int sectionId,String UUID){
         try {
             //internal class to get the Name of the student and the average
             class StudentAndAverage {
@@ -324,7 +438,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             List<StudentAndAverage> averagesList = new ArrayList<StudentAndAverage>();
             SQLiteDatabase db = this.getReadableDatabase();
-            String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId;
+            String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " " +
+                    "WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "'";
             Cursor studentsSections = db.rawQuery(query, null);
             studentsSections.moveToFirst();
 
@@ -332,7 +447,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 double acumGrades = 0, average = 0;
                 int quantityOfGrades = 0;
                 query = "SELECT " + PART_GRADE +
-                        " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0);
+                        " FROM " + TABLE_PARTICIPATION + "" +
+                        " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " +PART_UUID + " = '" + UUID + "' ";
                 Cursor participations = db.rawQuery(query, null);
                 if (participations.getCount() > 0) {
                     participations.moveToFirst();
@@ -366,7 +482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return "N/A";
         }
     }
-    public String getMaxAverageStudentHomework(int sectionId){
+    public String getMaxAverageStudentHomework(int sectionId,String UUID){
         //internal class to get the Name of the student and the average
         class StudentAndAverage{
             String name;
@@ -382,7 +498,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         List<StudentAndAverage> averagesList=new ArrayList<StudentAndAverage>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" WHERE "+STUSEC_SECT+" = "+sectionId;
+        String query = "SELECT "+STUSEC_ID+", "+STUSEC_STUD+" FROM "+ TABLE_STUDENTSECTION+" " +
+                "WHERE "+STUSEC_SECT+" = "+sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' ";
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
 
@@ -390,7 +507,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             double acumGrades=0,average=0;
             int quantityOfGrades=0;
             query = "SELECT "+PART_GRADE+
-                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0);
+                    " FROM "+ TABLE_PARTICIPATION+" WHERE "+PART_STUSECT+" = "+studentsSections.getInt(0)
+            + " AND " + PART_UUID + " = '"+UUID+"' "
+            ;
             Cursor participations = db.rawQuery(query, null);
             if(participations.getCount()>0) {
                 participations.moveToFirst();
@@ -429,13 +548,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return name;
     }
-    List<Participation> getStudentParticipationList(int studentSectionId)
+    List<Participation> getStudentParticipationList(int studentSectionId , String UUID)
     {
         List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM participationStudent WHERE StudentSectionId="+studentSectionId;
+        String query = "SELECT * FROM participationStudent WHERE StudentSectionId="+studentSectionId + " AND TeacherUUID = '" + UUID + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -443,9 +562,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             do
             {
-                currentStudentParticipationList.add(new Participation(cursor.getInt(0), cursor.getInt(1),
-                        cursor.getDouble(2), cursor.getString(3),
-                        cursor.getString(4)));
+                currentStudentParticipationList.add(new Participation(cursor.getInt(1), cursor.getInt(2),
+                        cursor.getDouble(3), cursor.getString(4),
+                        cursor.getString(5),cursor.getString(0)));
 
             } while ( cursor.moveToNext() );
         }
@@ -456,9 +575,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return currentStudentParticipationList;
     }
 
-    double getFinalGrade( int studentSectionId){
+    double getFinalGrade( int studentSectionId,String UUID){
         String selectQuery  = "SELECT StudentSectionFinal FROM studentSection WHERE StudentSectionId = " +
-                studentSectionId;
+                studentSectionId + " AND TeacherUUID = '"+ UUID + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         double studentSectionFinal = 0;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -470,10 +589,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return studentSectionFinal;
     }
 
-    public void UpdateparticipationStudent(int studentSectionId, double studentSectionFinal ){
+    public void UpdateparticipationStudent(int studentSectionId, double studentSectionFinal,String UUID){
         SQLiteDatabase db = this.getWritableDatabase();
-        String strSQL = "UPDATE studentSection SET StudentSectionFinal =  " + studentSectionFinal + " WHERE StudentSectionId = " +
-                studentSectionId;
+        String strSQL = "UPDATE studentSection SET StudentSectionFinal =  " + studentSectionFinal + " " +
+                "WHERE StudentSectionId = " +
+                studentSectionId + " AND TeacherUUID = '"+ UUID + "'";
         db.execSQL(strSQL);
         db.close();
     }
@@ -484,6 +604,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(STU_ID, student.get_StudentId());
         values.put(STU_NAME, student.get_StudentName());
         values.put(STU_MAJOR, student.get_StudentMajor());
+        values.put(STU_EMAIL,student.get_StudentEmail());
+        values.put(STU_PASSWORD,student.get_StudentId());
         db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
@@ -529,9 +651,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    boolean studentExist(int studentId){
+    boolean studentExist(String studentEmail){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId, null);
+        Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_EMAIL + " = '" + studentEmail+"'", null);
         if ( cursor.getCount() > 0 ){
             cursor.close();
             return true;
@@ -552,10 +674,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    boolean studentSectionExist(Section section, int studentId){
+    boolean studentSectionExist(Section section, int studentId , String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
-                " WHERE " + STUSEC_SECT + " = " + section.get_SectionId(), null);
+                " WHERE " + STUSEC_SECT + " = " + section.get_SectionId() + " AND " + STUSEC_UUID +" = '"+ UUID +"'"
+                , null);
         if ( cursor.moveToFirst() )        {
             do{
                 if ( cursor.getInt(0) == studentId ){
@@ -569,27 +692,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    Course getCourse(int id){
+    Course getCourse(int id,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_COURSE,
-                new String[]{COURSE_ID, COURSE_CODE, COURSE_NAME, COURSE_DESC},
-                COURSE_ID + "=?",
-                new String[]{String.valueOf(id)},
+                new String[]{COURSE_ID, COURSE_UUID,COURSE_CODE, COURSE_NAME, COURSE_DESC},
+                COURSE_ID + "=? and " + COURSE_UUID + " =?",
+                new String[]{String.valueOf(id),UUID},
                 null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         Course course = new Course(
                 Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3));
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(1));
         cursor.close();
         return course;
     }
-    public String getCourseName(int courseId){
+    public String getCourseName(int courseId,String UUID){
         List<Course> courseList = new ArrayList<Course>();
-        String selectQuery  = "SELECT "+COURSE_NAME+" FROM " + TABLE_COURSE + " WHERE " + COURSE_ID + " = "+courseId;
+        String selectQuery  = "SELECT "+COURSE_NAME+" FROM " + TABLE_COURSE + "" +
+                " WHERE " + COURSE_ID + " = "+courseId + " AND " + COURSE_UUID + " = '"+UUID+"' ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -602,18 +727,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return retVal;
     }
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses(String UUID){
         List<Course> courseList = new ArrayList<Course>();
-        String selectQuery  = "SELECT * FROM " + TABLE_COURSE + " ORDER BY " + COURSE_ID + " ASC";
+        String selectQuery  = "SELECT * FROM " + TABLE_COURSE + " " +
+                "WHERE "+COURSE_UUID +" = '"+UUID+"' ORDER BY " + COURSE_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
                 Course course = new Course();
                 course.setCourseId(Integer.parseInt(cursor.getString(0)));
-                course.setCourseCode(cursor.getString(1));
-                course.setCourseName(cursor.getString(2));
-                course.setCourseDescription(cursor.getString(3));
+                course.setCourseCode(cursor.getString(2));
+                course.setCourseName(cursor.getString(3));
+                course.setCourseDescription(cursor.getString(4));
+                course.setCourseUUID(cursor.getString(1));
                 courseList.add(course);
             }while (cursor.moveToNext());
         }
@@ -621,19 +748,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return courseList;
     }
 
-    public List<Section> getAllSections(){
+    public List<Section> getAllSections(String UUID){
         List<Section> sectionList = new ArrayList<Section>();
-        String selectQuery  = "SELECT * FROM " + TABLE_SECTION + " ORDER BY " + SECT_ID + " ASC";
+        String selectQuery  = "SELECT * FROM " + TABLE_SECTION +
+                " WHERE "+SECT_UUID +" = '"+UUID+"' ORDER BY " + SECT_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
                 Section section = new Section();
-                section.set_SectionId(Integer.parseInt(cursor.getString(0)));
-                section.set_CourseId(Integer.parseInt(cursor.getString(1)));
-                section.set_SectionQuarter(Integer.parseInt(cursor.getString(2)));
-                section.set_SectionSemester(Integer.parseInt(cursor.getString(3)));
-                section.set_SectionYear(Integer.parseInt(cursor.getString(4)));
+                section.set_SectionUUID(cursor.getString(0));
+                section.set_SectionId(Integer.parseInt(cursor.getString(1)));
+                section.set_CourseId(Integer.parseInt(cursor.getString(2)));
+                section.set_SectionQuarter(Integer.parseInt(cursor.getString(3)));
+                section.set_SectionSemester(Integer.parseInt(cursor.getString(4)));
+                section.set_SectionYear(Integer.parseInt(cursor.getString(5)));
                 sectionList.add(section);
             }while (cursor.moveToNext());
         }
@@ -641,9 +770,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return sectionList;
     }
 
-    public List<String> getAllName_Courses(){
+    public List<String> getAllName_Courses(String UUID){
         List<String> courseList = new ArrayList<String>();
-        String selectQuery  = "SELECT * FROM " + TABLE_COURSE + " ORDER BY " + COURSE_ID + " ASC";
+        String selectQuery  = "SELECT * FROM " + TABLE_COURSE + "" +
+                " WHERE "+COURSE_UUID +" = '"+UUID+"' ORDER BY " + COURSE_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
@@ -654,79 +784,107 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return courseList;
     }
-    public int getCoursesCount(){
-        String countQuery = "SELECT * FROM " + TABLE_COURSE;
+    public int getCoursesCount(String UUID){
+        String countQuery = "SELECT * FROM " + TABLE_COURSE +" WHERE "+COURSE_UUID +" = '"+UUID+"'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
         return cursor.getCount();
     }
+
+
     public int updateCourse(Course course){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COURSE_UUID,course.getCourseUUID());
         values.put(COURSE_CODE, course.getCourseCode());
         values.put(COURSE_NAME, course.getCourseName());
         values.put(COURSE_DESC, course.getCourseDescription());
         return db.update(
                 TABLE_COURSE,
                 values,
-                COURSE_ID + "=?",
-                new String[]{String.valueOf(course.getCourseId())});
+                COURSE_ID + "=? and "+COURSE_UUID +"=?",
+                new String[]{String.valueOf(course.getCourseId()) , course.getCourseUUID()});
     }
     public void deleteCourse(Course course){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(
                 TABLE_COURSE,
-                COURSE_ID + "=?",
-                new String[]{String.valueOf(course.getCourseId())});
+                COURSE_ID + "=? and "+COURSE_UUID +"=?",
+                new String[]{String.valueOf(course.getCourseId()),course.getCourseUUID()});
         db.close();
     }
     public void addHomework(Homework homework){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(HOMEWORK_ID,getHomeworkID(homework.getHomeworkUUID()));
+        values.put(HOMEWORK_UUID, homework.getHomeworkUUID());
         values.put(HOMEWORK_NAME, homework.getHomeworkName());
         values.put(HOMEWORK_SECID, homework.getSectionId());
         db.insert(TABLE_HOMEWORK, null, values);
         db.close();
     }
-    public Homework getLastHomework(){
+
+    int getHomeworkID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT HomeworkId FROM homework WHERE TeacherUUID  = '"+UUID+"' ORDER BY HomeworkId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
+    public Homework getLastHomework(String UUID){
         Homework homework=null;
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
+                " WHERE " + HOMEWORK_UUID + " = '"+UUID+"'"+
                 " ORDER BY " + HOMEWORK_ID + " DESC LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+                homework=new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID);
             }while (cursor.moveToNext());
         }
         cursor.close();
         return homework;
     }
-    public List<Homework> getAll_Homework(int sectionId){
+    public List<Homework> getAll_Homework(int sectionId,String UUID){
         List<Homework> homeworkList = new ArrayList<Homework>();
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
                               " WHERE "+ HOMEWORK_SECID + " = " + sectionId +
+                              " AND "+ HOMEWORK_UUID+ " = '" + UUID + "'"+
                               " ORDER BY " + HOMEWORK_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                homeworkList.add(new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2)));
+                homeworkList.add(new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID));
             }while (cursor.moveToNext());
         }
         cursor.close();
         return homeworkList;
     }
 
-    boolean homeworkExist(Homework homework,int SectionId)
+    boolean homeworkExist(Homework homework,int SectionId,String UUID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + HOMEWORK_ID +
                                     " FROM " + TABLE_HOMEWORK +
                                     " WHERE " + HOMEWORK_NAME + " = '" + homework.getHomeworkName() + "'"+
-                                    " AND " + HOMEWORK_SECID + " = " + SectionId, null);
+                                    " AND " + HOMEWORK_SECID + " = " + SectionId +
+                                    " AND " + HOMEWORK_UUID + " = '" + UUID+"'", null);
 
         if ( cursor.getCount() > 0 )
         {
@@ -736,14 +894,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return false;
     }
-    boolean criteriaExist(String criteriaName,int homeworkId)
+    boolean criteriaExist(String criteriaName,int homeworkId,String UUID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + CRITERIA_ID +
                 " FROM " + TABLE_CRITERIA +
                 " WHERE " + CRITERIA_NAME + " = '" + criteriaName + "'"+
-                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId, null);
+                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId +
+                " AND " + CRITERIA_UUID + " = '"+UUID+"'", null);
 
         if ( cursor.getCount() > 0 )
         {
@@ -756,19 +915,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addCriteria(Criteria criteria){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(CRITERIA_ID,getCriteriaID(criteria.getCriteriaUUID()));
+        values.put(CRITERIA_UUID,criteria.getCriteriaUUID());
         values.put(CRITERIA_NAME, criteria.getCriteriaName());
         values.put(CRITERIA_WEIGHT,criteria.getCriteriaWeight());
         values.put(CRITERIA_HOMEWORK,criteria.getCriteriaHomeworkId());
         db.insert(TABLE_CRITERIA, null, values);
         db.close();
     }
-    public double getCriteriaWeight(String criteriaName,int homeworkId)
+
+    int getCriteriaID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT CriteriaId FROM criteria WHERE TeacherUUID  = '"+UUID+"' ORDER BY CriteriaId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
+    public double getCriteriaWeight(String criteriaName,int homeworkId,String UUID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + CRITERIA_WEIGHT +
                 " FROM " + TABLE_CRITERIA +
                 " WHERE " + CRITERIA_NAME + " = '" + criteriaName + "'"+
-                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId;
+                " AND " + CRITERIA_HOMEWORK + " = " + homeworkId +
+                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
         Cursor cursor = db.rawQuery(query, null);
         Double weight=0.0;
         if ( cursor.moveToFirst() )
@@ -779,11 +961,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return weight;
     }
-    public List<Double> getAllCriteria_Weights(int homeworkId){
+    public List<Double> getAllCriteria_Weights(int homeworkId,String UUID){
         List<Double> weightList = new ArrayList<Double>();
         String selectQuery  = "SELECT " + CRITERIA_WEIGHT +
                 " FROM " + TABLE_CRITERIA +
-                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId;
+                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId +
+                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
@@ -794,57 +977,83 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return weightList;
     }
-    public List<Criteria> getAllCriteriaByHomework(int homeworkId){
+    public List<Criteria> getAllCriteriaByHomework(int homeworkId,String UUID){
         List<Criteria> criteriaList = new ArrayList<Criteria>();
         String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA +
-                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId;
+                " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId +
+                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                criteriaList.add(new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3)));
+                criteriaList.add(new Criteria(cursor.getInt(1),cursor.getString(2),cursor.getDouble(3),cursor.getInt(4),UUID));
             }while (cursor.moveToNext());
         }
         cursor.close();
         return criteriaList;
     }
-    public void printHomeworkTable(){
+    public void printHomeworkTable(String UUID){
         String selectQuery  = "SELECT * FROM " + TABLE_HOMEWORK +
+                " WHERE " +HOMEWORK_UUID + " = '" +UUID + "'"+
                 " ORDER BY " + HOMEWORK_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                Homework homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+                Homework homework=new Homework(cursor.getInt(1),cursor.getString(2),cursor.getInt(3),UUID);
                 Log.e(DatabaseHandler.class.toString(),homework.toString()+"\n");
             }while (cursor.moveToNext());
         }
         cursor.close();
     }
-    public void printCriteriaTable(){
-        String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA
+    public void printCriteriaTable(String UUID){
+        String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA +
+                            " WHERE " + CRITERIA_UUID + " = '" + UUID + "'"
                             +" ORDER BY " + CRITERIA_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
             do{
-                Criteria criteria= new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3));
+                Criteria criteria= new Criteria(cursor.getInt(1),cursor.getString(2),cursor.getDouble(3),cursor.getInt(4),UUID);
                 Log.e(DatabaseHandler.class.toString(),criteria.toString()+"\n");
             }while (cursor.moveToNext());
         }
         cursor.close();
     }
-    public void addHomeworkStudent(Double grade,int criteriaId,int studentId){
+    public void addHomeworkStudent(Double grade,int criteriaId,int studentId,String UUID){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(HOMESTU_ID,getHomeworkStudentID(UUID));
+        values.put(HOMESTU_UUID,UUID);
         values.put(HOMESTU_Grade, grade);
         values.put(HOMESTU_CriteriaId,criteriaId);
         values.put(HOMESTU_StudentId,studentId);
         db.insert(TABLE_HOMESTU, null, values);
         db.close();
     }
-    public void printHomeworkStudentTable(){
+
+    int getHomeworkStudentID(String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT HomeworkStudentId FROM homeworkStudent WHERE TeacherUUID  = '"+UUID+"' ORDER BY HomeworkStudentId DESC LIMIT 1" ;
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int retval = cursor.getInt(0) + 1;
+            cursor.close();
+            return retval;
+        }else{
+            cursor.close();
+            return 1;
+        }
+
+    }
+
+    public void printHomeworkStudentTable(String UUID){
         String selectQuery  = "SELECT * FROM " + TABLE_HOMESTU
+                +" WHERE " + HOMESTU_UUID + " = '" + UUID +"'"
                 +" ORDER BY " + HOMESTU_ID+ " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -858,13 +1067,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
     }
-    public boolean homeworkStudentExist(int criteriaId,int studentId){
+    public boolean homeworkStudentExist(int criteriaId,int studentId,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + HOMESTU_ID +
                 " FROM " + TABLE_HOMESTU +
                 " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'"+
-                " AND " + HOMESTU_StudentId + " = " + studentId, null);
+                " AND " + HOMESTU_StudentId + " = " + studentId +
+                " AND " + HOMESTU_UUID + " = '" + UUID + "'", null);
         if ( cursor.getCount() > 0 )
         {
             cursor.close();
@@ -873,13 +1083,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return false;
     }
-    public int getHomeworkStudentId(int criteriaId,int studentId){
+    public int getHomeworkStudentId(int criteriaId,int studentId,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + HOMESTU_ID +
                 " FROM " + TABLE_HOMESTU +
                 " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'"+
-                " AND " + HOMESTU_StudentId + " = " + studentId, null);
+                " AND " + HOMESTU_StudentId + " = " + studentId +
+                " AND " + HOMEWORK_UUID + " = '" + UUID + "'", null);
         if ( cursor.moveToFirst() )
         {
             int retVal = cursor.getInt(0);
@@ -889,18 +1100,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return 0;
     }
-    public void updateHomeworkStudent(int homeworkStudentId,double grade){
+    public void updateHomeworkStudent(int homeworkStudentId,double grade,String UUID){
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL = "UPDATE "+TABLE_HOMESTU+" SET "+HOMESTU_Grade+" = " + grade +
-                        " WHERE "+HOMESTU_ID+" = " +homeworkStudentId;
+                        " WHERE "+HOMESTU_ID+" = " +homeworkStudentId +
+                        " AND " + HOMESTU_UUID + " = '" + UUID + "'";
         db.execSQL(strSQL);
         db.close();
     }
 
-    public List<String> getHomeworkNameAndGrade(int StudentID, int SectionID){
+    public List<String> getHomeworkNameAndGrade(int StudentID, int SectionID,String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         //query to get the Homeworks of the section
-        Cursor homeworks = db.rawQuery("SELECT " + HOMEWORK_ID + ", " + HOMEWORK_NAME + " FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_SECID + "=" + SectionID, null);
+        Cursor homeworks = db.rawQuery("SELECT " + HOMEWORK_ID + ", " + HOMEWORK_NAME + " FROM " + TABLE_HOMEWORK + "" +
+                                       " WHERE " + HOMEWORK_SECID + "=" + SectionID +
+                                       " AND " + HOMEWORK_UUID + " = '" + UUID + "'", null);
         homeworks.moveToFirst();
         double total_criteria_percentage=0;//Sum of all percentages obtained in all criteria of a homework
         double total_points_criteria = 0;//Total points possible per homework / Sum of all criteria weight per homework
@@ -910,7 +1124,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int id_homework = homeworks.getInt(0);
             String name_homework = homeworks.getString(1);
             //query to get all the criteria "id and weight" from a homework
-            Cursor criteria_homework = db.rawQuery("SELECT " + CRITERIA_ID + ", " + CRITERIA_WEIGHT + " FROM " + TABLE_CRITERIA + " WHERE " + CRITERIA_HOMEWORK + "=" + id_homework,null);
+            Cursor criteria_homework = db.rawQuery("SELECT " + CRITERIA_ID + ", " + CRITERIA_WEIGHT + " FROM " + TABLE_CRITERIA +
+                    " WHERE " + CRITERIA_HOMEWORK + "=" + id_homework +
+                    " AND " + CRITERIA_UUID + " = '" + UUID + "'",null);
             criteria_homework.moveToFirst();
             total_criteria_percentage = 0;
             total_points_criteria=0;
@@ -919,7 +1135,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 int criteria_id_homework=criteria_homework.getInt(0);
                 double criteria_weight=criteria_homework.getDouble(1);
                 //get the grades of the criterias
-                Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade + " FROM " + TABLE_HOMESTU + " WHERE " + HOMESTU_CriteriaId + "=" + criteria_id_homework + " AND " + HOMESTU_StudentId + "=" + StudentID,null);
+                Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade + " FROM " + TABLE_HOMESTU + " " +
+                        "WHERE " + HOMESTU_CriteriaId + "=" + criteria_id_homework + " " +
+                        "AND " + HOMESTU_StudentId + "=" + StudentID +
+                        " AND " + HOMESTU_UUID + " = '" + UUID + "'",null);
                 if(grade_criteria.getCount()>0) {
                     grade_criteria.moveToFirst();
                     total_criteria_percentage += (grade_criteria.getDouble(0)*criteria_weight)/100;
@@ -936,12 +1155,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return homeworks_return;
     }
-    public double getCriteriaGrade(int studentId, int criteriaId){
+    public double getCriteriaGrade(int studentId, int criteriaId , String UUID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade +
                                             " FROM " + TABLE_HOMESTU +
                                             " WHERE " + HOMESTU_CriteriaId + "=" + criteriaId +
-                                            " AND " + HOMESTU_StudentId + "=" + studentId,null);
+                                            " AND " + HOMESTU_StudentId + "=" + studentId+
+                                            " AND " + HOMESTU_UUID + " = '" + UUID + "'",null);
         //if the criteria has been checked
         if(grade_criteria.getCount()>0){
             grade_criteria.moveToFirst();
@@ -954,33 +1174,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return 0;
     }
 
-    public List<String> exportStudentGrades(){
+    public List<String> exportStudentGrades(String UUID){
         String to_write;
         List<String> all_grades = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor courseid_cursor = db.rawQuery("SELECT " + COURSE_ID +","+ COURSE_CODE +","+ COURSE_NAME + " FROM " + TABLE_COURSE, null);
+        Cursor courseid_cursor = db.rawQuery("SELECT " + COURSE_ID +","+ COURSE_CODE +","+ COURSE_NAME + " FROM " + TABLE_COURSE +
+                " WHERE " + COURSE_UUID + " = '" + UUID + "'", null);
         courseid_cursor.moveToFirst();
         do{
             to_write="";
             int courseid = courseid_cursor.getInt(0);
             to_write="Course CODE:" + courseid_cursor.getString(1) + "\n";
             to_write+="Course NAME:" + courseid_cursor.getString(2) + "\n" + "\n";
-            Cursor sectionid_cursor = db.rawQuery("SELECT " + SECT_ID +","+ SECT_CODE + " FROM " + TABLE_SECTION + " WHERE " + SECT_COURSE + "=" + courseid, null);
+            Cursor sectionid_cursor = db.rawQuery("SELECT " + SECT_ID +","+ SECT_CODE + " FROM " + TABLE_SECTION +
+                    " WHERE " + SECT_COURSE + "=" + courseid +
+                    " AND " + SECT_UUID + " = '" + UUID + "'", null);
             sectionid_cursor.moveToFirst();
             do{
                 int sectionid = sectionid_cursor.getInt(0);
                 to_write+=("Section CODE:" + sectionid_cursor.getString(1) + "\n");
-                Cursor studentsectionid_cursor = db.rawQuery("SELECT " + STUSEC_ID +","+ STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + "=" + sectionid, null);
+                Cursor studentsectionid_cursor = db.rawQuery("SELECT " + STUSEC_ID +","+ STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
+                        " WHERE " + STUSEC_SECT + "=" + sectionid +
+                        " AND " + STUSEC_UUID + " = '" + UUID + "'", null);
                 studentsectionid_cursor.moveToFirst();
                 do{
-                    Cursor student = db.rawQuery("SELECT " + STU_ID +","+ STU_NAME + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + "=" + studentsectionid_cursor.getInt(1), null);
+                    Cursor student = db.rawQuery("SELECT " + STU_ID +","+ STU_NAME + " FROM " + TABLE_STUDENT + " " +
+                            "WHERE " + STU_ID + "=" + studentsectionid_cursor.getInt(1), null);
                     student.moveToFirst();
                     to_write+=("  + Student ID:" + Integer.toString(student.getInt(0)) + "\n" + "    Name:" + student.getString(1) + "\n");
 
                     int studentsectionid = studentsectionid_cursor.getInt(0);
                     int studentid = studentsectionid_cursor.getInt(1);
 
-                    List<String> tareas_estudiante = getHomeworkNameAndGrade(studentid, sectionid);
+                    List<String> tareas_estudiante = getHomeworkNameAndGrade(studentid, sectionid,UUID);
                     to_write+="     >Homeworks\n";
                     for(String s: tareas_estudiante){
                         String[] homework_parts = (s.split("HOLAHELLO"));
@@ -988,7 +1214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         //Log.d("TAREA", s);
                     }
                     db = this.getReadableDatabase();
-                    List<Participation> participaciones_estudiantes = getStudentParticipationList(studentsectionid);
+                    List<Participation> participaciones_estudiantes = getStudentParticipationList(studentsectionid,UUID);
                     to_write+="     >Paticipations\n";
                     for(Participation p: participaciones_estudiantes){
                         to_write+=("        * " + Double.toString(p.get_ParticipationGrade()) + " - " + p.get_ParticipationDate() + " - " + p.get_ParticipationComment() + "\n");

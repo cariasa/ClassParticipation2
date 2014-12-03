@@ -28,7 +28,10 @@ public class ReadWriteFileManager {
             String line;
             while( ( line = br.readLine() )!= null ){
                 String [] std = line.split(splitBy);
-                StudentList.add(new Student(Integer.parseInt(std[0].trim()),std[1].trim(),std[2].trim()));
+                if (std.length == 3)
+                    StudentList.add(new Student(Integer.parseInt(std[0].trim()),std[1].trim(),std[2].trim(),std[0].trim() + std[1].trim()));
+                else
+                    StudentList.add(new Student(Integer.parseInt(std[0].trim()),std[1].trim(),std[2].trim(),std[3]));
             }
         }catch(Exception e){
             e.printStackTrace();

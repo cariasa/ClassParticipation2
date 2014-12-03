@@ -29,14 +29,17 @@ public class AddStudentDialog extends DialogFragment
     EditText studentName;
     EditText studentMajor;
 
+    String UUID;
+
     StudentItemAdapter arrayAdapter;
     List<StudentItem> listViewStudentNameList;
 
-    AddStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list)
+    AddStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list,String UUID)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
         this.listViewStudentNameList = list;
+        this.UUID = UUID;
     }
 
     @Override
@@ -91,7 +94,7 @@ public class AddStudentDialog extends DialogFragment
 
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()));
+                        studentSectionExist = db.studentSectionExist(currentSection, Integer.parseInt(studentId.getText().toString()),UUID);
                         db.close();
                     }catch (Exception e){
 
@@ -106,11 +109,11 @@ public class AddStudentDialog extends DialogFragment
                     }else{
                         Student student = new Student(Integer.parseInt(studentId.getText().toString()),
                                                       studentName.getText().toString(),
-                                                      studentMajor.getText().toString());
+                                                      studentId.getText().toString()+studentName.getText().toString());
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-                            if(!db.studentExist(Integer.parseInt(studentId.getText().toString()))){
+                            if(!db.studentExist(studentId.getText().toString() + studentName.getText().toString())){
                                 if(db.tableStudentIsEmpty(currentSection.get_SectionId())) {
                                     //if table student is empty show the invisible menuItems
                                     MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);

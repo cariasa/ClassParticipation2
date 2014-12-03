@@ -26,11 +26,14 @@ public class AddCriteriaDialog extends DialogFragment
     ArrayAdapter arrayAdapter;
     List<String> listViewCriteriaNameList;
 
-    public AddCriteriaDialog(Homework currenthomework, ArrayAdapter arrayAdapter, List<String> list)
+    String UUID;
+
+    public AddCriteriaDialog(Homework currenthomework, ArrayAdapter arrayAdapter, List<String> list,String UUID)
     {
         this.currentHomework = currenthomework;
         this.arrayAdapter = arrayAdapter;
         this.listViewCriteriaNameList = list;
+        this.UUID = UUID;
     }
 
     @Override
@@ -84,7 +87,7 @@ public class AddCriteriaDialog extends DialogFragment
 
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        criteriaExist = db.criteriaExist(txtCriteriaName.getText().toString(),currentHomework.getHomeworkId());
+                        criteriaExist = db.criteriaExist(txtCriteriaName.getText().toString(),currentHomework.getHomeworkId(),UUID);
                         db.close();
                     }catch (Exception e){
 
@@ -100,7 +103,7 @@ public class AddCriteriaDialog extends DialogFragment
                         Criteria criteria = new Criteria(
                                 txtCriteriaName.getText().toString(),
                                 Double.parseDouble(txtCriteriaWeight.getText().toString()),
-                                currentHomework.getHomeworkId());
+                                currentHomework.getHomeworkId(),UUID);
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());

@@ -11,23 +11,37 @@ public class Course
 	private String _CourseCode;
 	private String _CourseName;
 	private String _CourseDescription;
+    private String _CourseUUID;
+
+
 
     public Course(){}
-	public Course(int id, String code, String name, String description)
+	public Course(int id, String code, String name, String description, String UUID)
     {
 		_CourseId = id;
 		_CourseCode = code;
 		_CourseName = name;
 		_CourseDescription = description;
+        _CourseUUID = UUID;
 	}
 	public Course(String _CourseCode, String _CourseName,
-			String _CourseDescription)
+			String _CourseDescription, String UUID)
     {
 		this._CourseCode = _CourseCode;
 		this._CourseName = _CourseName;
 		this._CourseDescription = _CourseDescription;
+        this._CourseUUID = UUID;
 	}
-	public int getCourseId()
+
+    public String getCourseUUID() {
+        return _CourseUUID;
+    }
+
+    public void setCourseUUID(String _CourseUUID) {
+        this._CourseUUID = _CourseUUID;
+    }
+
+    public int getCourseId()
     {
 		return _CourseId;
 	}

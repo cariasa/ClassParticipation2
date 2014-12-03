@@ -17,9 +17,11 @@ public class StatisticsDialog extends DialogFragment
 {
     String courseName;
     int sectionId;
-    StatisticsDialog(String courseName,int sectionId){
+    String UUID;
+    StatisticsDialog(String courseName,int sectionId, String UUID){
         this.courseName=courseName;
         this.sectionId=sectionId;
+        this.UUID = UUID;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class StatisticsDialog extends DialogFragment
         TextView txtHighestAverage=(TextView)view.findViewById(R.id.textViewHighestAverage);
         TextView txtLowestAverage=(TextView)view.findViewById(R.id.textViewLowestAverage);
         double avgSection=0,countParticipation=0,acumParticipation=0,avgMax=0,avgMin=0;
-        List<Participation> participationList=db.getParticipationList(sectionId);
+        List<Participation> participationList=db.getParticipationList(sectionId,UUID);
         countParticipation=participationList.size();
         //set de quantity of Participations
         txtParticipations.setText(""+Math.round(countParticipation));
@@ -49,9 +51,9 @@ public class StatisticsDialog extends DialogFragment
         avgSection=acumParticipation/countParticipation;
         txtAverageSection.setText(Math.round(avgSection)+"%");
         //get the highest average
-        txtHighestAverage.setText(db.getMaxAverageStudentParticipation(sectionId));
+        txtHighestAverage.setText(db.getMaxAverageStudentParticipation(sectionId,UUID));
         //get the lowest average
-        txtLowestAverage.setText(db.getMinAverageStudentParticipation(sectionId));
+        txtLowestAverage.setText(db.getMinAverageStudentParticipation(sectionId,UUID));
 
 
         //------------------------Homeworks-------------------------------------------------------------
@@ -60,7 +62,7 @@ public class StatisticsDialog extends DialogFragment
         TextView txtHighestAverageHW=(TextView)view.findViewById(R.id.textViewHighestAverageHW);
         TextView txtLowestAverageHW=(TextView)view.findViewById(R.id.textViewLowestAverageHW);
         double avgSectionHW=0,countHomework=0,acumHomework=0,avgMaxHW=0,avgMinHW=0;
-        List<Homework> homeworkList=db.getAll_Homework(sectionId);
+        List<Homework> homeworkList=db.getAll_Homework(sectionId,UUID);
         countHomework=homeworkList.size();
         //set the quantity of homeworks
         txtHomeworks.setText(""+Math.round(countHomework));
@@ -81,9 +83,9 @@ public class StatisticsDialog extends DialogFragment
         int quantityOfHomeworksByStudent=0;
         List<StudentAndAverage> nameAndAverageList=new ArrayList<StudentAndAverage>();
         //get the average of the section
-        List<Integer> studentIdList=db.getStudentIdListBySectionId(sectionId);
+        List<Integer> studentIdList=db.getStudentIdListBySectionId(sectionId,UUID);
         for(int i=0;i<studentIdList.size();i++){
-            List<String> homeworkNameAndGradeList=db.getHomeworkNameAndGrade(studentIdList.get(i),sectionId);
+            List<String> homeworkNameAndGradeList=db.getHomeworkNameAndGrade(studentIdList.get(i),sectionId,UUID);
             homeworksByStudent=0;
             quantityOfHomeworksByStudent=0;
             for(int j=0;j<homeworkNameAndGradeList.size();j++){
