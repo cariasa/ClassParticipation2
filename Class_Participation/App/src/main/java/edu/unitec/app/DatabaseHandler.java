@@ -208,6 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
         }
+        cursor.close();
         return  studentIdList;
     }
 
@@ -242,8 +243,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             participations.getString(3)));
                 } while (participations.moveToNext());
             }
+            participations.close();
             studentsSections.moveToNext();
         }
+        studentsSections.close();
         return participationList;
     }
     public String getMaxAverageStudentParticipation(int sectionId){
@@ -282,8 +285,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String name=this.getStudentName(studentsSections.getInt(1));
                 averagesList.add(new StudentAndAverage(name,average));
             }
+            participations.close();
             studentsSections.moveToNext();
         }
+        studentsSections.close();
         //find the Highest Average
         if(averagesList.size()>0) {
             double max = 0;
@@ -339,8 +344,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String name = this.getStudentName(studentsSections.getInt(1));
                     averagesList.add(new StudentAndAverage(name, average));
                 }
+                participations.close();
                 studentsSections.moveToNext();
             }
+            studentsSections.close();
             //find the Lowest Average
             if(averagesList.size()>0) {
                 double min = averagesList.get(0).average;
@@ -395,8 +402,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String name=this.getStudentName(studentsSections.getInt(1));
                 averagesList.add(new StudentAndAverage(name,average));
             }
+            participations.close();
             studentsSections.moveToNext();
         }
+        studentsSections.close();
         //find the Highest Average
         double max=0;
         String maxName="";
@@ -417,6 +426,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
             name=cursor.getString(0);
         }
+        cursor.close();
         return name;
     }
     List<Participation> getStudentParticipationList(int studentSectionId)
@@ -440,6 +450,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while ( cursor.moveToNext() );
         }
 
+        cursor.close();
         db.close();
 
         return currentStudentParticipationList;
@@ -455,6 +466,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             studentSectionFinal = cursor.getDouble(0);
         }
+        cursor.close();
         return studentSectionFinal;
     }
 
@@ -463,6 +475,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String strSQL = "UPDATE studentSection SET StudentSectionFinal =  " + studentSectionFinal + " WHERE StudentSectionId = " +
                 studentSectionId;
         db.execSQL(strSQL);
+        db.close();
     }
 
     void addStudent(Student student){
@@ -489,7 +502,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.execSQL(strSQL);
                 }while ( cursor.moveToNext() );
             }
-
+            cursor.close();
             //Eliminar referencia del estudiante de tabla de estudiantes por sección
             strSQL = "DELETE FROM studentSection WHERE StudentId=" + toDelete.get(i);
             db.execSQL(strSQL);
@@ -520,8 +533,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + STU_ID + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId, null);
         if ( cursor.getCount() > 0 ){
+            cursor.close();
             return true;
         }
+        cursor.close();
         return false;
     }
     boolean tableStudentIsEmpty(int sectionId){
@@ -530,8 +545,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION +
                                     " WHERE " + STUSEC_SECT + " = " + sectionId, null);
         if ( cursor.getCount() > 0 ){
+            cursor.close();
             return false;
         }
+        cursor.close();
         return true;
     }
 
@@ -542,11 +559,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if ( cursor.moveToFirst() )        {
             do{
                 if ( cursor.getInt(0) == studentId ){
+                    cursor.close();
                     return true;
                 }
 
             }while ( cursor.moveToNext() );
         }
+        cursor.close();
         return false;
     }
 
@@ -565,6 +584,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3));
+        cursor.close();
         return course;
     }
     public String getCourseName(int courseId){
@@ -574,9 +594,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         if(cursor.getCount()>0){
-            return cursor.getString(0);
+            String retVal = cursor.getString(0);
+            cursor.close();
+            return retVal;
         }
-        return cursor.getString(0);
+        String retVal = cursor.getString(0);
+        cursor.close();
+        return retVal;
     }
     public List<Course> getAllCourses(){
         List<Course> courseList = new ArrayList<Course>();
@@ -593,6 +617,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 courseList.add(course);
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return courseList;
     }
 
@@ -612,6 +637,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 sectionList.add(section);
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return sectionList;
     }
 
@@ -625,6 +651,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 courseList.add(cursor.getString(2));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return courseList;
     }
     public int getCoursesCount(){
@@ -673,6 +700,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 homework=new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return homework;
     }
     public List<Homework> getAll_Homework(int sectionId){
@@ -687,6 +715,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 homeworkList.add(new Homework(cursor.getInt(0),cursor.getString(1),cursor.getInt(2)));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return homeworkList;
     }
 
@@ -701,9 +730,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if ( cursor.getCount() > 0 )
         {
+            cursor.close();
             return true;
         }
-
+        cursor.close();
         return false;
     }
     boolean criteriaExist(String criteriaName,int homeworkId)
@@ -717,9 +747,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if ( cursor.getCount() > 0 )
         {
+            cursor.close();
             return true;
         }
-
+        cursor.close();
         return false;
     }
     public void addCriteria(Criteria criteria){
@@ -744,6 +775,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             weight = cursor.getDouble(0);
         }
+        cursor.close();
         db.close();
         return weight;
     }
@@ -759,6 +791,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 weightList.add(cursor.getDouble(0));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return weightList;
     }
     public List<Criteria> getAllCriteriaByHomework(int homeworkId){
@@ -772,6 +805,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 criteriaList.add(new Criteria(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getInt(3)));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return criteriaList;
     }
     public void printHomeworkTable(){
@@ -785,6 +819,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Log.e(DatabaseHandler.class.toString(),homework.toString()+"\n");
             }while (cursor.moveToNext());
         }
+        cursor.close();
     }
     public void printCriteriaTable(){
         String selectQuery  = "SELECT * FROM " + TABLE_CRITERIA
@@ -797,6 +832,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Log.e(DatabaseHandler.class.toString(),criteria.toString()+"\n");
             }while (cursor.moveToNext());
         }
+        cursor.close();
     }
     public void addHomeworkStudent(Double grade,int criteriaId,int studentId){
         SQLiteDatabase	db = this.getWritableDatabase();
@@ -820,6 +856,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                       " Homestu_StudentId= "+cursor.getInt(3)+"\n");
             }while (cursor.moveToNext());
         }
+        cursor.close();
     }
     public boolean homeworkStudentExist(int criteriaId,int studentId){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -830,9 +867,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " AND " + HOMESTU_StudentId + " = " + studentId, null);
         if ( cursor.getCount() > 0 )
         {
+            cursor.close();
             return true;
         }
-
+        cursor.close();
         return false;
     }
     public int getHomeworkStudentId(int criteriaId,int studentId){
@@ -844,8 +882,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " AND " + HOMESTU_StudentId + " = " + studentId, null);
         if ( cursor.moveToFirst() )
         {
-            return cursor.getInt(0);
+            int retVal = cursor.getInt(0);
+            cursor.close();
+            return retVal;
         }
+        cursor.close();
         return 0;
     }
     public void updateHomeworkStudent(int homeworkStudentId,double grade){
@@ -853,6 +894,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String strSQL = "UPDATE "+TABLE_HOMESTU+" SET "+HOMESTU_Grade+" = " + grade +
                         " WHERE "+HOMESTU_ID+" = " +homeworkStudentId;
         db.execSQL(strSQL);
+        db.close();
     }
 
     public List<String> getHomeworkNameAndGrade(int StudentID, int SectionID){
@@ -883,11 +925,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     total_criteria_percentage += (grade_criteria.getDouble(0)*criteria_weight)/100;
                     criteria_homework.moveToNext();
                 }
+                grade_criteria.close();
                 total_points_criteria += criteria_weight;
             }
+            criteria_homework.close();
             homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria)*100));
             homeworks.moveToNext();
         }
+        homeworks.close();
         db.close();
         return homeworks_return;
     }
@@ -900,9 +945,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //if the criteria has been checked
         if(grade_criteria.getCount()>0){
             grade_criteria.moveToFirst();
-            return grade_criteria.getDouble(0);
+            double retVal = grade_criteria.getDouble(0);
+            grade_criteria.close();
+            return retVal;
         }
         //if the criteria hasn't been checked
+        grade_criteria.close();
         return 0;
     }
 
@@ -946,10 +994,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         to_write+=("        * " + Double.toString(p.get_ParticipationGrade()) + " - " + p.get_ParticipationDate() + " - " + p.get_ParticipationComment() + "\n");
                     }
                     db = this.getReadableDatabase();
+                    student.close();
                 }while(studentsectionid_cursor.moveToNext());
+                studentsectionid_cursor.close();
             }while(sectionid_cursor.moveToNext());
+            sectionid_cursor.close();
             all_grades.add(to_write);
         }while(courseid_cursor.moveToNext());
+        courseid_cursor.close();
         db.close();
         return all_grades;
     }
