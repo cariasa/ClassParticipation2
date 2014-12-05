@@ -44,6 +44,10 @@ public class MainActivity extends Activity{
 
     //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
     String UUID = "ID1";
+    int year;
+    int semester;
+    int quarter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -100,9 +104,6 @@ public class MainActivity extends Activity{
     }
 
     public List<Section> getCurrentSectionsList(){
-        int year = getCurrentYear();
-        int quarter = getCurrentQuarter();
-        int semester = getCurrentSemester();
         List<Section> sectionsList = new ArrayList<Section>();
         try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
@@ -260,6 +261,11 @@ public class MainActivity extends Activity{
                 Intent intents = new Intent(this, SectionActivity.class);
                 intents.putExtra("UUID",UUID);
                 startActivity(intents);
+                return true;
+
+            case R.id.changesemester:
+                HistoricDialog dialogHistoric = new HistoricDialog(year,semester,quarter);
+                dialogHistoric.show(getFragmentManager(),"dialog_changesemester");
                 return true;
 
             case R.id.about:

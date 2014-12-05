@@ -1231,4 +1231,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return all_grades;
     }
+
+    public List<String> getAvailableSemester(){
+        List<String> retVal = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT DISTINCT SectionQuarter,SectionSemester,SectionYear FROM section";
+        Cursor cursor = db.rawQuery(QUERY,null);
+
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String addVal = "Quarter: " + cursor.getInt(0) + " Semester: " + cursor.getInt(1) + " Year: " + cursor.getInt(2);
+            retVal.add(addVal);
+
+            cursor.moveToNext();
+
+
+        }else{
+            retVal = null;
+        }
+
+        cursor.close();
+
+        //0        1 2         3 4     5
+        //Quarter: 4 Semester: 5 Year: 2014
+        return retVal;
+    }
 }

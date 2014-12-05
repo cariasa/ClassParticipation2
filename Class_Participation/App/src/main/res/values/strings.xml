@@ -4,6 +4,7 @@
     <string name="app_name">Class Participation</string>
     <string name="courseActivity">Course</string>
     <string name="sectionActivity">Section</string>
+    <string name = "changesemester">Show previous sections</string>
     <string name="courses">Add Course</string>
     <string name="sections">Add Section</string>
     <string name="students_statistics">Statistics</string>

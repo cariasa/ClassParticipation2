@@ -16,9 +16,16 @@
         #android:onClick="onclickItem"/>
 
     <item
+        android:id="@+id/changesemester"
+        android:title="Change Semester"
+        android:orderInCategory="100"/>
+        #android:onClick="onclickItem"/>
+
+    <item
         android:id="@+id/about"
         android:title="@string/abouts"
         android:orderInCategory="100"/>
         #android:onClick="onclickItem"/>
+
 
 </menu>
