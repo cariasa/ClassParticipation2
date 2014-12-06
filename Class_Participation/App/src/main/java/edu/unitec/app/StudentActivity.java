@@ -32,6 +32,7 @@ public class StudentActivity extends Activity{
     final int ACTIVITY_CHOOSE_FILE = 1;
     private Section currentSection = new Section();
     private String UUID;
+    private boolean Previous;
 
     public Section getCurrentSection() {
         return currentSection;
@@ -50,6 +51,9 @@ public class StudentActivity extends Activity{
         currentSection = (Section)intent.getSerializableExtra("Section");
         String course_name = intent.getStringExtra("Course");
         UUID = intent.getStringExtra("UUID");
+        Previous = intent.getBooleanExtra("PREVIOUS",false);
+
+
         setTitle(course_name);
 
         //------------------Connect ArrayAdapter with a List for the ListView----------------------
@@ -96,22 +100,26 @@ public class StudentActivity extends Activity{
         MenuItem newParticipation = menu.findItem(R.id.item_newParticipation);
         if(!getCurrentStudentNamesList().isEmpty() ){
             item_statistics.setVisible(true);
-            item_student.setVisible(true);
-            save_student.setVisible(true);
-            save_students.setVisible(false);
-            newAssignment.setVisible(true);
-            newHomework.setVisible(true);
-            newParticipation.setVisible(true);
-            delete_student.setVisible(true);
+            if (!Previous) {
+                item_student.setVisible(true);
+                save_student.setVisible(true);
+                save_students.setVisible(false);
+                newAssignment.setVisible(true);
+                newHomework.setVisible(true);
+                newParticipation.setVisible(true);
+                delete_student.setVisible(true);
+            }
         }else{
             item_statistics.setVisible(false);
-            item_student.setVisible(true);
-            save_student.setVisible(true);
-            save_students.setVisible(true);
-            newAssignment.setVisible(false);
-            newHomework.setVisible(false);
-            newParticipation.setVisible(false);
-            delete_student.setVisible(false);
+            if (!Previous) {
+                item_student.setVisible(true);
+                save_student.setVisible(true);
+                save_students.setVisible(true);
+                newAssignment.setVisible(false);
+                newHomework.setVisible(false);
+                newParticipation.setVisible(false);
+                delete_student.setVisible(false);
+            }
         }
         return true;
     }

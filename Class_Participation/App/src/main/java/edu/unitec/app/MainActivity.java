@@ -3,6 +3,7 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -39,26 +40,51 @@ import java.util.List;
 
 public class MainActivity extends Activity{
     private static final int REQUEST_CODE = 2;
+    private static final  String STATE_YEAR = "YEAR";
+    private static final String STATE_SEMESTER = "SEMESTER";
+    private static final String STATE_QUARTER = "QUARTER";
     //Facebook fb;
     //SharedPreferences sp;
 
     //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
     String UUID = "ID1";
-    int year;
-    int semester;
-    int quarter;
+
+    SemesterQuarter Actual;
+    boolean Previous;
+
+    RetainDataFragment RetainData;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null){
+
+        FragmentManager FragmentM = getFragmentManager();
+        RetainData = (RetainDataFragment)FragmentM.findFragmentByTag("RData");
+
+        if (RetainData == null){
+            RetainData = new RetainDataFragment();
+            FragmentM.beginTransaction().add(RetainData,"RData").commit();
+
+            Actual = new SemesterQuarter();
+            RetainData.setData(Actual , Previous);
+        }
+
+        Actual = RetainData.getData();
+        Previous = Actual.checkPrevious();
+
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
-        }
         ClickCallback();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        RetainData.setData(Actual,Previous);
     }
 
     @Override
@@ -67,44 +93,15 @@ public class MainActivity extends Activity{
         populateListView();
     }
 
-    public int getCurrentYear(){
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.YEAR);
-    }
 
-    public int getCurrentSemester(){
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
-        if ( month <= 5 ){
-            return 1;
-        }
-        return 2;
-    }
-
-    public int getCurrentQuarter(){
-        Calendar calendar = Calendar.getInstance();
-        int currentMonth = calendar.get(Calendar.MONTH); //January == 0
-        int currentSemester = getCurrentSemester();
-        int currentQuarter = 0;
-
-        if ( currentSemester == 1 ){
-            if ( currentMonth <= 2 ){
-                currentQuarter = 1;
-            }else{
-                currentQuarter = 2;
-            }
-        }else if ( currentSemester == 2 ){
-            if ( currentMonth <= 8 ){
-                currentQuarter = 3;
-            }else{
-                currentQuarter = 4;
-            }
-        }
-        return currentQuarter;
-    }
 
     public List<Section> getCurrentSectionsList(){
         List<Section> sectionsList = new ArrayList<Section>();
+
+        int year = Actual.getYear();
+        int semester = Actual.getSemester();
+        int quarter = Actual.getQuarter();
+
         try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
@@ -165,6 +162,7 @@ public class MainActivity extends Activity{
                 intent.putExtra("Section", getCurrentSectionsList().get(position));
                 intent.putExtra("Course", listview.getItemAtPosition(position).toString());
                 intent.putExtra("UUID",UUID);
+                intent.putExtra("PREVIOUS",Previous);
                 startActivity(intent);
             }
         });
@@ -264,7 +262,7 @@ public class MainActivity extends Activity{
                 return true;
 
             case R.id.changesemester:
-                HistoricDialog dialogHistoric = new HistoricDialog(year,semester,quarter);
+                HistoricDialog dialogHistoric = new HistoricDialog(Actual);
                 dialogHistoric.show(getFragmentManager(),"dialog_changesemester");
                 return true;
 
