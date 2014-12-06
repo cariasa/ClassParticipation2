@@ -24,10 +24,13 @@ public class StudentItemAdapter extends BaseAdapter {
     protected Context activity;
     protected ArrayList<StudentItem> items;
     private String UUID;
-    public StudentItemAdapter(Context activity, ArrayList<StudentItem> items,String UUID) {
+    private boolean Previous;
+
+    public StudentItemAdapter(Context activity, ArrayList<StudentItem> items,String UUID,boolean Previous) {
         this.activity = activity;
         this.items = items;
         this.UUID = UUID;
+        this.Previous = Previous;
     }
 
 
@@ -59,31 +62,34 @@ public class StudentItemAdapter extends BaseAdapter {
         final TextView StudentName = (TextView) customView.findViewById(R.id.item_studentName);
         StudentName.setText(dir.getStudentName());
         //Override the method onClick from buttonParticipation
-        Button buttonParticipation = (Button) customView.findViewById(R.id.button_student_participation);
-        buttonParticipation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( activity instanceof StudentActivity){
-                    ((StudentActivity)activity).showParticipationDialog(position);
+        if (!Previous) {
+            Button buttonParticipation = (Button) customView.findViewById(R.id.button_student_participation);
+            buttonParticipation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (activity instanceof StudentActivity) {
+                        ((StudentActivity) activity).showParticipationDialog(position);
+                    }
                 }
-            }
-        });
-        //Override onClick method from buttonHomework
-        Button buttonHomework = (Button) customView.findViewById(R.id.button_student_homework);
-        buttonHomework.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( activity instanceof StudentActivity){
-                    ListView listview = (ListView) ((StudentActivity) activity).findViewById(R.id.listViewCheckHomework);
-                    Intent intent = new Intent(activity.getApplicationContext(), CheckHomework.class);
-                    intent.putExtra("Section", (int)(((StudentActivity)activity).getCurrentSection().get_SectionId()));
-                    intent.putExtra("StudentName",((StudentActivity)activity).getCurrentStudentNamesList().get(position));
-                    intent.putExtra("studentId",((StudentActivity)activity).getCurrentStudentIdList().get(position));
-                    intent.putExtra("UUID",UUID);
-                    activity.startActivity(intent);
+            });
+
+            //Override onClick method from buttonHomework
+            Button buttonHomework = (Button) customView.findViewById(R.id.button_student_homework);
+            buttonHomework.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (activity instanceof StudentActivity) {
+                        ListView listview = (ListView) ((StudentActivity) activity).findViewById(R.id.listViewCheckHomework);
+                        Intent intent = new Intent(activity.getApplicationContext(), CheckHomework.class);
+                        intent.putExtra("Section", (int) (((StudentActivity) activity).getCurrentSection().get_SectionId()));
+                        intent.putExtra("StudentName", ((StudentActivity) activity).getCurrentStudentNamesList().get(position));
+                        intent.putExtra("studentId", ((StudentActivity) activity).getCurrentStudentIdList().get(position));
+                        intent.putExtra("UUID", UUID);
+                        activity.startActivity(intent);
+                    }
                 }
-            }
-        });
+            });
+        }
         //Override onClick method from buttonStatistics
         Button buttonStatistics = (Button) customView.findViewById(R.id.button_student_statistics);
         buttonStatistics.setOnClickListener(new View.OnClickListener() {

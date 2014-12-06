@@ -50,7 +50,6 @@ public class MainActivity extends Activity{
     String UUID = "ID1";
 
     SemesterQuarter Actual;
-    boolean Previous;
 
     RetainDataFragment RetainData;
 
@@ -68,11 +67,10 @@ public class MainActivity extends Activity{
             FragmentM.beginTransaction().add(RetainData,"RData").commit();
 
             Actual = new SemesterQuarter();
-            RetainData.setData(Actual , Previous);
+            RetainData.setData(Actual);
         }
 
         Actual = RetainData.getData();
-        Previous = Actual.checkPrevious();
 
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -84,7 +82,7 @@ public class MainActivity extends Activity{
     public void onDestroy(){
         super.onDestroy();
 
-        RetainData.setData(Actual,Previous);
+        RetainData.setData(Actual);
     }
 
     @Override
@@ -162,7 +160,7 @@ public class MainActivity extends Activity{
                 intent.putExtra("Section", getCurrentSectionsList().get(position));
                 intent.putExtra("Course", listview.getItemAtPosition(position).toString());
                 intent.putExtra("UUID",UUID);
-                intent.putExtra("PREVIOUS",Previous);
+                intent.putExtra("ACTUAL",Actual);
                 startActivity(intent);
             }
         });

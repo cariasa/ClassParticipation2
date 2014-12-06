@@ -1,11 +1,12 @@
 package edu.unitec.app;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Nivx on 12/6/14.
  */
-public class SemesterQuarter {
+public class SemesterQuarter implements Serializable {
 
     private int year;
     private int semester;

@@ -20,13 +20,7 @@ public class RetainDataFragment extends Fragment {
         return RData;
     }
 
-    public void setData(SemesterQuarter data, boolean Previous) {
-
-        if (data.getQuarter() == SemesterQuarter.CURRENT_QUARTER && data.getSemester() == SemesterQuarter.CURRENT_SEMESTER && data.getYear() == SemesterQuarter.CURRENT_YEAR){
-            Previous = false;
-        }else{
-            Previous = true;
-        }
+    public void setData(SemesterQuarter data) {
 
         this.RData = data;
     }
