@@ -49,6 +49,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".ReportActivity"
+            android:label="Report"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".CheckHomework"
             android:label="@string/title_activity_check_homework"
             android:screenOrientation="portrait">

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        android:id="@+id/StudentNameReport"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="40px"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/ParticipationReport" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Participation"
+        android:id="@+id/ParticipationReport"
+        android:textSize="30px"
+        android:layout_marginRight="31dp"
+        android:layout_alignBottom="@+id/StudentNameReport"
+        android:layout_toLeftOf="@+id/HomeworkReport" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Homeworks"
+        android:id="@+id/HomeworkReport"
+        android:textSize="30px"
+        android:layout_alignTop="@+id/ParticipationReport"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

@@ -190,7 +190,8 @@ public class StudentActivity extends Activity {
                 startActivity(intentHomework);
                 return true;
             case R.id.item_statistics:
-                showStatisticsDialog();
+                //showStatisticsDialog();
+                showReportActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -413,6 +414,16 @@ public class StudentActivity extends Activity {
         String courseName = db.getCourseName(currentSection.get_CourseId(), UUID);
         StatisticsDialog dialog = new StatisticsDialog(courseName, currentSection.get_SectionId(), UUID);
         dialog.show(getFragmentManager(), "dialog_statistics");
+    }
+
+    public void showReportActivity(){
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        Intent intent = new Intent(this, ReportActivity.class);
+        intent.putExtra("UUID",UUID);
+        intent.putExtra("currentSection",currentSection);
+        String courseName = db.getCourseName(currentSection.get_CourseId(), UUID);
+        intent.putExtra("coursename",courseName);
+        startActivity(intent);
     }
 
     public void showParticipationDialog() {

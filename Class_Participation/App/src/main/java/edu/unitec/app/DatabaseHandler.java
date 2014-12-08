@@ -1127,48 +1127,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getHomeworkNameAndGrade(int StudentID, int SectionID, String UUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         //query to get the Homeworks of the section
-        Cursor homeworks = db.rawQuery("SELECT " + HOMEWORK_ID + ", " + HOMEWORK_NAME + " FROM " + TABLE_HOMEWORK + "" +
-                " WHERE " + HOMEWORK_SECID + "=" + SectionID +
-                " AND " + HOMEWORK_UUID + " = '" + UUID + "'", null);
+
+        String QUERY = "SELECT H.HomeworkName, coalesce(HS.HomeworkStudentGrade ,0) AS Grade " +
+                "FROM student S " +
+                "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN homework H ON H.SectionId = SS.SectionId " +
+                "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
+                "LEFT JOIN homeworkStudent HS ON HS.StudentId  = S.StudentId AND HS.CriteriaId = C.CriteriaId " +
+                "WHERE SS.SectionId = '"+SectionID+"' AND SS.TeacherUUID = '"+UUID+"' AND S.StudentId = '"+StudentID+"' " +
+                "GROUP BY S.StudentName , H.HomeworkName " +
+                "ORDER BY S.StudentId";
+
+        Cursor homeworks = db.rawQuery(QUERY, null);
         homeworks.moveToFirst();
-        double total_criteria_percentage = 0;//Sum of all percentages obtained in all criteria of a homework
-        double total_points_criteria = 0;//Total points possible per homework / Sum of all criteria weight per homework
+
         List<String> homeworks_return = new ArrayList<String>();
 
-        for (int i = 0; i < homeworks.getCount(); i++) {
-            int id_homework = homeworks.getInt(0);
-            String name_homework = homeworks.getString(1);
-            //query to get all the criteria "id and weight" from a homework
-            Cursor criteria_homework = db.rawQuery("SELECT " + CRITERIA_ID + ", " + CRITERIA_WEIGHT + " FROM " + TABLE_CRITERIA +
-                    " WHERE " + CRITERIA_HOMEWORK + "=" + id_homework +
-                    " AND " + CRITERIA_UUID + " = '" + UUID + "'", null);
-            criteria_homework.moveToFirst();
-            total_criteria_percentage = 0;
-            total_points_criteria = 0;
+        do {
 
-            for (int j = 0; j < criteria_homework.getCount(); j++) {
-                int criteria_id_homework = criteria_homework.getInt(0);
-                double criteria_weight = criteria_homework.getDouble(1);
-                //get the grades of the criterias
-                Cursor grade_criteria = db.rawQuery("SELECT " + HOMESTU_Grade + " FROM " + TABLE_HOMESTU + " " +
-                        "WHERE " + HOMESTU_CriteriaId + "=" + criteria_id_homework + " " +
-                        "AND " + HOMESTU_StudentId + "=" + StudentID +
-                        " AND " + HOMESTU_UUID + " = '" + UUID + "'", null);
-                if (grade_criteria.getCount() > 0) {
-                    grade_criteria.moveToFirst();
-                    total_criteria_percentage += (grade_criteria.getDouble(0) * criteria_weight) / 100;
-                    criteria_homework.moveToNext();
-                }
-                grade_criteria.close();
-                total_points_criteria += criteria_weight;
-            }
-            criteria_homework.close();
-            homeworks_return.add(name_homework + "HOLAHELLO" + Double.toString((total_criteria_percentage / total_points_criteria) * 100));
-            homeworks.moveToNext();
-        }
-        homeworks.close();
-        db.close();
+            String AddVal = homeworks.getString(0) + "HOLAHELLO" + homeworks.getString(1);
+            homeworks_return.add(AddVal);
+
+        }while(homeworks.moveToNext());
+
+
         return homeworks_return;
+        //NAMEHOLAHELLO52
     }
 
     public double getCriteriaGrade(int studentId, int criteriaId, String UUID) {
@@ -1274,4 +1258,127 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Quarter: 4 Semester: 5 Year: 2014
         return retVal;
     }
+
+    public List<String> getTotalHomeworkGrades(String UUID,int SectionId){
+        List<String> retVal = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
+                "FROM homework WHERE SectionId = '"+SectionId+"')) *100) AS Grade FROM homework H " +
+                "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
+                "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
+                "JOIN student S ON HStu.StudentId = S.StudentId WHERE H.SectionId = '"+SectionId+"' AND H.TeacherUUID = '"+UUID+"' " +
+                "GROUP BY S.StudentName " +
+                "ORDER BY S.StudentId";
+        Cursor cursor = db.rawQuery(QUERY,null);
+
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            for (int i = 0;i<cursor.getCount() ; i++){
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                retVal.add(AddVal);
+
+                cursor.moveToNext();
+            }
+        }else{
+            retVal = null;
+        }
+
+        cursor.close();
+        db.close();
+        return retVal;
+        //NAMESEPARATOR100
+    }
+
+    public List<String> getTotalParticipationGrades(String UUID,int SectionId){
+        List<String> retVal = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
+                "FROM student S " +
+                "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
+                "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
+                "WHERE SEC.SectionId = '"+SectionId+"' AND SEC.TeacherUUID = '"+UUID+"' " +
+                "GROUP BY S.StudentName "+
+                "ORDER BY S.StudentId";
+        Cursor cursor = db.rawQuery(QUERY,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            for (int i = 0;i<cursor.getCount() ; i++){
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                retVal.add(AddVal);
+
+                cursor.moveToNext();
+            }
+        }else{
+            retVal = null;
+        }
+        cursor.close();
+        db.close();
+        return retVal;
+        //NAMESEPARATOR100
+    }
+
+    public List<String> getTotalHomeworkGrades(String UUID,int SectionId,String StudentId){
+        List<String> retVal = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
+                "FROM homework WHERE SectionId = '"+SectionId+"')) *100) AS Grade FROM homework H " +
+                "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
+                "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
+                "JOIN student S ON HStu.StudentId = S.StudentId " +
+                "WHERE H.SectionId = '"+SectionId+"' AND H.TeacherUUID = '"+UUID+"' AND S.StudentId = '"+StudentId+"'" +
+                "GROUP BY S.StudentName " +
+                "ORDER BY S.StudentId";
+        Cursor cursor = db.rawQuery(QUERY,null);
+
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            for (int i = 0;i<cursor.getCount() ; i++){
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                retVal.add(AddVal);
+
+                cursor.moveToNext();
+            }
+        }else{
+            retVal = null;
+        }
+
+        cursor.close();
+        db.close();
+        return retVal;
+        //NAMESEPARATOR100
+    }
+
+    public List<String> getTotalParticipationGrades(String UUID,int SectionId,String StudentId){
+        List<String> retVal = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
+                "FROM student S " +
+                "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
+                "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
+                "WHERE SEC.SectionId = '"+SectionId+"' AND SEC.TeacherUUID = '"+UUID+"' AND S.StudentId = '"+StudentId+"'" +
+                "GROUP BY S.StudentName "+
+                "ORDER BY S.StudentId";
+        Cursor cursor = db.rawQuery(QUERY,null);
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            for (int i = 0;i<cursor.getCount() ; i++){
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                retVal.add(AddVal);
+
+                cursor.moveToNext();
+            }
+        }else{
+            retVal = null;
+        }
+        cursor.close();
+        db.close();
+        return retVal;
+        //NAMESEPARATOR100
+    }
+
+
+
+
 }
