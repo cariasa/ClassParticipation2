@@ -25,7 +25,7 @@ import org.w3c.dom.Text;
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
-    TextView t;
+    private static boolean created = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -36,8 +36,6 @@ public class LoginFragment extends Fragment {
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
         authButton.setFragment(this);
 
-        t=(TextView)view.findViewById(R.id.textView6);
-
         return view;
     }
 
@@ -45,16 +43,18 @@ public class LoginFragment extends Fragment {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
 
-            Request.executeMeRequestAsync/*deprecado*/(session, new Request.GraphUserCallback() {
-                @Override
-                public void onCompleted(GraphUser user, Response response) {
-                    if (user != null) {
-                        //mostrar datos, etc
-                        t.setText(buildUserInfoDisplay(user));
+        Request.newMeRequest(session, new Request.GraphUserCallback() {
+            @Override
+            public void onCompleted(GraphUser user, Response response) {
+                if (user != null) {
+                    //mostrar datos, etc
+                    if(!created) {
                         startActivity(new Intent(getActivity(), MainActivity.class));
+                        created=true;
                     }
                 }
-            });
+            }
+            }).executeAsync();
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }

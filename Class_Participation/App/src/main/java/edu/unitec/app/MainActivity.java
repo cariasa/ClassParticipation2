@@ -255,7 +255,9 @@ public class MainActivity extends Activity{
 
             case R.id.logout:
                 callFacebookLogout(getBaseContext());
-                startActivity(new Intent(this, LoginActivity.class));
+                this.finish();
+                //startActivity(new Intent(this, LoginActivity.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
