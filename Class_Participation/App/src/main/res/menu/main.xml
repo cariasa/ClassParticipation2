@@ -21,4 +21,10 @@
         android:orderInCategory="100"/>
         #android:onClick="onclickItem"/>
 
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:orderInCategory="100"/>
+        #android:onClick="onclickItem"/>
+
 </menu>

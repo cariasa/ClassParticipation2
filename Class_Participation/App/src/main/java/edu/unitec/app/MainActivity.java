@@ -3,6 +3,7 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -24,6 +25,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.Session;
 
 import org.json.JSONObject;
 
@@ -250,6 +253,10 @@ public class MainActivity extends Activity{
                 dialog.show(getFragmentManager(), "dialog_about");
                 return true;
 
+            case R.id.logout:
+                callFacebookLogout(getBaseContext());
+                startActivity(new Intent(this, LoginActivity.class));
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -271,5 +278,24 @@ public class MainActivity extends Activity{
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+    }
+
+    public static void callFacebookLogout(Context context) {
+        Session session = Session.getActiveSession();
+        if (session != null) {
+
+            if (!session.isClosed()) {
+                session.closeAndClearTokenInformation();
+                //set string null;
+            }
+        } else {
+
+            session = new Session(context);
+            Session.setActiveSession(session);
+
+            session.closeAndClearTokenInformation();
+
+        }
+
     }
 }
