@@ -1262,7 +1262,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getTotalHomeworkGrades(String UUID,int SectionId){
         List<String> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
+        String QUERY = "SELECT S.StudentId, S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
                 "FROM homework WHERE SectionId = '"+SectionId+"')) *100) AS Grade FROM homework H " +
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
@@ -1274,7 +1274,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
             for (int i = 0;i<cursor.getCount() ; i++){
-                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1)+"SEPARATOR"+cursor.getString(2);
                 retVal.add(AddVal);
 
                 cursor.moveToNext();
@@ -1292,7 +1292,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getTotalParticipationGrades(String UUID,int SectionId){
         List<String> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
+        String QUERY = "SELECT S.StudentId, S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
                 "FROM student S " +
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
@@ -1304,7 +1304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
             for (int i = 0;i<cursor.getCount() ; i++){
-                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1)+"SEPARATOR"+cursor.getString(2)+"SEPARATOR"+cursor.getString(3)+"SEPARATOR"+cursor.getString(4);
                 retVal.add(AddVal);
 
                 cursor.moveToNext();
@@ -1321,7 +1321,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getTotalHomeworkGrades(String UUID,int SectionId,String StudentId){
         List<String> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
+        String QUERY = "SELECT S.StudentId, S.StudentName, ROUND((SUM((HStu.HomeworkStudentGrade / 100 ) * C.CriteriaWeight) / (SELECT count(HomeworkId)*100 " +
                 "FROM homework WHERE SectionId = '"+SectionId+"')) *100) AS Grade FROM homework H " +
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
@@ -1334,7 +1334,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
             for (int i = 0;i<cursor.getCount() ; i++){
-                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1)+"SEPARATOR"+cursor.getString(2);
                 retVal.add(AddVal);
 
                 cursor.moveToNext();
@@ -1352,7 +1352,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getTotalParticipationGrades(String UUID,int SectionId,String StudentId){
         List<String> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
+        String QUERY = "SELECT S.StudentId, S.StudentName , PS.ParticipationDate,PS.ParticipationComment,ROUND( SUM(PS.ParticipationGrade) / (SELECT COUNT(ParticipationId) FROM participationStudent WHERE StudentSectionId = SS.StudentSectionId ) ) as Grade " +
                 "FROM student S " +
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
@@ -1364,7 +1364,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
             for (int i = 0;i<cursor.getCount() ; i++){
-                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1);
+                String AddVal = cursor.getString(0)+"SEPARATOR"+cursor.getString(1)+"SEPARATOR"+cursor.getString(2)+"SEPARATOR"+cursor.getString(3)+"SEPARATOR"+cursor.getString(4);
                 retVal.add(AddVal);
 
                 cursor.moveToNext();

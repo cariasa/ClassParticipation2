@@ -49,8 +49,8 @@ public class ReportActivity extends Activity {
 
         setVal = new ArrayList();
         for (int i = 0 ; i < listHomeworkGrades.size() ; i ++){
-            String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"+listHomeworkGrades.get(i).split("SEPARATOR")[1]
-                    +"SEPARATOR"+listParticipationGrades.get(i).split("SEPARATOR")[1];
+            String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"+listHomeworkGrades.get(i).split("SEPARATOR")[1]+listHomeworkGrades.get(i).split("SEPARATOR")[2]
+                    +"SEPARATOR"+listParticipationGrades.get(i).split("SEPARATOR")[4];
 
             setVal.add(addVal);
 
@@ -71,6 +71,14 @@ public class ReportActivity extends Activity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+            //(List<Participation> list, String studentName, double finalGrade, List<String> homework,double percentageParticipation, double percentageHomework
+                DatabaseHandler db = new DatabaseHandler(view.getContext());
+                String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
+                List<String> FinalParticipations = db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
+                List<String> FinalHomeworks = db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
+
+                List<String> AllHomeworks  = db.getHomeworkNameAndGrade(Integer.parseInt(STUDENTIR),currentSection.get_SectionId(),UUID);
+
 
             }
         });
@@ -93,9 +101,10 @@ public class ReportActivity extends Activity {
             //find the course to work with and the section
             try{
                 //homework name view
-                String NAME = setVal.get(position).split("SEPARATOR")[0];
-                String HOMEWORK = setVal.get(position).split("SEPARATOR")[1];
-                String PARTICIPATION = setVal.get(position).split("SEPARATOR")[2];
+                String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
+                String NAME = setVal.get(position).split("SEPARATOR")[1];
+                String HOMEWORK = setVal.get(position).split("SEPARATOR")[2];
+                String PARTICIPATION = setVal.get(position).split("SEPARATOR")[3];
 
 
                 TextView StudentName = (TextView)itemView.findViewById(R.id.StudentNameReport);
