@@ -91,15 +91,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-<<<<<<< Updated upstream
-=======
+
         String CREATE_TEACHER_TABLE = "CREATE TABLE "+TABLE_TEACHER+" (" +
                 TEACHER_UUID+" TEXT PRIMARY KEY," +
                 TEACHER_NAME+" TEXT"+
                 "udpateStatus TEXT)";
 
 
->>>>>>> Stashed changes
         String CREATE_COURSE_TABLE =
                 "CREATE TABLE " + TABLE_COURSE + " (" +
                         COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
