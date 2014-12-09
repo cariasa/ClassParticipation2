@@ -49,7 +49,10 @@ public class LoginFragment extends Fragment {
                 if (user != null) {
                     //mostrar datos, etc
                     if(!created) {
-                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        String UUID = buildUserInfoDisplay(user);
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("UUID",UUID);
+                        startActivity(intent);
                         created=true;
                     }
                 }
