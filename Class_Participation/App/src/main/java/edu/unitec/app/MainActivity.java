@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -26,11 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.Session;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
@@ -38,25 +34,24 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.HashMap;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends Activity{
     private static final int REQUEST_CODE = 2;
     //Facebook fb;
     //SharedPreferences sp;
 
-    String UUID;    
+    //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
+    String UUID = "ID1";
+
+    SemesterQuarter Actual;
+
+    RetainDataFragment RetainData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        UUID = intent.getStringExtra("UUID");
         if (savedInstanceState == null){
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -250,20 +245,14 @@ public class MainActivity extends Activity{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
+        switch ( item.getItemId() ) {
             case R.id.course:
                 startActivity(new Intent(this, CourseActivity.class));
-                Intent intent = new Intent(this, CourseActivity.class);
-                intent.putExtra("UUID", UUID);
-                startActivity(intent);
                 return true;
 
             case R.id.section:
                 //startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
                 startActivity(new Intent(this, SectionActivity.class));
-                Intent intents = new Intent(this, SectionActivity.class);
-                intents.putExtra("UUID", UUID);
-                startActivity(intents);
                 return true;
 
             case R.id.about:
@@ -271,76 +260,14 @@ public class MainActivity extends Activity{
                 dialog.show(getFragmentManager(), "dialog_about");
                 return true;
 
-            case R.id.logout:
-                callFacebookLogout(getBaseContext());
-                this.finish();
-                //startActivity(new Intent(this, LoginActivity.class));
-                return true;
-            case R.id.refresh:
-                syncSQLiteMySQLDB();
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
     }
 
-    public void syncSQLiteMySQLDB(){
-        //Create AsycHttpClient object
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        final DatabaseHandler controller = new DatabaseHandler(this);
-        HashMap<String, String> queryValues = new HashMap<String, String>();
-        queryValues.put("Name", "testname");
-        controller.insertTeacher(queryValues);
-        ArrayList<HashMap<String, String>> userList =  controller.getAllTeachers();
-        if(userList.size()!=0){
-            if(controller.dbSyncCount() != 0){
-                params.put("usersJSON", controller.composeJSONfromSQLite());
-                client.post("http://p4.comlu.com/insertteacher.php", params , new AsyncHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(String response) {
-                        System.out.println(response);
-                        try {
-                            JSONArray arr = new JSONArray(response);
-                            System.out.println(arr.length());
-                            for(int i=0; i<arr.length();i++){
-                                JSONObject obj = (JSONObject)arr.get(i);
-                                System.out.println(obj.get("id"));
-                                System.out.println(obj.get("status"));
-                                controller.updateSyncStatus(obj.get("id").toString(),obj.get("status").toString());
-                            }
-                            Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        // TODO Auto-generated method stub
-                        if(statusCode == 404){
-                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
-                        }else if(statusCode == 500){
-                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                });
-            }else{
-                Toast.makeText(getApplicationContext(), "SQLite and Remote MySQL DBs are in Sync!", Toast.LENGTH_LONG).show();
-            }
-        }else{
-            Toast.makeText(getApplicationContext(), "No data in SQLite DB, please do enter User name to perform Sync action", Toast.LENGTH_LONG).show();
-        }
-    }
-
-     /**
+    /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
@@ -355,23 +282,4 @@ public class MainActivity extends Activity{
             return rootView;
         }
     }
-
-    public static void callFacebookLogout(Context context) {
-        Session session = Session.getActiveSession();
-        if (session != null) {
-
-            if (!session.isClosed()) {
-                session.closeAndClearTokenInformation();
-                //set string null;
-            }
-        } else {
-
-            session = new Session(context);
-            Session.setActiveSession(session);
-
-            session.closeAndClearTokenInformation();
-
-        }
-    }
-
 }

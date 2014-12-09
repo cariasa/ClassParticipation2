@@ -9,10 +9,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -184,8 +180,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOMESTU);
         onCreate(db);
     }
-
-
     void addCourse(Course course){
         SQLiteDatabase	db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -1018,71 +1012,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return all_grades;
     }
-
-    public ArrayList<HashMap<String, String>> getAllTeachers() {
-        ArrayList<HashMap<String, String>> wordList;
-        wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM TEACHER";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("Id", cursor.getString(0));
-                map.put("Name", cursor.getString(1));
-                wordList.add(map);
-            } while (cursor.moveToNext());
-        }
-        database.close();
-        return wordList;
-    }
-
-    public int dbSyncCount(){
-        int count = 0;
-        String selectQuery = "SELECT  * FROM TEACHER where udpateStatus = '"+"no"+"'";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        count = cursor.getCount();
-        database.close();
-        return count;
-    }
-
-    public void insertTeacher(HashMap<String, String> queryValues) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("Name", queryValues.get("Name"));
-        values.put("udpateStatus", "no");
-        database.insert("TEACHER", null, values);
-        database.close();
-    }
-
-    public String composeJSONfromSQLite(){
-        ArrayList<HashMap<String, String>> wordList;
-        wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM TEACHER where udpateStatus = '"+"no"+"'";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("Id", cursor.getString(0));
-                map.put("Name", cursor.getString(1));
-                wordList.add(map);
-            } while (cursor.moveToNext());
-        }
-        database.close();
-        Gson gson = new GsonBuilder().create();
-        //Use GSON to serialize Array List to JSON
-        return gson.toJson(wordList);
-    }
-
-    public void updateSyncStatus(String id, String status){
-        SQLiteDatabase database = this.getWritableDatabase();
-        String updateQuery = "Update TEACHER set udpateStatus = '"+ status +"' where TEACHER_UUID="+"'"+ id +"'";
-        Log.d("query",updateQuery);
-        database.execSQL(updateQuery);
-        database.close();
-    }
-
-
 }

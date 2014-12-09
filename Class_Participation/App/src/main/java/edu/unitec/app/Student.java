@@ -8,21 +8,24 @@ public class Student
     private int _StudentId;
 	private String _StudentName;
 	private String _StudentMajor;
+    private String _StudentEmail;
 
     public Student(){}
-    public Student(int _StudentId, String _StudentName, String _StudentMajor)
+    public Student(int _StudentId, String _StudentName, String _StudentMajor,String Email)
     {
 		super();
 		this._StudentId = _StudentId;
 		this._StudentName = _StudentName;
 		this._StudentMajor = _StudentMajor;
+        this._StudentEmail = Email;
 	}
-	public Student(int _StudentId, String _StudentName)
+	public Student(int _StudentId, String _StudentName,String Email)
     {
 		super();
 		this._StudentId = _StudentId;
 		this._StudentName = _StudentName;
 		this._StudentMajor = "I-1";
+        this._StudentEmail = Email;
 	}
 	public int get_StudentId()
     {
@@ -48,6 +51,14 @@ public class Student
     {
 		this._StudentMajor = _StudentMajor;
 	}
+
+    public String get_StudentEmail() {
+        return _StudentEmail;
+    }
+
+    public void set_StudentEmail(String _StudentEmail) {
+        this._StudentEmail = _StudentEmail;
+    }
 
     @Override
     public String toString(){
