@@ -110,6 +110,10 @@ public class StudentItemAdapter extends BaseAdapter {
                         finalGrade = db.getFinalGrade(currentStudentSectionId,UUID);
                         currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId(),UUID);
 
+                        if (currentStudentHomeworks == null){
+                            currentStudentHomeworks = new ArrayList<String>();
+                        }
+
                         double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
                         //get the average of the Homeworks
                         for(int i=0;i<currentStudentHomeworks.size();i++){

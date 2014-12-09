@@ -26,7 +26,7 @@ public class ReportActivity extends Activity {
     private ArrayAdapter<String> arrayAdapter;
 
     private List<String> listHomeworkGrades;
-    private List<String> listParticipationGrades;
+   // private List<String> listParticipationGrades;
     private List<String> setVal;
 
 
@@ -45,15 +45,22 @@ public class ReportActivity extends Activity {
 
         listHomeworkGrades=db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId());
         ListReport = (ListView)findViewById(R.id.listviewReport);
-        listParticipationGrades=db.getTotalParticipationGrades(UUID,currentSection.get_SectionId());
+
+
+        if  (listHomeworkGrades == null){
+            listHomeworkGrades = new ArrayList();
+        }
+
+
 
         setVal = new ArrayList();
         for (int i = 0 ; i < listHomeworkGrades.size() ; i ++){
-            String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"+listHomeworkGrades.get(i).split("SEPARATOR")[1]+listHomeworkGrades.get(i).split("SEPARATOR")[2]
-                    +"SEPARATOR"+listParticipationGrades.get(i).split("SEPARATOR")[4];
+            String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"
+                    +listHomeworkGrades.get(i).split("SEPARATOR")[1]+"SEPARATOR"
+                    +listHomeworkGrades.get(i).split("SEPARATOR")[2]+"SEPARATOR";
+                    //+listParticipationGrades.get(i).split("SEPARATOR")[4];
 
             setVal.add(addVal);
-
         }
 
 
@@ -74,12 +81,28 @@ public class ReportActivity extends Activity {
             //(List<Participation> list, String studentName, double finalGrade, List<String> homework,double percentageParticipation, double percentageHomework
                 DatabaseHandler db = new DatabaseHandler(view.getContext());
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
+                String STUDENTNAME = setVal.get(position).split("SEPARATOR")[1];
+                double ParticipationPercentage = 0;
+                double HomeworkPercentage = 0;
+
                 List<String> FinalParticipations = db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
+                if (FinalParticipations != null) {
+                    ParticipationPercentage = Double.parseDouble(FinalParticipations.get(0).split("SEPARATOR")[4]);
+                }
                 List<String> FinalHomeworks = db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
-
+                if (FinalHomeworks != null) {
+                    HomeworkPercentage = Double.parseDouble(FinalHomeworks.get(0).split("SEPARATOR")[2]);
+                }
                 List<String> AllHomeworks  = db.getHomeworkNameAndGrade(Integer.parseInt(STUDENTIR),currentSection.get_SectionId(),UUID);
+                List<Participation> AllParticipation = db.getParticipationStudent(UUID,STUDENTIR,currentSection.get_SectionId()+"");
 
+                /*
+                List<Participation> list, String studentName, double finalGrade, List<String> homework,double percentageParticipation, double percentageHomework
+                 */
 
+                StudentDialog Statistics = new StudentDialog(AllParticipation,STUDENTNAME,0,AllHomeworks,ParticipationPercentage,HomeworkPercentage);
+                Statistics.show(getFragmentManager(), "dialog_student");
+                db.close();
             }
         });
     }
@@ -104,18 +127,30 @@ public class ReportActivity extends Activity {
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String NAME = setVal.get(position).split("SEPARATOR")[1];
                 String HOMEWORK = setVal.get(position).split("SEPARATOR")[2];
-                String PARTICIPATION = setVal.get(position).split("SEPARATOR")[3];
 
+                DatabaseHandler db = new DatabaseHandler(this.getContext());
+                List<String> listParticipationGrades=db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
+                String PARTICIPATION = "0";
+                
+                if (listParticipationGrades != null){
+                    if (listParticipationGrades.size() > 0){
+                        PARTICIPATION = listParticipationGrades.get(0).split("SEPARATOR")[4];
+                    }
+                }
+
+
+                TextView StudentId = (TextView)itemView.findViewById(R.id.StudentIdReport);
+                StudentId.setText(STUDENTIR);
 
                 TextView StudentName = (TextView)itemView.findViewById(R.id.StudentNameReport);
                 StudentName.setText(NAME);
 
                 //Percentage view
                 TextView  ParticipationPercentage= (TextView)itemView.findViewById(R.id.ParticipationReport);
-                ParticipationPercentage.setText(HOMEWORK);
+                ParticipationPercentage.setText(PARTICIPATION+"%");
 
                 TextView  HomeworkPercentage= (TextView)itemView.findViewById(R.id.HomeworkReport);
-                HomeworkPercentage.setText(PARTICIPATION);
+                HomeworkPercentage.setText(HOMEWORK+"%");
 
             }catch(Exception e){
             }
