@@ -49,13 +49,8 @@ public class MainActivity extends Activity{
     //Facebook fb;
     //SharedPreferences sp;
 
-<<<<<<< Updated upstream
-=======
-    //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
-    //cambiado :D
-    String UUID;
+    String UUID;    
 
->>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -257,24 +252,18 @@ public class MainActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.course:
-<<<<<<< Updated upstream
                 startActivity(new Intent(this, CourseActivity.class));
-=======
                 Intent intent = new Intent(this, CourseActivity.class);
                 intent.putExtra("UUID", UUID);
                 startActivity(intent);
->>>>>>> Stashed changes
                 return true;
 
             case R.id.section:
                 //startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
-<<<<<<< Updated upstream
                 startActivity(new Intent(this, SectionActivity.class));
-=======
                 Intent intents = new Intent(this, SectionActivity.class);
                 intents.putExtra("UUID", UUID);
                 startActivity(intents);
->>>>>>> Stashed changes
                 return true;
 
             case R.id.about:
