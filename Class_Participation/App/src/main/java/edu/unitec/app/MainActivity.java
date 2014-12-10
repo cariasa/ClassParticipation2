@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -25,6 +26,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.Session;
 
 import org.json.JSONObject;
 
@@ -55,6 +58,9 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+		Intent intent = getIntent();
+		UUID = intent.getStringExtra("UUID");
+
         FragmentManager FragmentM = getFragmentManager();
         RetainData = (RetainDataFragment)FragmentM.findFragmentByTag("RData");
 
@@ -71,8 +77,10 @@ public class MainActivity extends Activity{
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+
         ClickCallback();
-    }
+        }
+
 
     @Override
     public void onDestroy(){
@@ -87,15 +95,13 @@ public class MainActivity extends Activity{
         populateListView();
     }
 
-
+        
 
     public List<Section> getCurrentSectionsList(){
-        List<Section> sectionsList = new ArrayList<Section>();
-
         int year = Actual.getYear();
         int semester = Actual.getSemester();
         int quarter = Actual.getQuarter();
-
+        List<Section> sectionsList = new ArrayList<Section>();
         try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
@@ -265,6 +271,12 @@ public class MainActivity extends Activity{
                 dialog.show(getFragmentManager(), "dialog_about");
                 return true;
 
+            case R.id.logout:
+                callFacebookLogout(getBaseContext());
+                this.finish();
+                //startActivity(new Intent(this, LoginActivity.class));
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -286,5 +298,24 @@ public class MainActivity extends Activity{
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+    }
+
+    public static void callFacebookLogout(Context context) {
+        Session session = Session.getActiveSession();
+        if (session != null) {
+
+            if (!session.isClosed()) {
+                session.closeAndClearTokenInformation();
+                //set string null;
+            }
+        } else {
+
+            session = new Session(context);
+            Session.setActiveSession(session);
+
+            session.closeAndClearTokenInformation();
+
+        }
+
     }
 }
