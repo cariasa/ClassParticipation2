@@ -2,6 +2,7 @@ package edu.unitec.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,6 +121,9 @@ public class ReportActivity extends Activity {
             //if itemView is null we create a new one
             if(itemView == null ){
                 itemView = getLayoutInflater().inflate(R.layout.item_listview_report, parent, false);
+                if ((position % 2) == 0){
+                    itemView.setBackgroundColor(Color.rgb(238,233,233));
+                }
             }
             //find the course to work with and the section
             try{

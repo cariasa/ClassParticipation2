@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.13.2'
     }
 }
 apply plugin: 'android'
@@ -14,9 +14,10 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
+        applicationId "com.unitec.edu.ClassParticipation"
         minSdkVersion 14
         targetSdkVersion 19
     }
@@ -34,5 +35,7 @@ android {
 }
 dependencies {
     compile files('libs/android-support-v4.jar')
+    compile 'com.android.support:support-v4:21.0.2'
     compile project(':facebook')
 }
+

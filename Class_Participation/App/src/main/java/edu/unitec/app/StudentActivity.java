@@ -335,10 +335,11 @@ public class StudentActivity extends Activity {
         Date cDate = new Date();
         String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
 
-        absent_check.moveToFirst();
+
         if (absent_check.getCount() == 0) {
             return false;
         }
+        absent_check.moveToFirst();
         if (absent_check.getString(0).equals("Absent") && absent_check.getString(1).equals(fDate)) {
             return true;
         }
