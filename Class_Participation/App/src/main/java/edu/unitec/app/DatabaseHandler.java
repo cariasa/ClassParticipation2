@@ -10,7 +10,11 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -1263,7 +1267,437 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return retVal;
     }
 
-    public List<String> getTotalHomeworkGrades(String UUID, int SectionId) {
+	public void forceAddTeacher(String UUID, String Name){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "INSERT INTO Teacher VALUES('"+UUID+"', '"+Name+"')";
+        db.execSQL(query);
+        db.close();
+    }
+
+
+    public String composeJSONfromSQLiteTeacher(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM Teacher";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("teacherId", cursor.getString(0));
+                map.put("teacherName", cursor.getString(1));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllTeachers() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM Teacher";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("teacherId", cursor.getString(0));
+                map.put("teacherName", cursor.getString(1));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteCourse(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM course";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Id", String.valueOf(cursor.getInt(0)));
+                System.out.println(cursor.getInt(0));
+                map.put("UUID", cursor.getString(1));
+                System.out.println(cursor.getInt(1));
+                map.put("Code", cursor.getString(2));
+                System.out.println(cursor.getInt(2));
+                map.put("Name", cursor.getString(3));
+                System.out.println(cursor.getInt(3));
+                map.put("Desc", cursor.getString(4));
+                System.out.println(cursor.getInt(4));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllCourses() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM course";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Id", String.valueOf(cursor.getString(0)));
+                map.put("UUID", cursor.getString(1));
+                map.put("Code", cursor.getString(2));
+                map.put("Name", cursor.getString(3));
+                map.put("Desc", cursor.getString(4));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteSection(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM section";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Course", String.valueOf(cursor.getInt(2)));
+                map.put("Qtr", String.valueOf(cursor.getInt(3)));
+                map.put("Sem", String.valueOf(cursor.getInt(4)));
+                map.put("Yea", String.valueOf(cursor.getInt(5)));
+                map.put("Code", cursor.getString(6));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllSections() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM section";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Course", String.valueOf(cursor.getInt(2)));
+                map.put("Qtr", String.valueOf(cursor.getInt(3)));
+                map.put("Sem", String.valueOf(cursor.getInt(4)));
+                map.put("Yea", String.valueOf(cursor.getInt(5)));
+                map.put("Code", cursor.getString(6));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteStudent(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM student";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Id", cursor.getString(0));
+                map.put("Name", cursor.getString(1));
+                map.put("Major", cursor.getString(2));
+                map.put("Email", cursor.getString(3));
+                map.put("Password", cursor.getString(4));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllStudents() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM student";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Id", cursor.getString(0));
+                map.put("Name", cursor.getString(1));
+                map.put("Major", cursor.getString(2));
+                map.put("Email", cursor.getString(3));
+                map.put("Password", cursor.getString(4));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteStudentSection(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM studentSection";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Sect", String.valueOf(cursor.getInt(2)));
+                map.put("Stud", String.valueOf(cursor.getInt(3)));
+                map.put("Final", String.valueOf(cursor.getDouble(4)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllStudentSection() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM studentSection";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Sect", String.valueOf(cursor.getInt(2)));
+                map.put("Stud", String.valueOf(cursor.getInt(3)));
+                map.put("Final", String.valueOf(cursor.getDouble(4)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteStudentParticipation(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM participationStudent";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Stusect", String.valueOf(cursor.getInt(2)));
+                map.put("Grade", String.valueOf(cursor.getDouble(3)));
+                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Comment", cursor.getString(5));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllStudentParticipation() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM participationStudent";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Stusect", String.valueOf(cursor.getInt(2)));
+                map.put("Grade", String.valueOf(cursor.getDouble(3)));
+                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Comment", cursor.getString(5));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+
+    public String composeJSONfromSQLiteHomework(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM homework";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Secid", String.valueOf(cursor.getInt(3)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllHomework() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM homework";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Secid", String.valueOf(cursor.getInt(3)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+
+    public String composeJSONfromSQLiteCriteria(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM criteria";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Weight", String.valueOf(cursor.getDouble(3)));
+                map.put("Homework", String.valueOf(cursor.getInt(4)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllCriteria() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM criteria";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Weight", String.valueOf(cursor.getDouble(3)));
+                map.put("Homework", String.valueOf(cursor.getInt(4)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+
+    public String composeJSONfromSQLiteHomeWorkStudent(){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM homeworkStudent";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Grade", String.valueOf(cursor.getDouble(2)));
+                map.put("Criteriaid", String.valueOf(cursor.getInt(3)));
+                map.put("Studentid", String.valueOf(cursor.getInt(4)));
+                map.put("hsd", String.valueOf(cursor.getString(5)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllHomeWorkStudent() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM homeworkStudent";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Grade", String.valueOf(cursor.getDouble(2)));
+                map.put("Criteriaid", String.valueOf(cursor.getInt(3)));
+                map.put("Studentid", String.valueOf(cursor.getInt(4)));
+                map.put("hsd", String.valueOf(cursor.getString(5)));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return wordList;
+    }
+    
+
+	public List<String> getTotalHomeworkGrades(String UUID, int SectionId) {
         List<String> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
         String QUERY = "SELECT S.StudentId, S.StudentName , ROUND(SUM(coalesce(HS.HomeworkStudentGrade ,0) / (SELECT COUNT(CriteriaId) FROM criteria WHERE HomeworkId = H.HomeworkId  ) / (SELECT count(HomeworkId)*100 FROM homework WHERE SectionId = SS.SectionId)) *100) AS Grade " +
@@ -1508,6 +1942,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return retVal;
     }
+
+    
 
 
 }

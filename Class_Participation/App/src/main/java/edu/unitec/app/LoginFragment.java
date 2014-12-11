@@ -50,8 +50,10 @@ public class LoginFragment extends Fragment {
                     //mostrar datos, etc
                     if(!created) {
                         String UUID = buildUserInfoDisplay(user);
+                        String Name = buildUserInfoName(user);
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.putExtra("UUID",UUID);
+                        intent.putExtra("Name", Name);
                         startActivity(intent);
                         created=true;
                     }
@@ -119,8 +121,14 @@ public class LoginFragment extends Fragment {
 
     private String buildUserInfoDisplay(GraphUser user) {
         StringBuilder userInfo = new StringBuilder("");
-        userInfo.append(String.format("%s",
-                user.getId()));
+        userInfo.append(user.getId());
+
+        return userInfo.toString();
+    }
+
+    private String buildUserInfoName(GraphUser user) {
+        StringBuilder userInfo = new StringBuilder("");
+        userInfo.append(user.getName());
 
         return userInfo.toString();
     }

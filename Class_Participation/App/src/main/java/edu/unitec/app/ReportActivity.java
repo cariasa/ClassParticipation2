@@ -78,7 +78,7 @@ public class ReportActivity extends Activity {
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String STUDENTNAME = setVal.get(position).split("SEPARATOR")[1];
                 double ParticipationPercentage = Double.parseDouble(setVal.get(position).split("SEPARATOR")[2]);
-                double HomeworkPercentage = Double.parseDouble(setVal.get(position).split("SEPARATOR")[2]);
+                double HomeworkPercentage = Double.parseDouble(setVal.get(position).split("SEPARATOR")[3]);
 
                 List<String> AllHomeworks  = db.getHomeworkNameAndGrade(Integer.parseInt(STUDENTIR),currentSection.get_SectionId(),UUID);
                 List<Participation> AllParticipation = db.getParticipationStudent(UUID,STUDENTIR,currentSection.get_SectionId()+"");
