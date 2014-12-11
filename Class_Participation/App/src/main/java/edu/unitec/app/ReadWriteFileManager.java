@@ -1,7 +1,10 @@
 package edu.unitec.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
+
+import com.opencsv.CSVWriter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadWriteFileManager {
+
+    CSVWriter csvWriter;
+
 
     public List<Student> readFromFile(Context context,String sourceFileName){
         List<Student> StudentList = new ArrayList<Student>();
@@ -87,4 +93,30 @@ public class ReadWriteFileManager {
         }
         return false;
     }
+
+    public boolean exportReport(String SectionId,List<String> exportValues) {
+        try {
+            if (MemoriaExternaEscribible()) {
+
+                File file = new File(Environment.getExternalStorageDirectory(), "Report_SectionId" + SectionId + ".csv");
+                file.createNewFile();
+                csvWriter = new CSVWriter(new FileWriter(file),',');
+                for (int i = 0; i<exportValues.size() ; i++) {
+                    String[] export = exportValues.get(i).split("SEPARATOR");
+                    csvWriter.writeNext(export);
+                }
+
+                csvWriter.close();
+
+
+                return true;
+
+            }else{
+                return false;
+            }
+        }catch(Exception e){
+            return false;
+        }
+    }
+
 }

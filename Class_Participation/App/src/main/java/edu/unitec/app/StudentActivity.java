@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,7 +109,7 @@ public class StudentActivity extends Activity {
 
             item_student.setVisible(true);
             save_student.setVisible(true);
-            save_students.setVisible(false);
+           save_students.setVisible(false);
             newAssignment.setVisible(true);
             newHomework.setVisible(true);
             newParticipation.setVisible(true);
@@ -168,6 +169,33 @@ public class StudentActivity extends Activity {
                 showDeleteStudentDialog();
                 return true;
             case R.id.export_students:
+                ReadWriteFileManager FM = new ReadWriteFileManager();
+                if (FM.exportReport(currentSection.get_SectionId()+"",setVal)){
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    emailIntent.setType("plain/text");
+                    /*emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]
+                            {"me@gmail.com"});
+                            */
+                    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                            "Report Generated from Class Participation");
+                    emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                            "Report of Section " + currentSection.get_SectionCode());
+
+                    String fileLocation = Environment.getExternalStorageDirectory()+ "/Report_SectionId" + currentSection.get_SectionId() + ".csv";
+
+                    emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+fileLocation));
+                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+
+                    Toast.makeText(getApplicationContext(), "Export successful",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error exporting",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                /*
+
                 try {
                     ReadWriteFileManager fm = new ReadWriteFileManager();
                     DatabaseHandler db = new DatabaseHandler(this);
@@ -181,6 +209,7 @@ public class StudentActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                */
                 return true;
             case R.id.item_newHomework:
                 Intent intentHomework = new Intent(this, HomeworkActivity.class);
@@ -272,6 +301,7 @@ public class StudentActivity extends Activity {
             return StudentList;
         }
     */
+
     public List<Integer> getCurrentStudentSectionIdList() {
         List<Integer> StudentSectionIdList = new ArrayList<Integer>();
 
@@ -428,29 +458,30 @@ public class StudentActivity extends Activity {
     }
 
     public void showParticipationDialog() {
-        int studentIndex;
-        int student_quantity = getCurrentStudentNamesList().size();
-        if (student_quantity > 0) {
-            int avoid_infinite_loop = 0;
-            do {
-                studentIndex = selectStudent();
-                avoid_infinite_loop++;
-                if (avoid_infinite_loop == 100) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "All students absent!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    return;
-                }
-            } while (check_absence(studentIndex));
+        int StudentSectionId;
+        String StudentName;
 
-            ParticipationDialog dialog = new ParticipationDialog(getCurrentStudentSectionIdList().get(studentIndex),
-                    getCurrentStudentNamesList().get(studentIndex), UUID);
+         //STUDENT ID
+        //STUDENT NAME
+        //SECTIONID
 
-            dialog.show(getFragmentManager(), "dialog_participation");
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        ArrayList<String> Vals = db.getRandomStudent(currentSection.get_SectionId(),UUID);
+        if (Vals != null) {
+            StudentSectionId = Integer.parseInt(Vals.get(2));
+            StudentName = (Vals.get(1));
+        }else{
+            StudentName = "";
+            StudentSectionId = 0;
         }
-    }
+
+
+
+        ParticipationDialog dialog = new ParticipationDialog(StudentSectionId,StudentName, UUID);
+
+        dialog.show(getFragmentManager(), "dialog_participation");
+     }
+
 
     //Participates using the index of the selected item
     public void showParticipationDialog(int listIndex) {

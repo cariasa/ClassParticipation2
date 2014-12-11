@@ -35,7 +35,9 @@ android {
 }
 dependencies {
     compile files('libs/android-support-v4.jar')
+    compile files('libs/opencsv.jar')
     compile 'com.android.support:support-v4:21.0.2'
     compile project(':facebook')
+    compile files('/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/opencsv.jar')
 }
 

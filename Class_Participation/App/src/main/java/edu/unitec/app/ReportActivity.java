@@ -3,13 +3,19 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +64,8 @@ public class ReportActivity extends Activity {
         for (int i = 0 ; i < listHomeworkGrades.size() ; i ++){
             String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"
                     +listHomeworkGrades.get(i).split("SEPARATOR")[1]+"SEPARATOR"
-                    +listHomeworkGrades.get(i).split("SEPARATOR")[2]+"SEPARATOR";
-                    //+listParticipationGrades.get(i).split("SEPARATOR")[4];
+                    +listHomeworkGrades.get(i).split("SEPARATOR")[2]+"SEPARATOR"
+                    +"0";
 
             setVal.add(addVal);
         }
@@ -89,6 +95,7 @@ public class ReportActivity extends Activity {
                 List<String> FinalParticipations = db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
                 if (FinalParticipations != null) {
                     ParticipationPercentage = Double.parseDouble(FinalParticipations.get(0).split("SEPARATOR")[4]);
+                    setVal.get(position).split("SEPARATOR")[3] = ParticipationPercentage + "";
                 }
                 List<String> FinalHomeworks = db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
                 if (FinalHomeworks != null) {
@@ -108,6 +115,55 @@ public class ReportActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        // getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.export_report, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch ( item.getItemId() ) {
+            case R.id.exportcsv:
+                ReadWriteFileManager FM = new ReadWriteFileManager();
+                if (FM.exportReport(currentSection.get_SectionId()+"",setVal)){
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    emailIntent.setType("plain/text");
+                    /*emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]
+                            {"me@gmail.com"});
+                            */
+                    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                            "Report Generated from Class Participation");
+                    emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                            "Report of Section " + currentSection.get_SectionCode());
+
+                    String fileLocation = Environment.getExternalStorageDirectory()+ "/Report_SectionId" + currentSection.get_SectionId() + ".csv";
+
+                    emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+fileLocation));
+                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+
+                    Toast.makeText(getApplicationContext(), "Export successful",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error exporting",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
+
 
     public class MyListAdapter extends ArrayAdapter<String> {
 
@@ -121,8 +177,8 @@ public class ReportActivity extends Activity {
             //if itemView is null we create a new one
             if(itemView == null ){
                 itemView = getLayoutInflater().inflate(R.layout.item_listview_report, parent, false);
-                if ((position % 2) == 0){
-                    itemView.setBackgroundColor(Color.rgb(238,233,233));
+                if (!((position % 2) == 0)){
+                    itemView.setBackgroundColor(Color.rgb(205,201,201));
                 }
             }
             //find the course to work with and the section
