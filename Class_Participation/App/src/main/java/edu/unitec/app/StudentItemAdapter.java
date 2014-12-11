@@ -62,8 +62,9 @@ public class StudentItemAdapter extends BaseAdapter {
         final TextView StudentName = (TextView) customView.findViewById(R.id.item_studentName);
         StudentName.setText(dir.getStudentName());
         //Override the method onClick from buttonParticipation
+        Button buttonParticipation = (Button) customView.findViewById(R.id.button_student_participation);
+        Button buttonHomework = (Button) customView.findViewById(R.id.button_student_homework);
         if (!Previous) {
-            Button buttonParticipation = (Button) customView.findViewById(R.id.button_student_participation);
             buttonParticipation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,7 +75,7 @@ public class StudentItemAdapter extends BaseAdapter {
             });
 
             //Override onClick method from buttonHomework
-            Button buttonHomework = (Button) customView.findViewById(R.id.button_student_homework);
+
             buttonHomework.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -89,6 +90,9 @@ public class StudentItemAdapter extends BaseAdapter {
                     }
                 }
             });
+        }else{
+            buttonParticipation.setVisibility(Button.INVISIBLE);
+            buttonHomework.setVisibility(Button.INVISIBLE);
         }
         //Override onClick method from buttonStatistics
         Button buttonStatistics = (Button) customView.findViewById(R.id.button_student_statistics);
@@ -105,6 +109,10 @@ public class StudentItemAdapter extends BaseAdapter {
                         currentStudentParticipationList = db.getStudentParticipationList(currentStudentSectionId,UUID);
                         finalGrade = db.getFinalGrade(currentStudentSectionId,UUID);
                         currentStudentHomeworks = db.getHomeworkNameAndGrade(((StudentActivity)activity).getCurrentStudentIdList().get(position),((StudentActivity)activity).getCurrentSection().get_SectionId(),UUID);
+
+                        if (currentStudentHomeworks == null){
+                            currentStudentHomeworks = new ArrayList<String>();
+                        }
 
                         double percentageParticipations=0,percentageHomeworks=0, acumHomeworks=0, acumParticipations=0;
                         //get the average of the Homeworks

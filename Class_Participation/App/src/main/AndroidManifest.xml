@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -49,10 +52,15 @@
         <activity
             android:name="edu.unitec.app.HomeworkActivity"
             android:label="@string/title_activity_create_homework"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="edu.unitec.app.CheckHomework"
+            android:name=".ReportActivity"
+            android:label="Report"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".CheckHomework"
             android:label="@string/title_activity_check_homework"
             android:screenOrientation="portrait" >
         </activity>

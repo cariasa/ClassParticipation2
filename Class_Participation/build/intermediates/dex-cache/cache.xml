@@ -2,46 +2,22 @@
 <pre-dex-items>
 
     <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-039666da79fbad42e8d65188e11eeee80433a9a4.jar"
-        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8"/>
-    <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/support-annotations-21.0.2-6fabdc301c7f39fd5238e025768e7b0bb5de3b43.jar"
-        jar="/home/carlos/as/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6"/>
-    <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-c0296138d20b3b0d8000abb6b0808081a89e7057.jar"
-        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
-    <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/bolts-android-1.1.2-662e8ce2a4a76553d11d3af15e924c068e6b84ce.jar"
-        jar="/home/carlos/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7"/>
-    <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-72a90793231d546bf7f02406369749d7a1dae037.jar"
-        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3b6ff762fdb29e0fb46f50660899e54a9a621934"/>
-    <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/android-async-http-1.4.4-bb3671bfa533b0c80ad8f6094d061d5f1280c9ec.jar"
-        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar"
+        dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/android-async-http-1.4.4-99c3f4b7af9f4a59e40ec6441ce7fb7c9abba418.jar"
+        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="3bae85a076241828810bf8fbcc12e5891d5fc34c"/>
     <item
-        dex="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-21.0.2-7983fffc51a3eb791e110a810216254ce0e91536.jar"
-        jar="/home/carlos/Progra4/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-e3b3221d4ba48530081db83c13babdbe158f2f19.jar"
+        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f"/>
+        sha1="d9b1557d99f0aaf758bf7eb2a618df3ea277f5c6"/>
+    <item
+        dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-c2ac9ae4011e1656ee9b20b2e22eb3cf7cc1d762.jar"
+        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8"/>
 
 </pre-dex-items>
