@@ -170,6 +170,9 @@ public class StudentActivity extends Activity {
                 return true;
             case R.id.export_students:
                 ReadWriteFileManager FM = new ReadWriteFileManager();
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                List<String> setVal = db.getSectionGrades(currentSection.get_SectionId(),UUID);
+
                 if (FM.exportReport(currentSection.get_SectionId()+"",setVal)){
                     Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                     emailIntent.setType("plain/text");

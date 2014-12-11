@@ -50,24 +50,12 @@ public class ReportActivity extends Activity {
 
         DatabaseHandler db=new DatabaseHandler(this);
 
-        listHomeworkGrades=db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId());
         ListReport = (ListView)findViewById(R.id.listviewReport);
 
+        setVal = db.getSectionGrades(currentSection.get_SectionId(),UUID);
 
-        if  (listHomeworkGrades == null){
-            listHomeworkGrades = new ArrayList();
-        }
-
-
-
-        setVal = new ArrayList();
-        for (int i = 0 ; i < listHomeworkGrades.size() ; i ++){
-            String addVal = listHomeworkGrades.get(i).split("SEPARATOR")[0]+"SEPARATOR"
-                    +listHomeworkGrades.get(i).split("SEPARATOR")[1]+"SEPARATOR"
-                    +listHomeworkGrades.get(i).split("SEPARATOR")[2]+"SEPARATOR"
-                    +"0";
-
-            setVal.add(addVal);
+        if (setVal == null){
+            setVal = new ArrayList();
         }
 
 
@@ -89,18 +77,9 @@ public class ReportActivity extends Activity {
                 DatabaseHandler db = new DatabaseHandler(view.getContext());
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String STUDENTNAME = setVal.get(position).split("SEPARATOR")[1];
-                double ParticipationPercentage = 0;
-                double HomeworkPercentage = 0;
+                double ParticipationPercentage = Double.parseDouble(setVal.get(position).split("SEPARATOR")[2]);
+                double HomeworkPercentage = Double.parseDouble(setVal.get(position).split("SEPARATOR")[2]);
 
-                List<String> FinalParticipations = db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
-                if (FinalParticipations != null) {
-                    ParticipationPercentage = Double.parseDouble(FinalParticipations.get(0).split("SEPARATOR")[4]);
-                    setVal.get(position).split("SEPARATOR")[3] = ParticipationPercentage + "";
-                }
-                List<String> FinalHomeworks = db.getTotalHomeworkGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
-                if (FinalHomeworks != null) {
-                    HomeworkPercentage = Double.parseDouble(FinalHomeworks.get(0).split("SEPARATOR")[2]);
-                }
                 List<String> AllHomeworks  = db.getHomeworkNameAndGrade(Integer.parseInt(STUDENTIR),currentSection.get_SectionId(),UUID);
                 List<Participation> AllParticipation = db.getParticipationStudent(UUID,STUDENTIR,currentSection.get_SectionId()+"");
 
@@ -186,8 +165,9 @@ public class ReportActivity extends Activity {
                 //homework name view
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String NAME = setVal.get(position).split("SEPARATOR")[1];
-                String HOMEWORK = setVal.get(position).split("SEPARATOR")[2];
-
+                String HOMEWORK = setVal.get(position).split("SEPARATOR")[3];
+                String PARTICIPATION = setVal.get(position).split("SEPARATOR")[2];
+                /*
                 DatabaseHandler db = new DatabaseHandler(this.getContext());
                 List<String> listParticipationGrades=db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
                 String PARTICIPATION = "0";
@@ -198,7 +178,7 @@ public class ReportActivity extends Activity {
                     }
                 }
 
-
+*/
                 TextView StudentId = (TextView)itemView.findViewById(R.id.StudentIdReport);
                 StudentId.setText(STUDENTIR);
 

@@ -1476,16 +1476,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             CheckDate.close();
             total++;
-        }while(total < cursor.getCount());
+        } while (total < cursor.getCount());
         cursor.close();
         return retVal;
     }
 
-    public List<String> getSectionGrades(int SectionId , String UUID){
+    public List<String> getSectionGrades(int SectionId, String UUID) {
         List<String> retVal = null;
-        SQLiteDatabase db = this.getReadableDatabase();
+        double ParticipationPercentage = 0;
 
-        List<String> Homework = getTotalHomeworkGrades(UUID,SectionId);
+        List<String> Homework = getTotalHomeworkGrades(UUID, SectionId);
+        retVal = new ArrayList();
+        if (Homework == null){
+            Homework = new ArrayList();
+        }
+
+        for (int i = 0; i < Homework.size(); i++) {
+            String[] HomeworkS = Homework.get(i).split("SEPARATOR");
+            List<String> FinalParticipations = getTotalParticipationGrades(UUID, SectionId, HomeworkS[0]);
+            if (FinalParticipations != null) {
+                ParticipationPercentage = Double.parseDouble(FinalParticipations.get(0).split("SEPARATOR")[4]);
+            } else {
+                ParticipationPercentage = 0;
+            }
+
+            String AddVal = HomeworkS[0] + "SEPARATOR" + HomeworkS[1] + "SEPARATOR" + ParticipationPercentage + "SEPARATOR" + HomeworkS[2] + "SEPARATOR";
+
+
+            retVal.add(AddVal);
+        }
 
         return retVal;
     }
