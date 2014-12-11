@@ -1,5 +1,4 @@
 package edu.unitec.app;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -13,6 +12,7 @@ import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,77 +26,74 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.Session;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class MainActivity extends Activity{
     private static final int REQUEST_CODE = 2;
-    private static final  String STATE_YEAR = "YEAR";
+    private static final String STATE_YEAR = "YEAR";
     private static final String STATE_SEMESTER = "SEMESTER";
     private static final String STATE_QUARTER = "QUARTER";
     //Facebook fb;
-    //SharedPreferences sp;
-
-    //POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
+//SharedPreferences sp;
+//POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
     String UUID = "ID1";
-
+    String Name = "name";
     SemesterQuarter Actual;
-
     RetainDataFragment RetainData;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-		Intent intent = getIntent();
-		UUID = intent.getStringExtra("UUID");
-
+        Intent intent = getIntent();
+        UUID = intent.getStringExtra("UUID");
+        Name = intent.getStringExtra("Name");
         FragmentManager FragmentM = getFragmentManager();
         RetainData = (RetainDataFragment)FragmentM.findFragmentByTag("RData");
-
         if (RetainData == null){
             RetainData = new RetainDataFragment();
             FragmentM.beginTransaction().add(RetainData,"RData").commit();
-
             Actual = new SemesterQuarter();
             RetainData.setData(Actual);
         }
-
         Actual = RetainData.getData();
-
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-
+        getFragmentManager().beginTransaction()
+                .add(R.id.container, new PlaceholderFragment())
+                .commit();
         ClickCallback();
-        }
-
-
+    }
     @Override
     public void onDestroy(){
         super.onDestroy();
-
         RetainData.setData(Actual);
     }
-
     @Override
     public void onResume() {
         super.onResume();
         populateListView();
     }
 
-        
-
+    public void insertTeacher(){
+        SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+        final String insertTeacher = "INSERT into Teacher(TeacherUUID, TeacherName) VALUES ('" +
+                UUID + "', '"+Name+"')";
+        db.execSQL(insertTeacher);
+        db.close();
+    }
     public List<Section> getCurrentSectionsList(){
         int year = Actual.getYear();
         int semester = Actual.getSemester();
@@ -108,7 +105,6 @@ public class MainActivity extends Activity{
                     quarter + " AND SectionYear = " + year + " " +
                     " AND TeacherUUID = '"+UUID+"'"+
                     " ORDER BY SectionId ASC", null);
-
             if ( cursorSectionIdAndCourseId.moveToFirst() ){
                 do{
                     Section section = new Section(cursorSectionIdAndCourseId.getInt(0), cursorSectionIdAndCourseId.getInt(1),
@@ -122,9 +118,7 @@ public class MainActivity extends Activity{
         }
         return sectionsList;
     }
-
-    public List<String> getCurrentCoursesNamesList()
-    {
+    public List<String> getCurrentCoursesNamesList()    {
         List<Section> sectionsList = getCurrentSectionsList();
         List<String> coursesNamesList = new ArrayList<String>();
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
@@ -141,14 +135,12 @@ public class MainActivity extends Activity{
         db.close();
         return coursesNamesList;
     }
-
     //creating the listView
     private void populateListView(){
         ArrayAdapter<String> adapter = new MyListAdapter();
         ListView listview = (ListView) findViewById(R.id.listView);
         listview.setAdapter(adapter);
     }
-
     //event clicking on one item of the list view
     private void ClickCallback(){
         ListView listview = (ListView) findViewById(R.id.listView);
@@ -166,14 +158,12 @@ public class MainActivity extends Activity{
                 startActivity(intent);
             }
         });
-     }
-
+    }
     //class myAdapter for my personal style listView
     public class MyListAdapter extends ArrayAdapter<String>{
         public MyListAdapter(){
             super( MainActivity.this, R.layout.item_listview, getCurrentCoursesNamesList());
         }
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent ){
             View itemView = convertView;
@@ -181,141 +171,432 @@ public class MainActivity extends Activity{
             if(itemView == null ){
                 itemView = getLayoutInflater().inflate(R.layout.item_listview, parent, false);
             }
-            //find the course to work with and the section
+        //find the course to work with and the section
             try{
                 List<Section> sectionsList = getCurrentSectionsList();
-
-                //course name view
+            //course name view
                 TextView item_name = (TextView)itemView.findViewById(R.id.item_course_name);
                 item_name.setText("" + getCurrentCoursesNamesList().get(position));
-
-                //section year view
+            //section year view
                 TextView item_year = (TextView)itemView.findViewById(R.id.item_year);
                 item_year.setText("" + sectionsList.get(position).get_SectionYear());
-
-                //section quarter view
+            //section quarter view
                 TextView item_quarter = (TextView)itemView.findViewById(R.id.item_quarter);
                 item_quarter.setText("Quarter: " + sectionsList.get(position).get_SectionQuarter());
-
-                //section id view
+            //section id view
                 TextView item_IdSection = (TextView)itemView.findViewById(R.id.item_idSection);
                 item_IdSection.setText("Section Code: " + sectionsList.get(position).get_SectionCode());
             }catch(Exception e){
             }
-
             return itemView;
         }
     }
-
     /*public void onclickItem(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.course:
-                startActivity(new Intent(this,CourseActivity.class));
-                break;
-            case R.id.section:
-                startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
-                break;
-            case R.id.about:
-                AboutDialog dialog = new AboutDialog();
-                dialog.show(getFragmentManager(), "dialog_about");
-                break;
-
-        }
+    switch (item.getItemId()) {
+    case R.id.course:
+    startActivity(new Intent(this,CourseActivity.class));
+    break;
+    case R.id.section:
+    startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
+    break;
+    case R.id.about:
+    AboutDialog dialog = new AboutDialog();
+    dialog.show(getFragmentManager(), "dialog_about");
+    break;
+    }
     }*/
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
         if (requestCode == REQUEST_CODE) {
             this.recreate();
         }
-        //fb.authorizeCallback(requestCode, resultCode, intent);
+            //fb.authorizeCallback(requestCode, resultCode, intent);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.main, menu);
-       MenuInflater inflater = getMenuInflater();
+            // Inflate the menu; this adds items to the action bar if it is present.
+            // getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
         switch ( item.getItemId() ) {
             case R.id.course:
                 Intent intent = new Intent(this, CourseActivity.class);
                 intent.putExtra("UUID",UUID);
                 startActivity(intent);
                 return true;
-
             case R.id.section:
                 //startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
                 Intent intents = new Intent(this, SectionActivity.class);
                 intents.putExtra("UUID",UUID);
                 startActivity(intents);
                 return true;
-
             case R.id.changesemester:
                 HistoricDialog dialogHistoric = new HistoricDialog(Actual);
                 dialogHistoric.show(getFragmentManager(),"dialog_changesemester");
                 return true;
-
             case R.id.about:
                 AboutDialog dialog = new AboutDialog();
                 dialog.show(getFragmentManager(), "dialog_about");
                 return true;
-
             case R.id.logout:
                 callFacebookLogout(getBaseContext());
                 this.finish();
                 //startActivity(new Intent(this, LoginActivity.class));
                 return true;
-
+            case R.id.refresh:
+                syncSQLiteMySQLDB();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
-
     }
-
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-
         public PlaceholderFragment() {
         }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
     }
-
     public static void callFacebookLogout(Context context) {
         Session session = Session.getActiveSession();
         if (session != null) {
-
             if (!session.isClosed()) {
                 session.closeAndClearTokenInformation();
                 //set string null;
             }
         } else {
-
             session = new Session(context);
             Session.setActiveSession(session);
-
             session.closeAndClearTokenInformation();
+        }
+    }
+
+    public void syncSQLiteMySQLDB(){
+        syncTeacher();
+        syncCourse();
+        syncSection();
+        syncStudent();
+        syncStudentSection();
+        syncParticipationStudent();
+        syncHomework();
+        syncCriteria();
+        syncHomeworkStudent();
+        Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
+    }
+
+    public void syncTeacher(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        try{
+            controller.forceAddTeacher(UUID, Name);
+        }catch(Exception e){
 
         }
+        ArrayList<HashMap<String, String>> teacherList =  controller.getAllTeachers();
+        if(teacherList.size()!=0){
+            params.put("teachersJSON", controller.composeJSONfromSQLiteTeacher());
+            client.post("http://p4.comlu.com/insertteacher.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
 
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(), "No Teacher data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncCourse(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> courseList =  controller.getAllCourses();
+        if(courseList.size()!=0){
+            params.put("coursesJSON", controller.composeJSONfromSQLiteCourse());
+            client.post("http://p4.comlu.com/insertcourse.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncSection(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> sectionList =  controller.getAllSections();
+        if(sectionList.size()!=0){
+            params.put("sectionsJSON", controller.composeJSONfromSQLiteSection());
+            client.post("http://p4.comlu.com/insertsection.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncStudent(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentList =  controller.getAllStudents();
+        if(studentList.size()!=0){
+            params.put("studentsJSON", controller.composeJSONfromSQLiteStudent());
+            client.post("http://p4.comlu.com/insertstudent.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncStudentSection(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentSection();
+        if(studentsectionList.size()!=0){
+            params.put("studentSectionsJSON", controller.composeJSONfromSQLiteStudentSection());
+            client.post("http://p4.comlu.com/insertstudentsection.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncParticipationStudent(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentParticipation();
+        if(studentsectionList.size()!=0){
+            params.put("studentParticipationJSON", controller.composeJSONfromSQLiteStudentParticipation());
+            client.post("http://p4.comlu.com/insertstudentparticipation.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncHomework(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomework();
+        if(studentsectionList.size()!=0){
+            params.put("homeworkJSON", controller.composeJSONfromSQLiteHomework());
+            client.post("http://p4.comlu.com/inserthomework.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncCriteria(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllCriteria();
+        if(studentsectionList.size()!=0){
+            params.put("criteriaJSON", controller.composeJSONfromSQLiteCriteria());
+            client.post("http://p4.comlu.com/insertcriteria.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
+    }
+
+    public void syncHomeworkStudent(){
+        //Create AsycHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomeWorkStudent();
+        if(studentsectionList.size()!=0){
+            params.put("homeworkstudentJSON", controller.composeJSONfromSQLiteHomeWorkStudent());
+            client.post("http://p4.comlu.com/inserthomeworkstudent.php", params ,new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String response) {
+                    System.out.println(response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Throwable error,
+                                      String content) {
+                    // TODO Auto-generated method stub
+                    if(statusCode == 404){
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    }else if(statusCode == 500){
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+        }
+        controller.close();
     }
 }

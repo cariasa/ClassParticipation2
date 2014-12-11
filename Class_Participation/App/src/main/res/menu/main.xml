@@ -32,5 +32,12 @@
         android:orderInCategory="100"/>
         #android:onClick="onclickItem"/>
 
+    <item
+        android:id="@+id/refresh"
+        android:title="refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="100"
+        android:showAsAction="always"/>
+
 
 </menu>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="qc_dbaccess">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/qc_dbaccess.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
