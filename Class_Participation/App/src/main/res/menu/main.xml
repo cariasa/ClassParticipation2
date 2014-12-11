@@ -32,13 +32,12 @@
         android:orderInCategory="100"/>
         #android:onClick="onclickItem"/>
 
-<<<<<<< Temporary merge branch 1
     <item
-        android:id="@+id/logout"
-        android:title="Logout"
-        android:orderInCategory="100"/>
-        #android:onClick="onclickItem"/>
-=======
->>>>>>> Temporary merge branch 2
+        android:id="@+id/refresh"
+        android:title="refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="100"
+        android:showAsAction="always"/>
+
 
 </menu>

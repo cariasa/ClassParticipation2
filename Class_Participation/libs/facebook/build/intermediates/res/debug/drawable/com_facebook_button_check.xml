@@ -18,4 +18,4 @@
   <item android:state_checked="true" android:drawable="@drawable/com_facebook_button_check_on" />
   <item android:drawable="@drawable/com_facebook_button_check_off" />
 </selector>
-<!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/res/drawable/com_facebook_button_check.xml -->
+<!-- From: file:/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/facebook/res/drawable/com_facebook_button_check.xml -->

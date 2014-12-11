@@ -41,5 +41,8 @@ dependencies {
     compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/gson-2.3.1.jar')
     compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
     compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
+    compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_dbaccess.jar')
+    compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_dbsync.jar')
+    compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_json.jar')
 }
 
