@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -27,6 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Session;
+
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
@@ -37,6 +40,9 @@ import java.util.List;
 
 public class MainActivity extends Activity{
     private static final int REQUEST_CODE = 2;
+    private static final  String STATE_YEAR = "YEAR";
+    private static final String STATE_SEMESTER = "SEMESTER";
+    private static final String STATE_QUARTER = "QUARTER";
     //Facebook fb;
     //SharedPreferences sp;
 
@@ -52,12 +58,36 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null){
+
+		Intent intent = getIntent();
+		UUID = intent.getStringExtra("UUID");
+
+        FragmentManager FragmentM = getFragmentManager();
+        RetainData = (RetainDataFragment)FragmentM.findFragmentByTag("RData");
+
+        if (RetainData == null){
+            RetainData = new RetainDataFragment();
+            FragmentM.beginTransaction().add(RetainData,"RData").commit();
+
+            Actual = new SemesterQuarter();
+            RetainData.setData(Actual);
+        }
+
+        Actual = RetainData.getData();
+
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
-        }
+
         ClickCallback();
+        }
+
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        RetainData.setData(Actual);
     }
 
     @Override
@@ -110,7 +140,9 @@ public class MainActivity extends Activity{
         try{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
-                    quarter + " AND SectionYear = " + year + " ORDER BY SectionId ASC", null);
+                    quarter + " AND SectionYear = " + year + " " +
+                    " AND TeacherUUID = '"+UUID+"'"+
+                    " ORDER BY SectionId ASC", null);
 
             if ( cursorSectionIdAndCourseId.moveToFirst() ){
                 do{
@@ -119,6 +151,7 @@ public class MainActivity extends Activity{
                     sectionsList.add(section);
                 } while ( cursorSectionIdAndCourseId.moveToNext() );
             }
+            cursorSectionIdAndCourseId.close();
             db.close();
         }catch (Exception ignored){
         }
@@ -132,7 +165,9 @@ public class MainActivity extends Activity{
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         for (Section aSectionsList : sectionsList) {
             Cursor cursorCourseName = db.rawQuery("SELECT CourseName FROM course WHERE CourseId = " +
-                    aSectionsList.get_CourseId() + " ORDER BY CourseId ASC", null);
+                    aSectionsList.get_CourseId() + " " +
+                    " AND TeacherUUID = '" +UUID +"'"+
+                    "ORDER BY CourseId ASC", null);
             if (cursorCourseName.moveToFirst()) {
                 coursesNamesList.add(cursorCourseName.getString(0));
             }
@@ -161,6 +196,8 @@ public class MainActivity extends Activity{
                 Intent intent = new Intent(view.getContext(), StudentActivity.class);
                 intent.putExtra("Section", getCurrentSectionsList().get(position));
                 intent.putExtra("Course", listview.getItemAtPosition(position).toString());
+                intent.putExtra("UUID",UUID);
+                intent.putExtra("ACTUAL",Actual);
                 startActivity(intent);
             }
         });
@@ -247,17 +284,32 @@ public class MainActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         switch ( item.getItemId() ) {
             case R.id.course:
-                startActivity(new Intent(this, CourseActivity.class));
+                Intent intent = new Intent(this, CourseActivity.class);
+                intent.putExtra("UUID",UUID);
+                startActivity(intent);
                 return true;
 
             case R.id.section:
                 //startActivityForResult(new Intent(this, SectionActivity.class), REQUEST_CODE);
-                startActivity(new Intent(this, SectionActivity.class));
+                Intent intents = new Intent(this, SectionActivity.class);
+                intents.putExtra("UUID",UUID);
+                startActivity(intents);
+                return true;
+
+            case R.id.changesemester:
+                HistoricDialog dialogHistoric = new HistoricDialog(Actual);
+                dialogHistoric.show(getFragmentManager(),"dialog_changesemester");
                 return true;
 
             case R.id.about:
                 AboutDialog dialog = new AboutDialog();
                 dialog.show(getFragmentManager(), "dialog_about");
+                return true;
+
+            case R.id.logout:
+                callFacebookLogout(getBaseContext());
+                this.finish();
+                //startActivity(new Intent(this, LoginActivity.class));
                 return true;
 
             default:
@@ -281,5 +333,24 @@ public class MainActivity extends Activity{
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+    }
+
+    public static void callFacebookLogout(Context context) {
+        Session session = Session.getActiveSession();
+        if (session != null) {
+
+            if (!session.isClosed()) {
+                session.closeAndClearTokenInformation();
+                //set string null;
+            }
+        } else {
+
+            session = new Session(context);
+            Session.setActiveSession(session);
+
+            session.closeAndClearTokenInformation();
+
+        }
+
     }
 }
