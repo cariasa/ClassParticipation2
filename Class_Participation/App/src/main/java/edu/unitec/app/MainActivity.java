@@ -48,9 +48,7 @@ public class MainActivity extends Activity{
     private static final String STATE_YEAR = "YEAR";
     private static final String STATE_SEMESTER = "SEMESTER";
     private static final String STATE_QUARTER = "QUARTER";
-    //Facebook fb;
-//SharedPreferences sp;
-//POR RAZONES DE TEST ... LUEGO SE CAMBIARA AL UUID DE FACEBOOK
+
     String UUID = "ID1";
     String Name = "name";
     SemesterQuarter Actual;
@@ -89,8 +87,8 @@ public class MainActivity extends Activity{
 
     public void insertTeacher(){
         SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-        final String insertTeacher = "INSERT into Teacher(TeacherUUID, TeacherName) VALUES ('" +
-                UUID + "', '"+Name+"')";
+        final String insertTeacher = "INSERT into Teacher(TeacherUUID, TeacherName, SyncState) VALUES ('" +
+                UUID + "', '"+Name+"',1)";
         db.execSQL(insertTeacher);
         db.close();
     }
@@ -287,7 +285,7 @@ public class MainActivity extends Activity{
 
     public void syncSQLiteMySQLDB(){
         syncTeacher();
-        syncCourse();
+        /*syncCourse();
         syncSection();
         syncStudent();
         syncStudentSection();
@@ -295,7 +293,7 @@ public class MainActivity extends Activity{
         syncHomework();
         syncCriteria();
         syncHomeworkStudent();
-        Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();*/
     }
 
     public void syncTeacher(){
@@ -308,13 +306,15 @@ public class MainActivity extends Activity{
         }catch(Exception e){
 
         }
-        ArrayList<HashMap<String, String>> teacherList =  controller.getAllTeachers();
+        ArrayList<HashMap<String, String>> teacherList =  controller.getAllTeachers(1);
         if(teacherList.size()!=0){
-            params.put("teachersJSON", controller.composeJSONfromSQLiteTeacher());
-            client.post("http://p4.comlu.com/insertteacher.php", params ,new AsyncHttpResponseHandler() {
+            params.put("teachersJSON", controller.composeJSONfromSQLiteTeacher(1));
+            client.post("http://fia.unitec.edu:8085/part/insertteacher.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                   // System.out.println(response);
+
+                    syncCourse();
                 }
 
                 @Override
@@ -341,13 +341,14 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> courseList =  controller.getAllCourses();
+        ArrayList<HashMap<String, String>> courseList =  controller.getAllCourse(1);
         if(courseList.size()!=0){
-            params.put("coursesJSON", controller.composeJSONfromSQLiteCourse());
-            client.post("http://p4.comlu.com/insertcourse.php", params ,new AsyncHttpResponseHandler() {
+            params.put("coursesJSON", controller.composeJSONfromSQLiteCourse(1));
+            client.post("http://fia.unitec.edu:8085/part/insertcourse.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                   // System.out.println(response);
+                    syncSection();
                 }
 
                 @Override
@@ -374,13 +375,14 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> sectionList =  controller.getAllSections();
+        ArrayList<HashMap<String, String>> sectionList =  controller.getAllSection(1);
         if(sectionList.size()!=0){
-            params.put("sectionsJSON", controller.composeJSONfromSQLiteSection());
-            client.post("http://p4.comlu.com/insertsection.php", params ,new AsyncHttpResponseHandler() {
+            params.put("sectionsJSON", controller.composeJSONfromSQLiteSection(1));
+            client.post("http://fia.unitec.edu:8085/part/insertsection.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                   // System.out.println(response);
+                    syncStudent();
                 }
 
                 @Override
@@ -407,13 +409,15 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentList =  controller.getAllStudents();
+        ArrayList<HashMap<String, String>> studentList =  controller.getAllStudents(1);
         if(studentList.size()!=0){
-            params.put("studentsJSON", controller.composeJSONfromSQLiteStudent());
-            client.post("http://p4.comlu.com/insertstudent.php", params ,new AsyncHttpResponseHandler() {
+            params.put("studentsJSON", controller.composeJSONfromSQLiteStudent(1));
+            client.post("http://fia.unitec.edu:8085/part/insertstudent.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                   // System.out.println(response);
+
+                    syncStudentSection();
                 }
 
                 @Override
@@ -440,13 +444,15 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentSection();
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentSection(1);
         if(studentsectionList.size()!=0){
-            params.put("studentSectionsJSON", controller.composeJSONfromSQLiteStudentSection());
-            client.post("http://p4.comlu.com/insertstudentsection.php", params ,new AsyncHttpResponseHandler() {
+            params.put("studentSectionsJSON", controller.composeJSONfromSQLiteStudentSection(1));
+            client.post("http://fia.unitec.edu:8085/part/insertstudentsection.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                    //System.out.println(response);
+
+                    syncParticipationStudent();
                 }
 
                 @Override
@@ -473,13 +479,15 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentParticipation();
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllStudentParticipation(1);
         if(studentsectionList.size()!=0){
-            params.put("studentParticipationJSON", controller.composeJSONfromSQLiteStudentParticipation());
-            client.post("http://p4.comlu.com/insertstudentparticipation.php", params ,new AsyncHttpResponseHandler() {
+            params.put("studentparticipationJSON", controller.composeJSONfromSQLiteStudentParticipation(1));
+            client.post("http://fia.unitec.edu:8085/part/insertstudentparticipation.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                    //System.out.println(response);
+
+                    syncHomework();
                 }
 
                 @Override
@@ -506,13 +514,15 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomework();
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomework(1);
         if(studentsectionList.size()!=0){
-            params.put("homeworkJSON", controller.composeJSONfromSQLiteHomework());
-            client.post("http://p4.comlu.com/inserthomework.php", params ,new AsyncHttpResponseHandler() {
+            params.put("homeworkJSON", controller.composeJSONfromSQLiteHomework(1));
+            client.post("http://fia.unitec.edu:8085/part/inserthomework.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                    //System.out.println(response);
+
+                    syncCriteria();
                 }
 
                 @Override
@@ -539,13 +549,15 @@ public class MainActivity extends Activity{
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllCriteria();
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllCriteria(1);
         if(studentsectionList.size()!=0){
-            params.put("criteriaJSON", controller.composeJSONfromSQLiteCriteria());
-            client.post("http://p4.comlu.com/insertcriteria.php", params ,new AsyncHttpResponseHandler() {
+            params.put("criteriaJSON", controller.composeJSONfromSQLiteCriteria(1));
+            client.post("http://fia.unitec.edu:8085/part/insertcriteria.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                    //System.out.println(response);
+
+                    syncHomeworkStudent();
                 }
 
                 @Override
@@ -571,14 +583,16 @@ public class MainActivity extends Activity{
         //Create AsycHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        DatabaseHandler controller = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomeWorkStudent();
+        final DatabaseHandler controller = new DatabaseHandler(this);
+        ArrayList<HashMap<String, String>> studentsectionList =  controller.getAllHomeWorkStudent(1);
         if(studentsectionList.size()!=0){
-            params.put("homeworkstudentJSON", controller.composeJSONfromSQLiteHomeWorkStudent());
-            client.post("http://p4.comlu.com/inserthomeworkstudent.php", params ,new AsyncHttpResponseHandler() {
+            params.put("homeworkstudentJSON", controller.composeJSONfromSQLiteHomeWorkStudent(1));
+            client.post("http://fia.unitec.edu:8085/part/inserthomeworkstudent.php", params ,new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(String response) {
-                    System.out.println(response);
+                    //System.out.println(response);
+                    controller.clearSyncState();
+                    Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
                 }
 
                 @Override

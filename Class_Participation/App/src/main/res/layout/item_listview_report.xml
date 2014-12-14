@@ -23,9 +23,11 @@
         android:text="Participation"
         android:id="@+id/ParticipationReport"
         android:textSize="20px"
-        android:layout_marginRight="31dp"
-        android:layout_alignBottom="@+id/StudentNameReport"
-        android:layout_toLeftOf="@+id/HomeworkReport" />
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/HomeworkReport"
+        android:layout_toStartOf="@+id/HomeworkReport" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,10 +35,11 @@
         android:text="Homeworks"
         android:id="@+id/HomeworkReport"
         android:textSize="20px"
-        android:layout_alignTop="@+id/ParticipationReport"
+        android:layout_marginRight="48dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="28dp" />
+        android:layout_marginEnd="48dp" />
 
     <TextView
         android:layout_width="wrap_content"
