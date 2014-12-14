@@ -1327,25 +1327,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteCourse(){
+    public String composeJSONfromSQLiteCourse(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM course";
+        String selectQuery = "SELECT  * FROM course WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("Id", String.valueOf(cursor.getInt(0)));
-                System.out.println(cursor.getInt(0));
                 map.put("UUID", cursor.getString(1));
-                System.out.println(cursor.getInt(1));
                 map.put("Code", cursor.getString(2));
-                System.out.println(cursor.getInt(2));
                 map.put("Name", cursor.getString(3));
-                System.out.println(cursor.getInt(3));
                 map.put("Desc", cursor.getString(4));
-                System.out.println(cursor.getInt(4));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -1356,10 +1351,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCourses() {
+    public ArrayList<HashMap<String, String>> getAllCourse(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM course";
+        String selectQuery = "SELECT  * FROM course WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1378,10 +1373,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteSection(){
+    public String composeJSONfromSQLiteSection(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM section";
+        String selectQuery = "SELECT * FROM section WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1404,10 +1399,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllSections() {
+    public ArrayList<HashMap<String, String>> getAllSection(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM section";
+        String selectQuery = "SELECT * FROM section WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1428,10 +1423,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudent(){
+    public String composeJSONfromSQLiteStudent(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM student";
+        String selectQuery = "SELECT  * FROM student JOIN studentSection ON TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1452,10 +1447,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudents() {
+    public ArrayList<HashMap<String, String>> getAllStudents(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM student";
+        String selectQuery = "SELECT  * FROM student JOIN studentSection ON TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1474,10 +1469,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudentSection(){
+    public String composeJSONfromSQLiteStudentSection(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM studentSection";
+        String selectQuery = "SELECT  * FROM studentSection WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1498,10 +1493,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudentSection() {
+    public ArrayList<HashMap<String, String>> getAllStudentSection(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM studentSection";
+        String selectQuery = "SELECT  * FROM studentSection WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1520,10 +1515,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudentParticipation(){
+    public String composeJSONfromSQLiteStudentParticipation(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM participationStudent";
+        String selectQuery = "SELECT  * FROM participationStudent WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1533,7 +1528,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 map.put("Id", String.valueOf(cursor.getInt(1)));
                 map.put("Stusect", String.valueOf(cursor.getInt(2)));
                 map.put("Grade", String.valueOf(cursor.getDouble(3)));
-                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Date", cursor.getString(4));
                 map.put("Comment", cursor.getString(5));
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -1545,10 +1540,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudentParticipation() {
+    public ArrayList<HashMap<String, String>> getAllStudentParticipation(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM participationStudent";
+        String selectQuery = "SELECT  * FROM participationStudent WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1558,7 +1553,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 map.put("Id", String.valueOf(cursor.getInt(1)));
                 map.put("Stusect", String.valueOf(cursor.getInt(2)));
                 map.put("Grade", String.valueOf(cursor.getDouble(3)));
-                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Date", cursor.getString(4));
                 map.put("Comment", cursor.getString(5));
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -1569,10 +1564,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public String composeJSONfromSQLiteHomework(){
+    public String composeJSONfromSQLiteHomework(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homework";
+        String selectQuery = "SELECT * FROM homework WHERE TeacherUUID = "+UUID;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Secid", String.valueOf(cursor.getInt(3)));
+                System.out.println(cursor.getString(0));
+                System.out.println(cursor.getInt(1));
+                System.out.println(cursor.getString(2));
+                System.out.println(cursor.getInt(3));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllHomework(String UUID) {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM homework WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1587,37 +1609,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         database.close();
-        Gson gson = new GsonBuilder().create();
-        //Use GSON to serialize Array List to JSON
-        return gson.toJson(wordList);
-    }
-
-    public ArrayList<HashMap<String, String>> getAllHomework() {
-        ArrayList<HashMap<String, String>> wordList;
-        wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homework";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("UUID", cursor.getString(0));
-                map.put("Id", String.valueOf(cursor.getInt(1)));
-                map.put("Name", cursor.getString(2));
-                map.put("Secid", String.valueOf(cursor.getInt(3)));
-                wordList.add(map);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
         return wordList;
     }
 
 
-    public String composeJSONfromSQLiteCriteria(){
+    public String composeJSONfromSQLiteCriteria(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM criteria";
+        String selectQuery = "SELECT  * FROM criteria WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1638,10 +1637,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCriteria() {
+    public ArrayList<HashMap<String, String>> getAllCriteria(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM criteria";
+        String selectQuery = "SELECT  * FROM criteria WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1660,10 +1659,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteHomeWorkStudent(){
+    public String composeJSONfromSQLiteHomeWorkStudent(String UUID){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homeworkStudent";
+        String selectQuery = "SELECT  * FROM homeworkStudent WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1685,10 +1684,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllHomeWorkStudent() {
+    public ArrayList<HashMap<String, String>> getAllHomeWorkStudent(String UUID) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homeworkStudent";
+        String selectQuery = "SELECT  * FROM homeworkStudent WHERE TeacherUUID = "+UUID;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
