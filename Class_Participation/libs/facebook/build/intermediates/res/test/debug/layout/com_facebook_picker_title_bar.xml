@@ -61,4 +61,4 @@
             android:layout_marginRight="10dip"
             android:layout_toLeftOf="@id/com_facebook_picker_divider"/>
 </RelativeLayout>
-<!-- From: file:/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_title_bar.xml --><!-- From: file:/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_title_bar.xml -->
+<!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_title_bar.xml --><!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_title_bar.xml -->

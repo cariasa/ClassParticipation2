@@ -101,7 +101,7 @@ public class MainActivity extends Activity{
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionIdAndCourseId = db.rawQuery("SELECT SectionId, CourseId, SectionCode FROM section WHERE SectionQuarter = " +
                     quarter + " AND SectionYear = " + year + " " +
-                    " AND TeacherUUID = '"+UUID+"'"+
+                    " AND TeacherUUID = '"+UUID+"' AND SyncState <> 3"+
                     " ORDER BY SectionId ASC", null);
             if ( cursorSectionIdAndCourseId.moveToFirst() ){
                 do{
@@ -123,7 +123,7 @@ public class MainActivity extends Activity{
         for (Section aSectionsList : sectionsList) {
             Cursor cursorCourseName = db.rawQuery("SELECT CourseName FROM course WHERE CourseId = " +
                     aSectionsList.get_CourseId() + " " +
-                    " AND TeacherUUID = '" +UUID +"'"+
+                    " AND TeacherUUID = '" +UUID +"' AND SyncState <> 3 "+
                     "ORDER BY CourseId ASC", null);
             if (cursorCourseName.moveToFirst()) {
                 coursesNamesList.add(cursorCourseName.getString(0));
