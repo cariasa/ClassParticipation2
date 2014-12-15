@@ -31,6 +31,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/defaultFlavor/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/defaultFlavor/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/defaultFlavor/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/defaultFlavor/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/assets" type="java-resource" />
@@ -43,6 +44,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/test/defaultFlavor/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/test/defaultFlavor/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/test/defaultFlavor/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/test/defaultFlavor/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavor/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavor/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavor/assets" type="java-resource" />
@@ -104,14 +106,17 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="1_gson-2.2.4" level="project" />
+    <orderEntry type="library" exported="" name="2_gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.4" level="project" />
     <orderEntry type="library" exported="" name="1_android-async-http-1.4.4" level="project" />
+    <orderEntry type="library" exported="" name="2_android-async-http-1.4.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="opencsv" level="project" />
     <orderEntry type="library" exported="" name="1_opencsv" level="project" />
     <orderEntry type="library" exported="" name="2_opencsv" level="project" />
+    <orderEntry type="library" exported="" name="3_opencsv" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.1.2" level="project" />
     <orderEntry type="module" module-name="facebook" exported="" />
   </component>

@@ -26,4 +26,11 @@
         android:layout_gravity="center_horizontal"
         android:hint="Major" />
 
+    <EditText
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmail"
+        android:layout_gravity="center_horizontal"
+        android:hint="Email" />
+
 </LinearLayout>

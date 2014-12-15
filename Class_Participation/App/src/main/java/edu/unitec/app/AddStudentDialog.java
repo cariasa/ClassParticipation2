@@ -28,6 +28,7 @@ public class AddStudentDialog extends DialogFragment
     EditText studentId;
     EditText studentName;
     EditText studentMajor;
+    EditText studentEmail;
 
     String UUID;
 
@@ -50,6 +51,7 @@ public class AddStudentDialog extends DialogFragment
         studentId = (EditText)view.findViewById(R.id.editTextStudentId);
         studentName = (EditText)view.findViewById(R.id.editTextStudentName);
         studentMajor = (EditText)view.findViewById(R.id.editTextStudentMajor);
+        studentEmail = (EditText)view.findViewById(R.id.editTextEmail);
 
 
         studentId.requestFocus();
@@ -109,7 +111,7 @@ public class AddStudentDialog extends DialogFragment
                     }else{
                         Student student = new Student(Integer.parseInt(studentId.getText().toString()),
                                                       studentName.getText().toString(),
-                                                      studentId.getText().toString()+studentName.getText().toString());
+                                                      studentEmail.getText().toString());
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());

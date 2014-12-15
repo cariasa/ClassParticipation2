@@ -314,7 +314,7 @@ public class StudentActivity extends Activity {
             Cursor cursorStudentSectionId = db.rawQuery("SELECT StudentSectionId FROM studentSection " +
                     "WHERE SectionId = " +
                     currentSection.get_SectionId() + " " +
-                    "AND TeacherUUID = '" + UUID + "'" +
+                    "AND TeacherUUID = '" + UUID + "' AND SyncState <> 3" +
                     " ORDER BY SectionId ASC", null);
 
             if (cursorStudentSectionId.moveToFirst()) {
@@ -338,7 +338,7 @@ public class StudentActivity extends Activity {
             SQLiteDatabase db = openOrCreateDatabase("Participation", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             Cursor cursorSectionId = db.rawQuery("SELECT StudentId FROM studentSection WHERE SectionId = " +
                     currentSection.get_SectionId() + " " +
-                    "AND TeacherUUID = '" + UUID + "'" +
+                    "AND TeacherUUID = '" + UUID + "' AND SyncState <> 3" +
                     " ORDER BY SectionId ASC", null);
             if (cursorSectionId.moveToFirst()) {
                 do {
@@ -362,7 +362,7 @@ public class StudentActivity extends Activity {
         Cursor absent_check = db.rawQuery("SELECT ParticipationComment, ParticipationDate FROM participationStudent " +
                 "WHERE StudentSectionId = "
                 + studentSectionIdList.get(index_StudentSectionIDList) + " " +
-                "AND TeacherUUID = '" + UUID + "'" +
+                "AND TeacherUUID = '" + UUID + "' AND SyncState <> 3 " +
                 " ORDER BY ParticipationId DESC LIMIT 1", null);
 
         Date cDate = new Date();
@@ -386,7 +386,7 @@ public class StudentActivity extends Activity {
         for (Integer aStudentId : studentId) {
             Cursor cursorStudentName = db.rawQuery("SELECT StudentName FROM student WHERE StudentId = " +
                     aStudentId +
-                    " ORDER BY StudentId ASC", null);
+                    " AND SyncState <> 3 ORDER BY StudentId ASC", null);
 
             if (cursorStudentName.moveToFirst()) {
                 studentNamesList.add(cursorStudentName.getString(0));
@@ -420,7 +420,7 @@ public class StudentActivity extends Activity {
         for (int a = 0; a < studentSectionIdList.size(); a++) {
             Cursor cursor = db.rawQuery("SELECT * FROM participationStudent WHERE StudentSectionId = " +
                     studentSectionIdList.get(a) +
-                    " AND TeacherUUID = '" + UUID + "'", null);
+                    " AND TeacherUUID = '" + UUID + "' AND SyncState <> 3", null);
             studentSectionIdCounters[a] = cursor.getCount();
             cursor.close();
         }
@@ -503,7 +503,7 @@ public class StudentActivity extends Activity {
     }
 
     public void showDeleteStudentDialog() {
-        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, arrayStudentItem, getCurrentStudentIdList());
+        DeleteStudentDialog dialog = new DeleteStudentDialog(currentSection, arrayAdapter, arrayStudentItem, getCurrentStudentIdList(),UUID);
         dialog.show(getFragmentManager(), "dialog_deletestudent");
 
     }

@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-
+//SYNCSTATE 1 = INSERT
+//SYNCSTATE 2 = UPDATE
+//SYNCSTATE 3 = DELETE
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -112,9 +117,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TEACHER_TABLE = "CREATE TABLE " + TABLE_TEACHER + " (" +
-                TEACHER_UUID + " TEXT PRIMARY KEY," +
-                TEACHER_NAME + " TEXT" +
-                ")";
+                TEACHER_UUID + " TEXT PRIMARY KEY, " +
+                TEACHER_NAME + " TEXT," +
+                " SyncState INTEGER )";
 
 
         String CREATE_COURSE_TABLE =
@@ -124,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         COURSE_CODE + " TEXT," +
                         COURSE_NAME + " TEXT," +
                         COURSE_DESC + " TEXT, " +
-
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + COURSE_UUID + "," + COURSE_ID + "), " +
                         "FOREIGN KEY(" + COURSE_UUID + ") REFERENCES " + TABLE_TEACHER + "(" + TEACHER_UUID + ")" +
                         ")";
@@ -137,6 +142,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         SECT_SEM + " INTEGER," +
                         SECT_YEA + " INTEGER, " +
                         SECT_CODE + " TEXT," +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + SECT_UUID + "," + SECT_ID + "), " +
                         "FOREIGN KEY(" + SECT_COURSE + ") REFERENCES " + TABLE_COURSE + "(" + COURSE_ID + "), " +
                         "FOREIGN KEY(" + SECT_UUID + ") REFERENCES " + TABLE_TEACHER + "(" + TEACHER_UUID + ")" +
@@ -147,7 +153,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         STU_NAME + " TEXT," +
                         STU_MAJOR + " TEXT," +
                         STU_EMAIL + " TEXT PRIMARY KEY," +
-                        STU_PASSWORD + " TEXT" +
+                        STU_PASSWORD + " TEXT, " +
+                        " SyncState INTEGER "+
                         ")";
 
         String CREATE_STUDENTSECTION_TABLE =
@@ -157,6 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         STUSEC_SECT + " INTEGER," +
                         STUSEC_STUD + " INTEGER," +
                         STUSEC_FINAL + " REAL," +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + STUSEC_UUID + "," + STUSEC_ID + "), " +
                         "FOREIGN KEY(" + STUSEC_SECT + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + "), " +
                         "FOREIGN KEY(" + STUSEC_STUD + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
@@ -170,6 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         PART_GRADE + " REAL," +
                         PART_DATE + " TEXT," +
                         PART_COMMENT + " TEXT," +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + PART_UUID + "," + PART_ID + "), " +
                         "FOREIGN KEY(" + PART_STUSECT + ") REFERENCES " + TABLE_STUDENTSECTION + "(" + STUSEC_ID + ")," +
                         "FOREIGN KEY(" + PART_UUID + ") REFERENCES " + TABLE_TEACHER + "(" + TEACHER_UUID + ")" +
@@ -180,6 +189,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         HOMEWORK_ID + " INTEGER, " +
                         HOMEWORK_NAME + " TEXT," +
                         HOMEWORK_SECID + " INTEGER," +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + HOMEWORK_UUID + "," + HOMEWORK_ID + "), " +
                         "FOREIGN KEY(" + HOMEWORK_SECID + ") REFERENCES " + TABLE_SECTION + "(" + SECT_ID + ")," +
                         "FOREIGN KEY(" + HOMEWORK_UUID + ") REFERENCES " + TABLE_TEACHER + "(" + TEACHER_UUID + ")" +
@@ -191,6 +201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         CRITERIA_NAME + " TEXT," +
                         CRITERIA_WEIGHT + " REAL," +
                         CRITERIA_HOMEWORK + " INTEGER," +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + CRITERIA_UUID + "," + CRITERIA_ID + "), " +
                         "FOREIGN KEY(" + CRITERIA_HOMEWORK + ") REFERENCES " + TABLE_HOMEWORK + "(" + HOMEWORK_ID + ")," +
                         "FOREIGN KEY(" + CRITERIA_UUID + ") REFERENCES " + TABLE_TEACHER + "(" + TEACHER_UUID + ")" +
@@ -203,6 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         HOMESTU_CriteriaId + " INTEGER," +
                         HOMESTU_StudentId + " INTEGER," +
                         HOMESTU_HomeworkStudentDate + " TEXT, " +
+                        " SyncState INTEGER, "+
                         "PRIMARY KEY (" + HOMESTU_UUID + "," + HOMESTU_ID + "), " +
                         "FOREIGN KEY(" + HOMESTU_CriteriaId + ") REFERENCES " + TABLE_CRITERIA + "(" + CRITERIA_ID + "), " +
                         "FOREIGN KEY(" + HOMESTU_StudentId + ") REFERENCES " + TABLE_STUDENT + "(" + STU_ID + ")," +
@@ -243,6 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COURSE_CODE, course.getCourseCode());
         values.put(COURSE_NAME, course.getCourseName());
         values.put(COURSE_DESC, course.getCourseDescription());
+        values.put("SyncState",1);
         db.insert(TABLE_COURSE, null, values);
         db.close();
     }
@@ -274,6 +287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(STUSEC_SECT, section.get_SectionId());
         values.put(STUSEC_STUD, student.get_StudentId());
         values.put(STUSEC_FINAL, 0);
+        values.put("SyncState",1);
         db.insert(TABLE_STUDENTSECTION, null, values);
         db.close();
     }
@@ -299,7 +313,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     List<Integer> getStudentIdListBySectionId(int sectionId, String UUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + STUSEC_STUD +
-                " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' ";
+                " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' AND SyncState <> 3";
         Cursor cursor = db.rawQuery(query, null);
         List<Integer> studentIdList = new ArrayList<Integer>();
         if (cursor.getCount() > 0) {
@@ -324,6 +338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(PART_GRADE, participation.get_ParticipationGrade());
         values.put(PART_DATE, participation.get_ParticipationDate());
         values.put(PART_COMMENT, participation.get_ParticipationComment());
+        values.put("SyncState",1);
         db.insert(TABLE_PARTICIPATION, null, values);
         db.close();
     }
@@ -349,12 +364,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Participation> getParticipationList(int sectionId, String UUID) {
         List<Participation> participationList = new ArrayList<Participation>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + STUSEC_ID + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' ";
+        String query = "SELECT " + STUSEC_ID + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' AND SyncState <> 3";
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
         for (int i = 0; i < studentsSections.getCount(); i++) {
             query = "SELECT " + PART_ID + ", " + PART_GRADE + ", " + PART_DATE + ", " + PART_COMMENT + ", " + PART_UUID +
-                    " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "'";
+                    " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "' AND SyncState <> 3";
             Cursor participations = db.rawQuery(query, null);
             if (participations.getCount() > 0) {
                 participations.moveToFirst();
@@ -392,7 +407,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         List<StudentAndAverage> averagesList = new ArrayList<StudentAndAverage>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "'";
+        String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' AND SyncState <> 3";
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
 
@@ -400,7 +415,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             double acumGrades = 0, average = 0;
             int quantityOfGrades = 0;
             query = "SELECT " + PART_GRADE +
-                    " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "'";
+                    " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "' AND SyncState <> 3";
             Cursor participations = db.rawQuery(query, null);
             if (participations.getCount() > 0) {
                 participations.moveToFirst();
@@ -452,7 +467,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             List<StudentAndAverage> averagesList = new ArrayList<StudentAndAverage>();
             SQLiteDatabase db = this.getReadableDatabase();
             String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " " +
-                    "WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "'";
+                    "WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' AND SyncState <> 3";
             Cursor studentsSections = db.rawQuery(query, null);
             studentsSections.moveToFirst();
 
@@ -461,7 +476,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 int quantityOfGrades = 0;
                 query = "SELECT " + PART_GRADE +
                         " FROM " + TABLE_PARTICIPATION + "" +
-                        " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "' ";
+                        " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0) + " AND " + PART_UUID + " = '" + UUID + "' AND SyncState <> 3";
                 Cursor participations = db.rawQuery(query, null);
                 if (participations.getCount() > 0) {
                     participations.moveToFirst();
@@ -515,7 +530,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<StudentAndAverage> averagesList = new ArrayList<StudentAndAverage>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + STUSEC_ID + ", " + STUSEC_STUD + " FROM " + TABLE_STUDENTSECTION + " " +
-                "WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' ";
+                "WHERE " + STUSEC_SECT + " = " + sectionId + " AND " + STUSEC_UUID + " = '" + UUID + "' AND SyncState <> 3";
         Cursor studentsSections = db.rawQuery(query, null);
         studentsSections.moveToFirst();
 
@@ -524,7 +539,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int quantityOfGrades = 0;
             query = "SELECT " + PART_GRADE +
                     " FROM " + TABLE_PARTICIPATION + " WHERE " + PART_STUSECT + " = " + studentsSections.getInt(0)
-                    + " AND " + PART_UUID + " = '" + UUID + "' "
+                    + " AND " + PART_UUID + " = '" + UUID + "' AND SyncState <> 3 "
             ;
             Cursor participations = db.rawQuery(query, null);
             if (participations.getCount() > 0) {
@@ -556,7 +571,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     String getStudentName(int studentId) {
         String name = "";
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + STU_NAME + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId;
+        String query = "SELECT " + STU_NAME + " FROM " + TABLE_STUDENT + " WHERE " + STU_ID + " = " + studentId + " AND SyncState <> 3";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -571,7 +586,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM participationStudent WHERE StudentSectionId=" + studentSectionId + " AND TeacherUUID = '" + UUID + "'";
+        String query = "SELECT * FROM participationStudent WHERE StudentSectionId=" + studentSectionId + " AND TeacherUUID = '" + UUID + "' AND SyncState <> 3";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -592,7 +607,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     double getFinalGrade(int studentSectionId, String UUID) {
         String selectQuery = "SELECT StudentSectionFinal FROM studentSection WHERE StudentSectionId = " +
-                studentSectionId + " AND TeacherUUID = '" + UUID + "'";
+                studentSectionId + " AND TeacherUUID = '" + UUID + "' AND SyncState <> 3";
         SQLiteDatabase db = this.getWritableDatabase();
         double studentSectionFinal = 0;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -602,12 +617,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return studentSectionFinal;
     }
-
+//*//
     public void UpdateparticipationStudent(int studentSectionId, double studentSectionFinal, String UUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL = "UPDATE studentSection SET StudentSectionFinal =  " + studentSectionFinal + " " +
                 "WHERE StudentSectionId = " +
-                studentSectionId + " AND TeacherUUID = '" + UUID + "'";
+                studentSectionId + " AND TeacherUUID = '" + UUID + "' AND SyncState <> 3";
         db.execSQL(strSQL);
         db.close();
     }
@@ -620,47 +635,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(STU_MAJOR, student.get_StudentMajor());
         values.put(STU_EMAIL, student.get_StudentEmail());
         values.put(STU_PASSWORD, student.get_StudentId());
+        values.put("SyncState",1);
         db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
 
-    void deleteStudent(ArrayList<Integer> toDelete) {
+    void deleteStudent(ArrayList<Integer> toDelete , String UUID , int SectionId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL;
         for (int i = 0; i < toDelete.size(); i++) {
             //Eliminar referencia del estudiante de tabla de participaciones por estudiante
-            List<Participation> currentStudentParticipationList = new ArrayList<Participation>();
-            String query = "SELECT StudentSectionId FROM studentSection WHERE StudentId=" + toDelete.get(i);
+            String query = "SELECT StudentSectionId FROM studentSection WHERE StudentId=" + toDelete.get(i) +" AND TeacherUUID = '"+UUID+"' AND SectionId = '" +SectionId+ "' AND SyncState <> 3";
+            int StudentSectionId = 0;
             Cursor cursor = db.rawQuery(query, null);
             if (cursor.moveToFirst()) {
-                do {
-                    strSQL = "DELETE FROM participationStudent WHERE StudentSectionId=" + cursor.getInt(0);
-                    db.execSQL(strSQL);
-                } while (cursor.moveToNext());
+                StudentSectionId = cursor.getInt(0);
             }
             cursor.close();
             //Eliminar referencia del estudiante de tabla de estudiantes por sección
-            strSQL = "DELETE FROM studentSection WHERE StudentId=" + toDelete.get(i);
+            strSQL = "UPDATE studentSection SET SyncState = 3 WHERE StudentId= '" + toDelete.get(i) +"' AND TeacherUUID = '"+UUID+"' AND StudentSectionId ='"+StudentSectionId+"' ";
             db.execSQL(strSQL);
 
-            /*//Eliminar referencia del estudiante de tabla de criterios
-            String query2 = "SELECT CriteriaId FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
-            Cursor cursor2 = db.rawQuery(query2, null);
-            if ( cursor2.moveToFirst() ){
+            strSQL = "UPDATE participationStudent SET SyncState = 3 WHERE TeacherUUID = '"+UUID+"' AND StudentSectionId ='"+StudentSectionId+"' ";
+            db.execSQL(strSQL);
+
+            strSQL = "SELECT C.CriteriaId FROM homework H JOIN criteria C ON H.HomeworkId = C.HomeworkId WHERE SectionId = '"+SectionId+"' AND C.SyncState <> 3 AND H.SyncState <> 3";
+            Cursor cursorH = db.rawQuery(query, null);
+
+            if (cursorH.moveToFirst()){
                 do{
-                    strSQL = "DELETE FROM criteria WHERE CriteriaId=" + Integer.toString(cursor2.getInt(0));
-                    db.execSQL(strSQL);
-                }while ( cursor2.moveToNext() );
-            }*/
+                    strSQL = "UPDATE homeworkStudent SET SyncState = 3 StudentId= '" + toDelete.get(i) +"' AND TeacherUUID = '"+UUID+"' AND CriteriaId ='"+cursorH.getInt(0)+"' ";
+                }while(cursorH.moveToNext());
+            }
 
-            //Eliminar referencia del estudiante de tabla de criterios
-            strSQL = "DELETE FROM homeworkStudent WHERE StudentId=" + toDelete.get(i);
-            db.execSQL(strSQL);
+            /*
+            strSQL = "SELECT HomeworkId FROM homework WHERE SectionId = '"+SectionId+"'";
+            cursor = db.rawQuery(query, null);
 
+            if (cursor.getCount() > 0){
+                cursor.moveToFirst();
 
-            //Eliminar referencia del estudiante de tabla de estudiantes
-            strSQL = "DELETE FROM student WHERE StudentId=" + toDelete.get(i);
-            db.execSQL(strSQL);
+            }
+            */
         }
         db.close();
     }
@@ -730,7 +746,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getCourseName(int courseId, String UUID) {
         List<Course> courseList = new ArrayList<Course>();
         String selectQuery = "SELECT " + COURSE_NAME + " FROM " + TABLE_COURSE + "" +
-                " WHERE " + COURSE_ID + " = " + courseId + " AND " + COURSE_UUID + " = '" + UUID + "' ";
+                " WHERE " + COURSE_ID + " = " + courseId + " AND " + COURSE_UUID + " = '" + UUID + "' AND SyncState <> 3";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -747,7 +763,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Course> getAllCourses(String UUID) {
         List<Course> courseList = new ArrayList<Course>();
         String selectQuery = "SELECT * FROM " + TABLE_COURSE + " " +
-                "WHERE " + COURSE_UUID + " = '" + UUID + "' ORDER BY " + COURSE_ID + " ASC";
+                "WHERE " + COURSE_UUID + " = '" + UUID + "' AND SyncState <> 3 ORDER BY " + COURSE_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -768,7 +784,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Section> getAllSections(String UUID) {
         List<Section> sectionList = new ArrayList<Section>();
         String selectQuery = "SELECT * FROM " + TABLE_SECTION +
-                " WHERE " + SECT_UUID + " = '" + UUID + "' ORDER BY " + SECT_ID + " ASC";
+                " WHERE " + SECT_UUID + " = '" + UUID + "' AND SyncState <> 3 ORDER BY " + SECT_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -790,7 +806,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getAllName_Courses(String UUID) {
         List<String> courseList = new ArrayList<String>();
         String selectQuery = "SELECT * FROM " + TABLE_COURSE + "" +
-                " WHERE " + COURSE_UUID + " = '" + UUID + "' ORDER BY " + COURSE_ID + " ASC";
+                " WHERE " + COURSE_UUID + " = '" + UUID + "' AND SyncState <> 3 ORDER BY " + COURSE_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -803,14 +819,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public int getCoursesCount(String UUID) {
-        String countQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + COURSE_UUID + " = '" + UUID + "'";
+        String countQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + COURSE_UUID + " = '" + UUID + "' AND SyncState <> 3";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
         return cursor.getCount();
     }
 
-
+//*//
     public int updateCourse(Course course) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -842,6 +858,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(HOMEWORK_UUID, homework.getHomeworkUUID());
         values.put(HOMEWORK_NAME, homework.getHomeworkName());
         values.put(HOMEWORK_SECID, homework.getSectionId());
+        values.put("SyncState",1);
         db.insert(TABLE_HOMEWORK, null, values);
         db.close();
     }
@@ -867,7 +884,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Homework getLastHomework(String UUID) {
         Homework homework = null;
         String selectQuery = "SELECT * FROM " + TABLE_HOMEWORK +
-                " WHERE " + HOMEWORK_UUID + " = '" + UUID + "'" +
+                " WHERE " + HOMEWORK_UUID + " = '" + UUID + "' AND SyncState <> 3" +
                 " ORDER BY " + HOMEWORK_ID + " DESC LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -884,7 +901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Homework> homeworkList = new ArrayList<Homework>();
         String selectQuery = "SELECT * FROM " + TABLE_HOMEWORK +
                 " WHERE " + HOMEWORK_SECID + " = " + sectionId +
-                " AND " + HOMEWORK_UUID + " = '" + UUID + "'" +
+                " AND " + HOMEWORK_UUID + " = '" + UUID + "' AND SyncState <> 3" +
                 " ORDER BY " + HOMEWORK_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -940,6 +957,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CRITERIA_NAME, criteria.getCriteriaName());
         values.put(CRITERIA_WEIGHT, criteria.getCriteriaWeight());
         values.put(CRITERIA_HOMEWORK, criteria.getCriteriaHomeworkId());
+        values.put("SyncState",1);
         db.insert(TABLE_CRITERIA, null, values);
         db.close();
     }
@@ -968,7 +986,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " FROM " + TABLE_CRITERIA +
                 " WHERE " + CRITERIA_NAME + " = '" + criteriaName + "'" +
                 " AND " + CRITERIA_HOMEWORK + " = " + homeworkId +
-                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
+                " AND " + CRITERIA_UUID + " = '" + UUID + "' AND SyncState <> 3";
         Cursor cursor = db.rawQuery(query, null);
         Double weight = 0.0;
         if (cursor.moveToFirst()) {
@@ -984,7 +1002,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT " + CRITERIA_WEIGHT +
                 " FROM " + TABLE_CRITERIA +
                 " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId +
-                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
+                " AND " + CRITERIA_UUID + " = '" + UUID + "' AND SyncState <> 3";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1000,7 +1018,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Criteria> criteriaList = new ArrayList<Criteria>();
         String selectQuery = "SELECT * FROM " + TABLE_CRITERIA +
                 " WHERE " + CRITERIA_HOMEWORK + " = " + homeworkId +
-                " AND " + CRITERIA_UUID + " = '" + UUID + "'";
+                " AND " + CRITERIA_UUID + " = '" + UUID + "' AND SyncState <> 3";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1014,7 +1032,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void printHomeworkTable(String UUID) {
         String selectQuery = "SELECT * FROM " + TABLE_HOMEWORK +
-                " WHERE " + HOMEWORK_UUID + " = '" + UUID + "'" +
+                " WHERE " + HOMEWORK_UUID + " = '" + UUID + "' AND SyncState <> 3" +
                 " ORDER BY " + HOMEWORK_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1051,6 +1069,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(HOMESTU_Grade, grade);
         values.put(HOMESTU_CriteriaId, criteriaId);
         values.put(HOMESTU_StudentId, studentId);
+        values.put("SyncState",1);
         db.insert(TABLE_HOMESTU, null, values);
         db.close();
     }
@@ -1075,7 +1094,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void printHomeworkStudentTable(String UUID) {
         String selectQuery = "SELECT * FROM " + TABLE_HOMESTU
-                + " WHERE " + HOMESTU_UUID + " = '" + UUID + "'"
+                + " WHERE " + HOMESTU_UUID + " = '" + UUID + "' AND SyncState <> 3"
                 + " ORDER BY " + HOMESTU_ID + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1097,7 +1116,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " FROM " + TABLE_HOMESTU +
                 " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'" +
                 " AND " + HOMESTU_StudentId + " = " + studentId +
-                " AND " + HOMESTU_UUID + " = '" + UUID + "'", null);
+                " AND " + HOMESTU_UUID + " = '" + UUID + "' AND SyncState <> 3", null);
         if (cursor.getCount() > 0) {
             cursor.close();
             return true;
@@ -1113,7 +1132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " FROM " + TABLE_HOMESTU +
                 " WHERE " + HOMESTU_CriteriaId + " = '" + criteriaId + "'" +
                 " AND " + HOMESTU_StudentId + " = " + studentId +
-                " AND " + HOMEWORK_UUID + " = '" + UUID + "'", null);
+                " AND " + HOMEWORK_UUID + " = '" + UUID + "' AND SyncState <> 3", null);
         if (cursor.moveToFirst()) {
             int retVal = cursor.getInt(0);
             cursor.close();
@@ -1122,7 +1141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return 0;
     }
-
+//*//
     public void updateHomeworkStudent(int homeworkStudentId, double grade, String UUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         String strSQL = "UPDATE " + TABLE_HOMESTU + " SET " + HOMESTU_Grade + " = " + grade +
@@ -1142,7 +1161,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN homework H ON H.SectionId = SS.SectionId " +
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "LEFT JOIN homeworkStudent HS ON HS.StudentId  = S.StudentId AND HS.CriteriaId = C.CriteriaId " +
-                "WHERE SS.SectionId = '" + SectionID + "' AND SS.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentID + "' " +
+                "WHERE SS.SectionId = '" + SectionID + "' AND SS.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentID + "' AND SS.SyncState <> 3 " +
                 "GROUP BY S.StudentName , H.HomeworkName " +
                 "ORDER BY S.StudentId";
 
@@ -1169,7 +1188,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " FROM " + TABLE_HOMESTU +
                 " WHERE " + HOMESTU_CriteriaId + "=" + criteriaId +
                 " AND " + HOMESTU_StudentId + "=" + studentId +
-                " AND " + HOMESTU_UUID + " = '" + UUID + "'", null);
+                " AND " + HOMESTU_UUID + " = '" + UUID + "' AND SyncState <> 3", null);
         //if the criteria has been checked
         if (grade_criteria.getCount() > 0) {
             grade_criteria.moveToFirst();
@@ -1269,16 +1288,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public void forceAddTeacher(String UUID, String Name){
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "INSERT INTO Teacher VALUES('"+UUID+"', '"+Name+"')";
+        String query = "INSERT INTO Teacher VALUES('"+UUID+"', '"+Name+"',1)";
         db.execSQL(query);
         db.close();
     }
 
 
-    public String composeJSONfromSQLiteTeacher(){
+    public String composeJSONfromSQLiteTeacher(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM Teacher";
+        String selectQuery = "SELECT  * FROM Teacher WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1296,10 +1315,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllTeachers() {
+    public ArrayList<HashMap<String, String>> getAllTeachers(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM Teacher";
+        String selectQuery = "SELECT  * FROM Teacher WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1315,25 +1334,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteCourse(){
+    public String composeJSONfromSQLiteCourse(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM course";
+        String selectQuery = "SELECT  * FROM course WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("Id", String.valueOf(cursor.getInt(0)));
-                System.out.println(cursor.getInt(0));
                 map.put("UUID", cursor.getString(1));
-                System.out.println(cursor.getInt(1));
                 map.put("Code", cursor.getString(2));
-                System.out.println(cursor.getInt(2));
                 map.put("Name", cursor.getString(3));
-                System.out.println(cursor.getInt(3));
                 map.put("Desc", cursor.getString(4));
-                System.out.println(cursor.getInt(4));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -1344,10 +1358,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCourses() {
+    public ArrayList<HashMap<String, String>> getAllCourse(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM course";
+        String selectQuery = "SELECT  * FROM course WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1366,10 +1380,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteSection(){
+    public String composeJSONfromSQLiteSection(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM section";
+        String selectQuery = "SELECT * FROM section WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1392,10 +1406,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllSections() {
+    public ArrayList<HashMap<String, String>> getAllSection(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM section";
+        String selectQuery = "SELECT * FROM section WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1416,10 +1430,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudent(){
+    public String composeJSONfromSQLiteStudent(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM student";
+        String selectQuery = "SELECT  * FROM student WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1440,10 +1454,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudents() {
+    public ArrayList<HashMap<String, String>> getAllStudents(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM student";
+        String selectQuery = "SELECT  * FROM student WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1462,10 +1476,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudentSection(){
+    public String composeJSONfromSQLiteStudentSection(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM studentSection";
+        String selectQuery = "SELECT  * FROM studentSection WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1486,10 +1500,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudentSection() {
+    public ArrayList<HashMap<String, String>> getAllStudentSection(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM studentSection";
+        String selectQuery = "SELECT  * FROM studentSection WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1508,10 +1522,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteStudentParticipation(){
+    public String composeJSONfromSQLiteStudentParticipation(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM participationStudent";
+        String selectQuery = "SELECT  * FROM participationStudent WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1521,7 +1535,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 map.put("Id", String.valueOf(cursor.getInt(1)));
                 map.put("Stusect", String.valueOf(cursor.getInt(2)));
                 map.put("Grade", String.valueOf(cursor.getDouble(3)));
-                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Date", cursor.getString(4));
                 map.put("Comment", cursor.getString(5));
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -1533,10 +1547,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllStudentParticipation() {
+    public ArrayList<HashMap<String, String>> getAllStudentParticipation(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM participationStudent";
+        String selectQuery = "SELECT  * FROM participationStudent WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1546,7 +1560,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 map.put("Id", String.valueOf(cursor.getInt(1)));
                 map.put("Stusect", String.valueOf(cursor.getInt(2)));
                 map.put("Grade", String.valueOf(cursor.getDouble(3)));
-                map.put("Date", String.valueOf(cursor.getDouble(4)));
+                map.put("Date", cursor.getString(4));
                 map.put("Comment", cursor.getString(5));
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -1557,10 +1571,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public String composeJSONfromSQLiteHomework(){
+    public String composeJSONfromSQLiteHomework(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homework";
+        String selectQuery = "SELECT * FROM homework WHERE SyncState = "+SyncState;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("UUID", cursor.getString(0));
+                map.put("Id", String.valueOf(cursor.getInt(1)));
+                map.put("Name", cursor.getString(2));
+                map.put("Secid", String.valueOf(cursor.getInt(3)));
+               /*
+                System.out.println(cursor.getString(0));
+                System.out.println(cursor.getInt(1));
+                System.out.println(cursor.getString(2));
+                System.out.println(cursor.getInt(3));
+                */
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        Gson gson = new GsonBuilder().create();
+        //Use GSON to serialize Array List to JSON
+        return gson.toJson(wordList);
+    }
+
+    public ArrayList<HashMap<String, String>> getAllHomework(int SyncState) {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM homework WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1575,37 +1618,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         database.close();
-        Gson gson = new GsonBuilder().create();
-        //Use GSON to serialize Array List to JSON
-        return gson.toJson(wordList);
-    }
-
-    public ArrayList<HashMap<String, String>> getAllHomework() {
-        ArrayList<HashMap<String, String>> wordList;
-        wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homework";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("UUID", cursor.getString(0));
-                map.put("Id", String.valueOf(cursor.getInt(1)));
-                map.put("Name", cursor.getString(2));
-                map.put("Secid", String.valueOf(cursor.getInt(3)));
-                wordList.add(map);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
         return wordList;
     }
 
 
-    public String composeJSONfromSQLiteCriteria(){
+    public String composeJSONfromSQLiteCriteria(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM criteria";
+        String selectQuery = "SELECT  * FROM criteria WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1626,10 +1646,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCriteria() {
+    public ArrayList<HashMap<String, String>> getAllCriteria(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM criteria";
+        String selectQuery = "SELECT  * FROM criteria WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1648,10 +1668,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public String composeJSONfromSQLiteHomeWorkStudent(){
+    public String composeJSONfromSQLiteHomeWorkStudent(int SyncState){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homeworkStudent";
+        String selectQuery = "SELECT  * FROM homeworkStudent WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1673,10 +1693,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gson.toJson(wordList);
     }
 
-    public ArrayList<HashMap<String, String>> getAllHomeWorkStudent() {
+    public ArrayList<HashMap<String, String>> getAllHomeWorkStudent(int SyncState) {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM homeworkStudent";
+        String selectQuery = "SELECT  * FROM homeworkStudent WHERE SyncState = "+SyncState;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -1704,7 +1724,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN homework H ON H.SectionId = SS.SectionId JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "LEFT JOIN homeworkStudent HS ON HS.StudentId  = S.StudentId AND HS.CriteriaId = C.CriteriaId " +
-                "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' " +
+                "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
         Cursor cursor = db.rawQuery(QUERY, null);
@@ -1735,7 +1755,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
                 "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
-                "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' " +
+                "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
         Cursor cursor = db.rawQuery(QUERY, null);
@@ -1768,7 +1788,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
                 "JOIN student S ON HStu.StudentId = S.StudentId " +
-                "WHERE H.SectionId = '" + SectionId + "' AND H.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "'" +
+                "WHERE H.SectionId = '" + SectionId + "' AND H.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "' AND HStu.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
         Cursor cursor = db.rawQuery(QUERY, null);
@@ -1799,7 +1819,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
                 "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
-                "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "'" +
+                "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "' AND PS.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
         Cursor cursor = db.rawQuery(QUERY, null);
@@ -1823,7 +1843,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Participation> getParticipationStudent(String UUID, String studentId, String sectionId) {
         List<Participation> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT PS.StudentSectionId , PS.ParticipationDate,PS.ParticipationComment , PS.ParticipationGrade FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId WHERE SS.StudentId = '" + studentId + "' AND SS.SectionId = '" + sectionId + "' AND SS.TeacherUUID = '" + UUID + "' ORDER BY S.StudentId";
+        String QUERY = "SELECT PS.StudentSectionId , PS.ParticipationDate,PS.ParticipationComment , PS.ParticipationGrade FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId WHERE SS.StudentId = '" + studentId + "' AND SS.SectionId = '" + sectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 ORDER BY S.StudentId ";
         Cursor cursor = db.rawQuery(QUERY, null);
         /*
         int _StudentSectionId, double _ParticipationGrade, String _ParticipationDate,
@@ -1846,7 +1866,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<String> retVal = null;
         SQLiteDatabase db = this.getReadableDatabase();
         int total = 0;
-        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "'";
+        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
         Cursor cursor = db.rawQuery(QUERY, null);
 
 
@@ -1866,7 +1886,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToPosition(RandomVal);
 
             String StudentId = cursor.getString(0);
-            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment FROM participationStudent PS JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId JOIN student S ON SQ.StudentId = S.StudentId WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "'";
+            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment FROM participationStudent PS JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId JOIN student S ON SQ.StudentId = S.StudentId WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "' AND SQ.SyncState <> 3";
             Cursor CheckDate = db.rawQuery(QUERYPS, null);
 
             if (CheckDate != null) {
@@ -1944,6 +1964,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     
+    public void clearSyncState(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QueryTeacher = "UPDATE Teacher SET SyncState = 0 WHERE SyncState = 1";
+        String QueryCourse = "UPDATE course SET SyncState = 0 WHERE SyncState = 1";
+        String QueryCriteria = "UPDATE criteria SET SyncState = 0 WHERE SyncState = 1";
+        String QueryHomework = "UPDATE homework SET SyncState = 0 WHERE SyncState = 1";
+        String QueryHomeworkStudent = "UPDATE homeworkStudent SET SyncState = 0 WHERE SyncState = 1";
+        String QueryParticipationStudent = "UPDATE participationStudent SET SyncState = 0 WHERE SyncState = 1";
+        String QuerySection = "UPDATE section SET SyncState = 0 WHERE SyncState = 1";
+        String QueryStudent = "UPDATE student SET SyncState = 0 WHERE SyncState = 1";
+        String QueryStudentSection = "UPDATE studentSection SET SyncState = 0 WHERE SyncState = 1";
 
+        db.rawQuery(QueryTeacher,null);
+        db.rawQuery(QueryCourse,null);
+        db.rawQuery(QueryCriteria,null);
+        db.rawQuery(QueryHomework,null);
+        db.rawQuery(QueryHomeworkStudent,null);
+        db.rawQuery(QueryParticipationStudent,null);
+        db.rawQuery(QuerySection,null);
+        db.rawQuery(QueryStudent,null);
+        db.rawQuery(QueryStudentSection,null);
+    }
 
 }
