@@ -10,12 +10,13 @@
         android:layout_height="wrap_content"
         android:text="Student Name"
         android:id="@+id/StudentNameReport"
-        android:textSize="25px"
+        android:textSize="20px"
         android:layout_alignBaseline="@+id/StudentIdReport"
         android:layout_alignBottom="@+id/StudentIdReport"
         android:layout_toRightOf="@+id/StudentIdReport"
         android:layout_marginLeft="20dp"
-        android:layout_toLeftOf="@+id/ParticipationReport" />
+        android:layout_toLeftOf="@+id/ParticipationReport"
+        android:layout_alignParentStart="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="11111111"
         android:id="@+id/StudentIdReport"
-        android:textSize="25px"
+        android:textSize="20px"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />

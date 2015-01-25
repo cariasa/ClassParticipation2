@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.BufferedReader;
@@ -18,33 +19,43 @@ import java.util.List;
 
 public class ReadWriteFileManager {
 
-    CSVWriter csvWriter;
+    CSVWriter csvWriter = null;
+    CSVReader csvReader = null;
 
+    private String getFileExtension(String file) {
+        String name = file;
+        int lastIndexOf = name.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // empty extension
+        }
+        return name.substring(lastIndexOf+1);
+    }
 
     public List<Student> readFromFile(Context context,String sourceFileName){
+        if (!getFileExtension(sourceFileName).equalsIgnoreCase("csv"))
+            return null;
+
         List<Student> StudentList = new ArrayList<Student>();
-        FileReader fr = null;
-        BufferedReader br = null;
-        File file = null;
+
         String splitBy = ",";
         try {
-            file = new File (sourceFileName);
-            fr = new FileReader (file);
-            br = new BufferedReader(fr);
-            String line;
-            while( ( line = br.readLine() )!= null ){
-                String [] std = line.split(splitBy);
+            csvReader = new CSVReader (new FileReader(sourceFileName));
+            String[] std;
+            while( ( std = csvReader.readNext() )!= null ){
+
                 if (std.length == 3)
                     StudentList.add(new Student(Integer.parseInt(std[0].trim()),std[1].trim(),std[2].trim(),std[0].trim() + std[1].trim()));
-                else
+                else if (std.length == 4)
                     StudentList.add(new Student(Integer.parseInt(std[0].trim()),std[1].trim(),std[2].trim(),std[3]));
+                else
+                    return null;
             }
         }catch(Exception e){
             e.printStackTrace();
         }finally {
             try{
-                if( null != fr ) {
-                    fr.close();
+                if( null != csvReader ) {
+                    csvReader.close();
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
@@ -116,6 +127,14 @@ public class ReadWriteFileManager {
             }
         }catch(Exception e){
             return false;
+        }finally{
+            if (csvWriter != null){
+                try {
+                    csvWriter.close();
+                }catch(IOException e){
+                    return false;
+                }
+            }
         }
     }
 

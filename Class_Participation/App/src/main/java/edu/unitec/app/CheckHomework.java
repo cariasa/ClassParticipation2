@@ -3,6 +3,7 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -114,16 +115,24 @@ public class CheckHomework extends Activity {
 
                 //homework name view
                 TextView item_name = (TextView)itemView.findViewById(R.id.item_homework_name);
-                item_name.setText("" + currentHomeworkList.get(position).getHomeworkName());
+
+                item_name.setTypeface(Typeface.MONOSPACE);
+                String HomeworkName = String.format("%-15.15s",currentHomeworkList.get(position).getHomeworkName());
+
+                item_name.setText(HomeworkName);
 
                 //Percentage view
                 TextView  txtPercentage= (TextView)itemView.findViewById(R.id.item_homework_percentage);
+                txtPercentage.setTypeface(Typeface.MONOSPACE);
+
                 DatabaseHandler db=new DatabaseHandler(this.getContext());
                 String nameAndGrade=db.getHomeworkNameAndGrade(studentId,sectionId,UUID).get(position);
 //                Log.e(CheckHomework.class.toString(), "NameAndGrade="+nameAndGrade);
                 String[] split=nameAndGrade.split("HOLAHELLO");
                 Double percentage=Double.parseDouble(split[1]);
-                txtPercentage.setText(Math.round(percentage)+"%");
+                String Percentage = String.format("%-4s",Math.round(percentage)+"%");
+
+                txtPercentage.setText(Percentage);
 
                 db.close();
             }catch(Exception e){
