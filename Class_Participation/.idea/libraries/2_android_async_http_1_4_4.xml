@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="2_android-async-http-1.4.4">
+  <library name="android-async-http-1.4.6">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.4.jar!/" />
     </CLASSES>
