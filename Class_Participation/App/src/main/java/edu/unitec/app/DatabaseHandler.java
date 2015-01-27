@@ -1875,7 +1875,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<String> retVal = null;
         SQLiteDatabase db = this.getReadableDatabase();
         int total = 0;
-        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
+        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId " +
+                "FROM student S " +
+                "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN Teacher T ON SS.TeacerUUID = T.TeacherUUID " +
+                "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
         Cursor cursor = db.rawQuery(QUERY, null);
 
 
@@ -1895,7 +1899,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToPosition(RandomVal);
 
             String StudentId = cursor.getString(0);
-            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment FROM participationStudent PS JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId JOIN student S ON SQ.StudentId = S.StudentId JOIN Teacher T ON PS.TeacherUUID = T.TeacherUUID AND SQ.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID  WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "' AND SQ.SyncState <> 3";
+            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment " +
+                    "FROM participationStudent PS " +
+                    "JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId " +
+                    "JOIN student S ON SQ.StudentId = S.StudentId " +
+                    "JOIN Teacher T ON PS.TeacherUUID = T.TeacherUUID AND SQ.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID  " +
+                    "WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "' AND SQ.SyncState <> 3";
             Cursor CheckDate = db.rawQuery(QUERYPS, null);
 
             if (CheckDate != null) {

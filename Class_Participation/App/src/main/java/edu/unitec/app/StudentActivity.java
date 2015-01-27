@@ -477,16 +477,19 @@ public class StudentActivity extends Activity {
         if (Vals != null) {
             StudentSectionId = Integer.parseInt(Vals.get(2));
             StudentName = (Vals.get(1));
+
+            ParticipationDialog dialog = new ParticipationDialog(StudentSectionId,StudentName, UUID);
+            dialog.show(getFragmentManager(), "dialog_participation");
         }else{
             StudentName = "";
             StudentSectionId = 0;
+
+            Toast.makeText(getApplicationContext(), "All students absent", Toast.LENGTH_LONG).show();
         }
 
 
 
-        ParticipationDialog dialog = new ParticipationDialog(StudentSectionId,StudentName, UUID);
 
-        dialog.show(getFragmentManager(), "dialog_participation");
      }
 
 
