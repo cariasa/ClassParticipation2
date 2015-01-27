@@ -23,18 +23,20 @@ public class DeleteStudentDialog extends DialogFragment {
     StudentItemAdapter arrayAdapter;
     List<StudentItem> listViewStudentNameList;
     List<Integer> list_StudentID;
+    String UUID;
     ArrayList<Integer> SelectedIdxToDelete;
     Section currentSection;
     String elements[];
 
     DeleteStudentDialog(){}
-    DeleteStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list, List<Integer> list2)
+    DeleteStudentDialog(Section currentSection, StudentItemAdapter arrayAdapter, List<StudentItem> list, List<Integer> list2 , String UU)
     {
         this.currentSection = currentSection;
         this.arrayAdapter = arrayAdapter;
         this.listViewStudentNameList = list;
         this.SelectedIdxToDelete=new ArrayList<Integer>();
         this.list_StudentID=list2;
+        UUID = UU;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class DeleteStudentDialog extends DialogFragment {
                     }
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        db.deleteStudent(StudentID_toErase);
+                        db.deleteStudent(StudentID_toErase,UUID,currentSection.get_SectionId());
                         if(db.tableStudentIsEmpty(currentSection.get_SectionId())) {
                             //if table student is empty show the invisible menuItems
                             MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);

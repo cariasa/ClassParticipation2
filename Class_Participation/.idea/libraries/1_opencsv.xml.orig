@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="1_opencsv">
+    <CLASSES>
+<<<<<<< HEAD:Class_Participation/.idea/libraries/qc_json.xml
+      <root url="jar://$PROJECT_DIR$/../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_json.jar!/" />
+=======
+      <root url="jar:///libs/opencsv.jar!/" />
+>>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87:Class_Participation/.idea/libraries/1_opencsv.xml
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -35,6 +35,7 @@ android {
 }
 dependencies {
     compile files('libs/android-support-v4.jar')
+    compile files('libs/opencsv.jar')
     compile 'com.android.support:support-v4:21.0.2'
     compile project(':facebook')
     compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.6.jar')

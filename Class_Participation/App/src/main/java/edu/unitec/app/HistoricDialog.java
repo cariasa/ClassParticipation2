@@ -31,20 +31,24 @@ public class HistoricDialog extends DialogFragment {
         DatabaseHandler DB = new DatabaseHandler(view.getContext());
         List<String> LIST = DB.getAvailableSemester();
         DB.close();
+        if (LIST != null) {
+            String CheckCurrent = LIST.get(LIST.size() - 1);
+            String[] CheckArray = CheckCurrent.split(" ");
 
-        String CheckCurrent = LIST.get(LIST.size() - 1);
-        String[] CheckArray = CheckCurrent.split(" ");
+            if (Integer.parseInt(CheckArray[1]) == SemesterQuarter.CURRENT_QUARTER && Integer.parseInt(CheckArray[3]) == SemesterQuarter.CURRENT_SEMESTER && Integer.parseInt(CheckArray[5]) == SemesterQuarter.CURRENT_YEAR) {
 
-        if (Integer.parseInt(CheckArray[1]) == SemesterQuarter.CURRENT_QUARTER && Integer.parseInt(CheckArray[3]) == SemesterQuarter.CURRENT_SEMESTER && Integer.parseInt(CheckArray[5] )== SemesterQuarter.CURRENT_YEAR ){
-
-        }else{
-            String currentSemester = "Quarter: "+SemesterQuarter.CURRENT_QUARTER + " Semester: "+SemesterQuarter.CURRENT_SEMESTER + " Year: "+SemesterQuarter.CURRENT_YEAR;
-            LIST.add(currentSemester);
-        }
+            } else {
+                String currentSemester = "Quarter: " + SemesterQuarter.CURRENT_QUARTER + " Semester: " + SemesterQuarter.CURRENT_SEMESTER + " Year: " + SemesterQuarter.CURRENT_YEAR;
+                LIST.add(currentSemester);
+            }
             //0        1 2         3 4     5
             //Quarter: 4 Semester: 5 Year: 2014
 
-
+        } else {
+            LIST = new ArrayList();
+            String currentSemester = "Quarter: " + SemesterQuarter.CURRENT_QUARTER + " Semester: " + SemesterQuarter.CURRENT_SEMESTER + " Year: " + SemesterQuarter.CURRENT_YEAR;
+            LIST.add(currentSemester);
+        }
 
         AvailableSemester = (Spinner) view.findViewById(R.id.AvailSemester);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, LIST);

@@ -52,6 +52,10 @@ public class LoginFragment extends Fragment {
                         String UUID = buildUserInfoDisplay(user);
                         String Name = buildUserInfoName(user);
                         Intent intent = new Intent(getActivity(), MainActivity.class);
+
+                        DatabaseHandler DB = new DatabaseHandler(getActivity());
+                        DB.forceAddTeacher(UUID,Name);
+
                         intent.putExtra("UUID",UUID);
                         intent.putExtra("Name", Name);
                         startActivity(intent);

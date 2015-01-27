@@ -27,10 +27,18 @@ public class StudentDialog extends DialogFragment
     List<String> homeworks;
 
     StudentDialog(List<Participation> list, String studentName, double finalGrade, List<String> homework,double percentageParticipation, double percentageHomework){
-        studentParticipationList = list;
+        if (list != null) {
+            studentParticipationList = list;
+        }else{
+            studentParticipationList = new ArrayList();
+        }
         this.studentName = studentName;
-        this.finalGrade = finalGrade/list.size();
-        this.homeworks = homework;
+       // this.finalGrade = finalGrade/list.size();
+        if (homework != null) {
+            this.homeworks = homework;
+        }else{
+            this.homeworks = new ArrayList();
+        }
         this.percentageHomework=percentageHomework;
         this.percentageParticipation=percentageParticipation;
     }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        android:id="@+id/StudentNameReport"
+        android:textSize="20px"
+        android:layout_alignBaseline="@+id/StudentIdReport"
+        android:layout_alignBottom="@+id/StudentIdReport"
+        android:layout_toRightOf="@+id/StudentIdReport"
+        android:layout_marginLeft="20dp"
+        android:layout_toLeftOf="@+id/ParticipationReport"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="P"
+        android:id="@+id/ParticipationReport"
+        android:textSize="20px"
+        android:layout_marginRight="71dp"
+        android:layout_marginEnd="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/HomeworkReport"
+        android:layout_toStartOf="@+id/HomeworkReport" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="H"
+        android:id="@+id/HomeworkReport"
+        android:textSize="20px"
+        android:layout_marginRight="71dp"
+        android:layout_marginEnd="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11111111"
+        android:id="@+id/StudentIdReport"
+        android:textSize="20px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+</RelativeLayout>
