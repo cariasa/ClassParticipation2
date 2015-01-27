@@ -1157,6 +1157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String QUERY = "SELECT H.HomeworkName, SUM(coalesce(HS.HomeworkStudentGrade ,0) / (SELECT COUNT(CriteriaId) FROM criteria WHERE HomeworkId = H.HomeworkId  )) AS Grade " +
                 "FROM student S " +
+                "JOIN Teacher T ON T.TeacherUUID = SS.TeacherUUID AND T.TeacherUUID = H.TeacherUUID AND T.TeacherUUID = C.TeacherUUID "+
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN homework H ON H.SectionId = SS.SectionId " +
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
@@ -1287,10 +1288,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 	public void forceAddTeacher(String UUID, String Name){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "INSERT INTO Teacher VALUES('"+UUID+"', '"+Name+"',1)";
-        db.execSQL(query);
-        db.close();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "INSERT INTO Teacher VALUES('" + UUID + "', '" + Name + "',1)";
+            db.execSQL(query);
+            db.close();
+        }catch (Exception E){
+            Log.i("Exception",E.getMessage());
+        }
     }
 
 
@@ -1722,6 +1727,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String QUERY = "SELECT S.StudentId, S.StudentName , ROUND(SUM(coalesce(HS.HomeworkStudentGrade ,0) / (SELECT COUNT(CriteriaId) FROM criteria WHERE HomeworkId = H.HomeworkId  ) / (SELECT count(HomeworkId)*100 FROM homework WHERE SectionId = SS.SectionId)) *100) AS Grade " +
                 "FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN Teacher T ON T.TeacherUUID = H.TeacherUUID AND T.TeacherUUID = SS.TeacherUUID AND T.TeacherUUID = C.TeacherUUID " +
                 "JOIN homework H ON H.SectionId = SS.SectionId JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "LEFT JOIN homeworkStudent HS ON HS.StudentId  = S.StudentId AND HS.CriteriaId = C.CriteriaId " +
                 "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 " +
@@ -1755,6 +1761,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
                 "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
+                "JOIN Teacher T ON SS.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID AND T.TeacherUUID = SEC.TeacherUUID " +
                 "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
@@ -1788,6 +1795,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN criteria C ON H.HomeworkId = C.HomeworkId " +
                 "JOIN homeworkStudent HStu ON C.CriteriaId = HStu.CriteriaId AND HStu.StudentId = S.StudentId " +
                 "JOIN student S ON HStu.StudentId = S.StudentId " +
+                "JOIN Teacher T ON T.TeacherUUID = C.TeacherUUID AND T.TeacherUUID = H.TeacherUUID AND T.TeacherUUID = HStu.TeacherUUID "+
                 "WHERE H.SectionId = '" + SectionId + "' AND H.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "' AND HStu.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
@@ -1819,6 +1827,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
                 "JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId " +
                 "JOIN section SEC ON SS.SectionId = SEC.SectionId " +
+                "JOIN Teacher T ON SS.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID AND T.TeacherUUID = SEC.TeacherUUID "+
                 "WHERE SEC.SectionId = '" + SectionId + "' AND SEC.TeacherUUID = '" + UUID + "' AND S.StudentId = '" + StudentId + "' AND PS.SyncState <> 3 " +
                 "GROUP BY S.StudentName " +
                 "ORDER BY S.StudentId";
@@ -1843,7 +1852,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Participation> getParticipationStudent(String UUID, String studentId, String sectionId) {
         List<Participation> retVal = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        String QUERY = "SELECT PS.StudentSectionId , PS.ParticipationDate,PS.ParticipationComment , PS.ParticipationGrade FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId WHERE SS.StudentId = '" + studentId + "' AND SS.SectionId = '" + sectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 ORDER BY S.StudentId ";
+        String QUERY = "SELECT PS.StudentSectionId , PS.ParticipationDate,PS.ParticipationComment , PS.ParticipationGrade FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId JOIN participationStudent PS ON SS.StudentSectionId = PS.StudentSectionId JOIN Teacher T ON SS.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID WHERE SS.StudentId = '" + studentId + "' AND SS.SectionId = '" + sectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3 ORDER BY S.StudentId ";
         Cursor cursor = db.rawQuery(QUERY, null);
         /*
         int _StudentSectionId, double _ParticipationGrade, String _ParticipationDate,
@@ -1866,7 +1875,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<String> retVal = null;
         SQLiteDatabase db = this.getReadableDatabase();
         int total = 0;
-        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId FROM student S JOIN studentSection SS ON S.StudentId = SS.StudentId WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
+        String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId " +
+                "FROM student S " +
+                "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
+                "JOIN Teacher T ON SS.TeacerUUID = T.TeacherUUID " +
+                "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
         Cursor cursor = db.rawQuery(QUERY, null);
 
 
@@ -1886,7 +1899,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToPosition(RandomVal);
 
             String StudentId = cursor.getString(0);
-            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment FROM participationStudent PS JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId JOIN student S ON SQ.StudentId = S.StudentId WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "' AND SQ.SyncState <> 3";
+            String QUERYPS = "SELECT coalesce (MAX(DATE(substr(PS.ParticipationDate,7,4) || '-' || substr(PS.ParticipationDate,4,2) || '-' || substr(PS.ParticipationDate,1,2))),' ') as ParticipationDate,  coalesce(ParticipationComment,'  ') as ParticipationComment " +
+                    "FROM participationStudent PS " +
+                    "JOIN studentSection SQ ON PS.StudentSectionId = SQ.StudentSectionId " +
+                    "JOIN student S ON SQ.StudentId = S.StudentId " +
+                    "JOIN Teacher T ON PS.TeacherUUID = T.TeacherUUID AND SQ.TeacherUUID = T.TeacherUUID AND T.TeacherUUID = PS.TeacherUUID  " +
+                    "WHERE SQ.SectionId = '" + SectionId + "' AND SQ.StudentId = '" + StudentId + "' AND SQ.TeacherUUID = '" + UUID + "' AND SQ.SyncState <> 3";
             Cursor CheckDate = db.rawQuery(QUERYPS, null);
 
             if (CheckDate != null) {

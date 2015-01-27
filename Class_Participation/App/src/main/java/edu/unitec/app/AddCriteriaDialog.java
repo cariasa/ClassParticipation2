@@ -113,6 +113,8 @@ public class AddCriteriaDialog extends DialogFragment
                             db.close();
 
                             //Update the listView
+                            //
+
                             listViewCriteriaNameList.add(txtCriteriaName.getText().toString());
                             arrayAdapter.notifyDataSetChanged();
 

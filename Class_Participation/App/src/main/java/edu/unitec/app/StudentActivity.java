@@ -254,19 +254,20 @@ public class StudentActivity extends Activity {
                         ReadWriteFileManager file = new ReadWriteFileManager();
                         List<Student> student = file.readFromFile(this, filePath);
 
+                        if (student != null) {
                        /* List<Integer> list1 = getAllStudentIDList();
                         List<Integer> list2 = getCurrentStudentIdList();*/
 
-                        DatabaseHandler bd = new DatabaseHandler(this);
-                        //validate
-                        if (getCurrentStudentNamesList().isEmpty()) {
+                            DatabaseHandler bd = new DatabaseHandler(this);
+                            //validate
+                            if (getCurrentStudentNamesList().isEmpty()) {
 
-                            // if( !list1.containsAll( list2 ) ){
-                            for (Student aStudent : student) {
-                                bd.addStudent(aStudent);
-                                bd.addStudentTable(aStudent, currentSection);
-                            }
-                            this.recreate();
+                                // if( !list1.containsAll( list2 ) ){
+                                for (Student aStudent : student) {
+                                    bd.addStudent(aStudent);
+                                    bd.addStudentTable(aStudent, currentSection);
+                                }
+                                this.recreate();
                            /* }else{
                                 for (Student aStudent : student) {
                                     bd.addStudentTable(aStudent, currentSection);
@@ -274,6 +275,9 @@ public class StudentActivity extends Activity {
                                 this.recreate();
                                 Log.i("student","students list already exist");
                             }*/
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "This file is not in a recognizable format", Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception ignored) {
                     }
@@ -473,16 +477,19 @@ public class StudentActivity extends Activity {
         if (Vals != null) {
             StudentSectionId = Integer.parseInt(Vals.get(2));
             StudentName = (Vals.get(1));
+
+            ParticipationDialog dialog = new ParticipationDialog(StudentSectionId,StudentName, UUID);
+            dialog.show(getFragmentManager(), "dialog_participation");
         }else{
             StudentName = "";
             StudentSectionId = 0;
+
+            Toast.makeText(getApplicationContext(), "All students absent", Toast.LENGTH_LONG).show();
         }
 
 
 
-        ParticipationDialog dialog = new ParticipationDialog(StudentSectionId,StudentName, UUID);
 
-        dialog.show(getFragmentManager(), "dialog_participation");
      }
 
 

@@ -3,6 +3,7 @@ package edu.unitec.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -165,8 +166,13 @@ public class ReportActivity extends Activity {
                 //homework name view
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String NAME = setVal.get(position).split("SEPARATOR")[1];
+
+                NAME = String.format("%-15.15s",NAME.trim());
+
                 String HOMEWORK = setVal.get(position).split("SEPARATOR")[3];
+                HOMEWORK = String.format("%-4s",HOMEWORK);
                 String PARTICIPATION = setVal.get(position).split("SEPARATOR")[2];
+                PARTICIPATION = String.format("%-4s",PARTICIPATION);
                 /*
                 DatabaseHandler db = new DatabaseHandler(this.getContext());
                 List<String> listParticipationGrades=db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
@@ -180,16 +186,20 @@ public class ReportActivity extends Activity {
 
 */
                 TextView StudentId = (TextView)itemView.findViewById(R.id.StudentIdReport);
+                StudentId.setTypeface(Typeface.MONOSPACE);
                 StudentId.setText(STUDENTIR);
 
                 TextView StudentName = (TextView)itemView.findViewById(R.id.StudentNameReport);
+                StudentName.setTypeface(Typeface.MONOSPACE);
                 StudentName.setText(NAME);
 
                 //Percentage view
                 TextView  ParticipationPercentage= (TextView)itemView.findViewById(R.id.ParticipationReport);
+                ParticipationPercentage.setTypeface(Typeface.MONOSPACE);
                 ParticipationPercentage.setText(PARTICIPATION+"%");
 
                 TextView  HomeworkPercentage= (TextView)itemView.findViewById(R.id.HomeworkReport);
+                HomeworkPercentage.setTypeface(Typeface.MONOSPACE);
                 HomeworkPercentage.setText(HOMEWORK+"%");
 
             }catch(Exception e){

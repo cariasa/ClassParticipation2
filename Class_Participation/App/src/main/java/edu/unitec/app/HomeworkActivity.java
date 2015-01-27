@@ -2,6 +2,7 @@ package edu.unitec.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +54,7 @@ public class HomeworkActivity extends Activity {
             setTitle(homework.getHomeworkName());
             List<Criteria> criteriaList=getCurrentCriteriaList();
             for(int i=0;i<criteriaList.size();i++){
+
                 listCriteria.add(criteriaList.get(i).getCriteriaName());
                 //Fill TABLE_HOMESTU with grades of 0 if the registry doesn't exist
                 DatabaseHandler db=new DatabaseHandler(getApplicationContext());
@@ -139,10 +141,16 @@ public class HomeworkActivity extends Activity {
 
                 //homework name view
                 TextView item_name = (TextView)itemView.findViewById(R.id.item_homework_name);
-                item_name.setText("" + listCriteria.get(position));
+
+                item_name.setTypeface(Typeface.MONOSPACE);
+                String CriteriaName = String.format("%-15.15s","" + listCriteria.get(position).trim());
+
+                item_name.setText(CriteriaName);
 
                 //Percentage view
+
                 TextView  txtPercentage= (TextView)itemView.findViewById(R.id.item_homework_percentage);
+                txtPercentage.setTypeface(Typeface.MONOSPACE);
                 DatabaseHandler db=new DatabaseHandler(this.getContext());
                 if(isCreating){
                     double weight=db.getCriteriaWeight(listCriteria.get(position),homework.getHomeworkId(),UUID);
@@ -152,10 +160,16 @@ public class HomeworkActivity extends Activity {
                         acum+=weightlist.get(i);
                     }
                     double percentage=(weight/acum)*100;
-                    txtPercentage.setText(Math.round(percentage)+"%");
+
+                    String Percentage = String.format("%-4s",Math.round(percentage)+"%");
+
+                    txtPercentage.setText(Percentage);
                 }else{
                     double percentage=db.getCriteriaGrade(studentId,getCurrentCriteriaList().get(position).getCriteriaId(),UUID);
-                    txtPercentage.setText(Math.round(percentage)+"%");
+
+                    String Percentage = String.format("%-4s",Math.round(percentage)+"%");
+                    txtPercentage.setText(Percentage);
+
                 }
 
                 db.close();

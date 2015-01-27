@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="qc_json">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/qc_json.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
