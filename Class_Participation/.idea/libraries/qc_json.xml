@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="qc_json">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/qc_json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_json.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
