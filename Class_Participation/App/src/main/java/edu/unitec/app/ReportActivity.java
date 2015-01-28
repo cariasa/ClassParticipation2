@@ -167,12 +167,12 @@ public class ReportActivity extends Activity {
                 String STUDENTIR = setVal.get(position).split("SEPARATOR")[0];
                 String NAME = setVal.get(position).split("SEPARATOR")[1];
 
-                NAME = String.format("%-15.15s",NAME.trim());
+                NAME = String.format("%-14.14s",NAME.trim());
 
                 String HOMEWORK = setVal.get(position).split("SEPARATOR")[3];
-                HOMEWORK = String.format("%-4s",HOMEWORK);
+                HOMEWORK = String.format("%-4s",HOMEWORK + "%");
                 String PARTICIPATION = setVal.get(position).split("SEPARATOR")[2];
-                PARTICIPATION = String.format("%-4s",PARTICIPATION);
+                PARTICIPATION = String.format("%-4s",PARTICIPATION + "%");
                 /*
                 DatabaseHandler db = new DatabaseHandler(this.getContext());
                 List<String> listParticipationGrades=db.getTotalParticipationGrades(UUID,currentSection.get_SectionId(),STUDENTIR);
@@ -196,11 +196,11 @@ public class ReportActivity extends Activity {
                 //Percentage view
                 TextView  ParticipationPercentage= (TextView)itemView.findViewById(R.id.ParticipationReport);
                 ParticipationPercentage.setTypeface(Typeface.MONOSPACE);
-                ParticipationPercentage.setText(PARTICIPATION+"%");
+                ParticipationPercentage.setText(PARTICIPATION);
 
                 TextView  HomeworkPercentage= (TextView)itemView.findViewById(R.id.HomeworkReport);
                 HomeworkPercentage.setTypeface(Typeface.MONOSPACE);
-                HomeworkPercentage.setText(HOMEWORK+"%");
+                HomeworkPercentage.setText(HOMEWORK);
 
             }catch(Exception e){
             }

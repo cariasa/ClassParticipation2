@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="qc_dbsync">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_dbsync.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_dbsync.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

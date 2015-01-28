@@ -1878,7 +1878,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String QUERY = "SELECT S.StudentId , S.StudentName , SS.StudentSectionId " +
                 "FROM student S " +
                 "JOIN studentSection SS ON S.StudentId = SS.StudentId " +
-                "JOIN Teacher T ON SS.TeacerUUID = T.TeacherUUID " +
+                "JOIN Teacher T ON SS.TeacherUUID = T.TeacherUUID " +
                 "WHERE SS.SectionId = '" + SectionId + "' AND SS.TeacherUUID = '" + UUID + "' AND SS.SyncState <> 3";
         Cursor cursor = db.rawQuery(QUERY, null);
 
