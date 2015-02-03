@@ -27,6 +27,12 @@
                 android:showAsAction="always"
                 android:icon="@drawable/ic_action_new_homework"/>
 
+            <item
+                android:id="@+id/item_checkHomework"
+                android:title="Check Homework"
+                android:showAsAction="always"
+                android:icon="@drawable/ic_action_new_homework"/>
+
             # android:onClick="onclickItem"
         </menu>
     </item>

@@ -310,6 +310,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    List<Student> getStudentsBySectionId(int sectionId,String UUID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Student> retVal = new ArrayList<Student>();
+        List<Integer> StudentIDs= getStudentIdListBySectionId(sectionId,UUID);
+
+        for (Integer ID : StudentIDs){
+            retVal.add(new Student(ID,getStudentName(ID),"NULL"));
+        }
+
+
+        return retVal;
+    }
+
     List<Integer> getStudentIdListBySectionId(int sectionId, String UUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + STUSEC_STUD +
