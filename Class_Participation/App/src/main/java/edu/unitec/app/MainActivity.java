@@ -338,6 +338,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                     // System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncCourse();
                 }
@@ -386,6 +387,7 @@ public class MainActivity extends Activity{
             @Override
                 public void onSuccess(String response) {
                    // System.out.println(response);
+                System.out.println(1);
                 controller.close();
                     syncSection();
                 }
@@ -421,6 +423,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                    // System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncStudent();
                 }
@@ -456,6 +459,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                    // System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncStudentSection();
                 }
@@ -491,6 +495,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                     //System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncParticipationStudent();
                 }
@@ -526,6 +531,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                     //System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncHomework();
                 }
@@ -561,6 +567,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                     //System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncCriteria();
                 }
@@ -596,6 +603,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onSuccess(String response) {
                     //System.out.println(response);
+                    System.out.println(1);
                     controller.close();
                     syncHomeworkStudent();
                 }

@@ -5,7 +5,7 @@
         jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="7875a975938b6b2dde7ef921a8a1bb0e0e10ceb8">
+        sha1="b68117cefc7a713b6fbaca3637a8752dad503b12">
         <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-1abfbe5f0d3d97a6cda8e4ba54d0641bd26031af.jar" />
     </item>
     <item
@@ -35,6 +35,13 @@
         revision="19.1.0"
         sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
         <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-b85a67b09a65d535c9da62634a68303806e03f63.jar" />
+    </item>
+    <item
+        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/opencsv.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="100f1f66bcade989c73eabd3d56ac39df47317df">
+        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/opencsv-03c72098bc772fc79610cac65087c61bcdf47473.jar" />
     </item>
     <item
         jar="/home/daemonaeon/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"

@@ -47,5 +47,6 @@ dependencies {
     compile files('/home/carlos/Progra4/ClassParticipation2/Class_Participation/libs/qc_json.jar')
     compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
     compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
+    compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/opencsv.jar')
 }
 
