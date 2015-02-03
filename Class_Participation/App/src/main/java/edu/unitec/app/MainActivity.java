@@ -357,7 +357,10 @@ public class MainActivity extends Activity{
                 }
             });
         }else{
-            Toast.makeText(getApplicationContext(), "No Teacher data to perform Sync action", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "No Teacher data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync Teacher", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncCourse();
         }
         controller.close();
     }
@@ -407,6 +410,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync course", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncSection();
         }
         controller.close();
     }
@@ -443,6 +449,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync section", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncStudent();
         }
         controller.close();
     }
@@ -479,6 +488,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync student", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncStudentSection();
         }
         controller.close();
     }
@@ -515,6 +527,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync studentSection", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncParticipationStudent();
         }
         controller.close();
     }
@@ -550,7 +565,9 @@ public class MainActivity extends Activity{
                 }
             });
         }else{
-            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync participation", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncHomework();
         }
         controller.close();
     }
@@ -587,6 +604,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync homework", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncCriteria();
         }
         controller.close();
     }
@@ -623,6 +643,9 @@ public class MainActivity extends Activity{
             });
         }else{
             //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync criteria", Toast.LENGTH_LONG).show();
+            controller.close();
+            syncHomeworkStudent();
         }
         controller.close();
     }
@@ -661,7 +684,13 @@ public class MainActivity extends Activity{
                 }
             });
         }else{
-            //Toast.makeText(getApplicationContext(), "No Course data to perform Sync action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No data to sync HomeworkStudent", Toast.LENGTH_LONG).show();
+            if (SyncD != null){
+                SyncD.dismiss();
+            }
+            controller.clearSyncState();
+            controller.close();
+            Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
         }
         controller.close();
     }
