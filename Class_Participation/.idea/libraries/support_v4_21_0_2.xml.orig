@@ -1,23 +1,23 @@
 <component name="libraryTable">
   <library name="support-v4-21.0.2">
     <CLASSES>
-<<<<<<< HEAD
       <root url="jar://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar!/" />
+<<<<<<< HEAD
+      <root url="file://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/res" />
+      <root url="jar://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$APPLICATION_HOME_DIR$/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/21.0.2/support-v4-21.0.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/21.0.2/support-v4-21.0.2-sources.jar!/" />
+=======
       <root url="jar://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar!/" />
       <root url="file://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/21.0.2/support-v4-21.0.2-sources.jar!/" />
-=======
-      <root url="file://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/res" />
-      <root url="jar://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../../android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/21.0.2/support-v4-21.0.2-sources.jar!/" />
->>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87
+>>>>>>> 37654ccff728dff7ccc2b177a109e9b40a7ea08f
     </SOURCES>
   </library>
 </component>

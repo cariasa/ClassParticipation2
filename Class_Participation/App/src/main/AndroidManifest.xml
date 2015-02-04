@@ -54,6 +54,19 @@
             android:label="@string/title_activity_create_homework"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name="edu.unitec.app.CheckHomeworksActivity"
+            android:label="Check Homeworks"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="edu.unitec.app.CheckHomeworkStudentsActivity"
+            android:label="Check Homeworks Students"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".ReportActivity"
             android:label="Report"

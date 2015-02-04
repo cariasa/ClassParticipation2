@@ -104,20 +104,22 @@ public class StudentActivity extends Activity {
         MenuItem newAssignment = menu.findItem(R.id.item_newAssignment);
         MenuItem newHomework = menu.findItem(R.id.item_newHomework);
         MenuItem newParticipation = menu.findItem(R.id.item_newParticipation);
+        MenuItem checkHomework = menu.findItem(R.id.item_checkHomework);
+
         if (!getCurrentStudentNamesList().isEmpty()) {
             item_statistics.setVisible(true);
 
             item_student.setVisible(true);
             save_student.setVisible(true);
-           save_students.setVisible(false);
+            save_students.setVisible(false);
             newAssignment.setVisible(true);
             newHomework.setVisible(true);
             newParticipation.setVisible(true);
             delete_student.setVisible(true);
+            checkHomework.setVisible(true);
 
         } else {
             item_statistics.setVisible(false);
-
             item_student.setVisible(true);
             save_student.setVisible(true);
             save_students.setVisible(true);
@@ -125,6 +127,7 @@ public class StudentActivity extends Activity {
             newHomework.setVisible(false);
             newParticipation.setVisible(false);
             delete_student.setVisible(false);
+            checkHomework.setVisible(false);
 
         }
 
@@ -136,6 +139,7 @@ public class StudentActivity extends Activity {
             newHomework.setVisible(false);
             newParticipation.setVisible(false);
             delete_student.setVisible(false);
+            checkHomework.setVisible(false);
         }
 
         return true;
@@ -225,6 +229,9 @@ public class StudentActivity extends Activity {
                 //showStatisticsDialog();
                 showReportActivity();
                 return true;
+            case R.id.item_checkHomework:
+                showCheckHomework();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -235,6 +242,13 @@ public class StudentActivity extends Activity {
     /*public void onclickItem(MenuItem item) {
 
     }*/
+
+    public void showCheckHomework(){
+        Intent intentCheckHomework = new Intent(this,CheckHomeworksActivity.class);
+        intentCheckHomework.putExtra("Section",currentSection.get_SectionId());
+        intentCheckHomework.putExtra("UUID",UUID);
+        startActivity(intentCheckHomework);
+    }
 
     public void update() {
         this.recreate();

@@ -2,18 +2,18 @@
   <library name="support-annotations-20.0.0">
     <CLASSES>
 <<<<<<< HEAD
+      <root url="jar://$APPLICATION_HOME_DIR$/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$APPLICATION_HOME_DIR$/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0-sources.jar!/" />
+=======
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0-sources.jar!/" />
-=======
-      <root url="jar://$PROJECT_DIR$/../../../../android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../../android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0-sources.jar!/" />
->>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87
+>>>>>>> 37654ccff728dff7ccc2b177a109e9b40a7ea08f
     </SOURCES>
   </library>
 </component>

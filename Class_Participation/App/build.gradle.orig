@@ -48,11 +48,14 @@ dependencies {
     compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
     compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
 <<<<<<< HEAD
-    compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/opencsv.jar')
-=======
     compile files('/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
     compile files('/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
     compile files('/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/opencsv.jar')
->>>>>>> cd3a4423a701bec9250de72583d808da61e72a9f
+    compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
+    compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
+    compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/opencsv.jar')
+=======
+    compile files('/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/opencsv.jar')
+>>>>>>> 37654ccff728dff7ccc2b177a109e9b40a7ea08f
 }
 
