@@ -2,10 +2,10 @@
   <library name="1_android-async-http-1.4.4">
     <CLASSES>
 <<<<<<< HEAD
-      <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar!/" />
 =======
-      <root url="jar://$PROJECT_DIR$/../../../../../../niwde04/Documentos/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar!/" />
->>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87
+      <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.4.jar!/" />
+>>>>>>> 37654ccff728dff7ccc2b177a109e9b40a7ea08f
     </CLASSES>
     <JAVADOC />
     <SOURCES />

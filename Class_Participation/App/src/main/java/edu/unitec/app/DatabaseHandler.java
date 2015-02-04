@@ -2018,4 +2018,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.rawQuery(QueryStudentSection,null);
     }
 
+    public int getTeacherCount(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int total = 0;
+        String QUERY = "SELECT * FROM Teacher";
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        return cursor.getCount();
+    }
+
+    public String getTeacherName(){//Daemon: getTeacherName & getTeacherUUID assuming there is only one teacher on the DB
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT * FROM Teacher";
+        Cursor cursor = db.rawQuery(QUERY, null);
+        cursor.moveToFirst();
+        return cursor.getString(0);
+    }
+
+    public String getTeacherUUID(){//Daemon: getTeacherName & getTeacherUUID assuming there is only one teacher on the DB
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "SELECT * FROM Teacher";
+        Cursor cursor = db.rawQuery(QUERY, null);
+        cursor.moveToFirst();
+        return cursor.getString(1);
+    }
+
+    public void forceRemoveAllTeachers(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String QUERY = "Delete FROM Teacher";
+        db.rawQuery(QUERY, null);
+    }
+
 }

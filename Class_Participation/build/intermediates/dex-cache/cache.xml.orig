@@ -3,10 +3,86 @@
 
     <item
 <<<<<<< HEAD
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e5d71bd6d0dc2f3a8256a1f509d0fa48eaebad3d">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-76d2b2be13b38afaba56cfa4a13aec2b2536102d.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/android-studio/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/support-annotations-21.0.2-436425b6f4eaddfb3e8ebffe0c6a28657d959fba.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-21.0.2-1b8df0195d157c4c542560e05d161762c1cfd959.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/bolts-android-1.1.2-c354a2f2676242b6df23204af6dcf17091cded78.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-019d8b97830c2e08e7ab1fc676ac6d67a5ef4c92.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/opencsv.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="100f1f66bcade989c73eabd3d56ac39df47317df">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/opencsv-d812b3beb23558e68ee5a81368ade19a75005f06.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-56f0f1263e6890c3e783459b00655992b5dfb32d.jar" />
+    </item>
+    <item
+        jar="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3bae85a076241828810bf8fbcc12e5891d5fc34c">
+        <dex dex="/home/niwde04/Documentos/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/android-async-http-1.4.4-0e22969b2b1b6fdcfd0fd28b5116893d231c1aaf.jar" />
+=======
+        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
+        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-b85a67b09a65d535c9da62634a68303806e03f63.jar" />
+    </item>
+    <item
+        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/opencsv.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="100f1f66bcade989c73eabd3d56ac39df47317df">
+        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/opencsv-03c72098bc772fc79610cac65087c61bcdf47473.jar" />
+    </item>
+    <item
+        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-fe1d0dded16012aa0bc3e428d0324cff72c0a0ad.jar" />
+    </item>
+    <item
         jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="7875a975938b6b2dde7ef921a8a1bb0e0e10ceb8">
+        sha1="dc3d288a7d5b421ab58c666c8624ad98d2aba659">
         <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-1abfbe5f0d3d97a6cda8e4ba54d0641bd26031af.jar" />
     </item>
     <item
@@ -31,81 +107,12 @@
         <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-21.0.2-f195ca7e0b53d4a862c8837ea8f81615d23d1fac.jar" />
     </item>
     <item
-        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
-        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-b85a67b09a65d535c9da62634a68303806e03f63.jar" />
-    </item>
-    <item
         jar="/home/daemonaeon/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
         <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/bolts-android-1.1.2-bb826f4f6907f2df285cf979532a3703aba53385.jar" />
-    </item>
-    <item
-        jar="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="/home/daemonaeon/Documents/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-fe1d0dded16012aa0bc3e428d0324cff72c0a0ad.jar" />
-=======
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="089d8a51df3e40f113a0274118360a520cae0730">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-e3b3221d4ba48530081db83c13babdbe158f2f19.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/internal_impl-21.0.2-f7afc0ebdea269b6272de49f8dac2d3ec6ae862b.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/gson-2.2.4-c2ac9ae4011e1656ee9b20b2e22eb3cf7cc1d762.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/classes-540f3fd3db14ae0492c103775e4cc8fa6c37587f.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3bae85a076241828810bf8fbcc12e5891d5fc34c">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/android-async-http-1.4.4-99c3f4b7af9f4a59e40ec6441ce7fb7c9abba418.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/bolts-android-1.1.2-15ae624ca4af39a8a72846bc6de22edd18226672.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/support-annotations-21.0.2-2ed57b2a5107ac4b0f4975a0981fca55916e99b6.jar" />
-    </item>
-    <item
-        jar="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/opencsv.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="100f1f66bcade989c73eabd3d56ac39df47317df">
-        <dex dex="/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/App/build/intermediates/pre-dexed/defaultFlavor/debug/opencsv-7fa6d3e28da486282a60d7416a688391f7e075f2.jar" />
->>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87
+>>>>>>> 37654ccff728dff7ccc2b177a109e9b40a7ea08f
     </item>
 
 </items>
