@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="android-async-http-1.4.6">
+    <CLASSES>
+<<<<<<< HEAD
+      <root url="jar://$PROJECT_DIR$/../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.6.jar!/" />
+=======
+      <root url="jar://$PROJECT_DIR$/../../../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.6.jar!/" />
+>>>>>>> cd3a4423a701bec9250de72583d808da61e72a9f
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

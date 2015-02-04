@@ -1,11 +1,7 @@
 <component name="libraryTable">
   <library name="2_android-async-http-1.4.4">
     <CLASSES>
-<<<<<<< HEAD:Class_Participation/.idea/libraries/android_async_http_1_4_6.xml
-      <root url="jar://$PROJECT_DIR$/../../../../carlos/Progra4/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.6.jar!/" />
-=======
       <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.4.jar!/" />
->>>>>>> 3e9ea180e7e28bfca236421925dbb37e53551d87:Class_Participation/.idea/libraries/2_android_async_http_1_4_4.xml
     </CLASSES>
     <JAVADOC />
     <SOURCES />

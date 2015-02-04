@@ -106,13 +106,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="1_gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="2_gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="qc_dbaccess" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.4" level="project" />
     <orderEntry type="library" exported="" name="1_android-async-http-1.4.4" level="project" />
-    <orderEntry type="library" exported="" name="2_android-async-http-1.4.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.6" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.2" level="project" />
