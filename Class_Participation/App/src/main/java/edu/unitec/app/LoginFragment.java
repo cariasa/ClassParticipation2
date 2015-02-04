@@ -31,6 +31,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_login, container, false);
 
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
@@ -65,6 +66,8 @@ public class LoginFragment extends Fragment {
             }
             }).executeAsync();
         } else if (state.isClosed()) {
+            DatabaseHandler DB = new DatabaseHandler(getActivity());
+            DB.forceRemoveAllTeachers();
             Log.i(TAG, "Logged out...");
         }
     }
@@ -82,6 +85,17 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        DatabaseHandler DB = new DatabaseHandler(getActivity());
+        if(DB.getTeacherCount()!=0){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            String UUID = DB.getTeacherName();
+            String Name = DB.getTeacherUUID();
+
+            intent.putExtra("UUID",UUID);
+            intent.putExtra("Name", Name);
+            startActivity(intent);
+        }
+
         super.onCreate(savedInstanceState);
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);

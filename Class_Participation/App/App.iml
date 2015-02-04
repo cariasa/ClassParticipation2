@@ -106,7 +106,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="1_gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="2_gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="qc_dbaccess" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
