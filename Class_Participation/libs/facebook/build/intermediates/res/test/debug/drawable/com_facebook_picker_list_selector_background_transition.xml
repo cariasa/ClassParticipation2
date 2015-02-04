@@ -18,4 +18,4 @@
     <item android:drawable="@drawable/com_facebook_picker_list_pressed"  />
     <item android:drawable="@drawable/com_facebook_picker_list_longpressed"  />
 </transition>
-<!-- From: file:/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/facebook/res/drawable/com_facebook_picker_list_selector_background_transition.xml --><!-- From: file:/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/bundles/debug/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->
+<!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/res/drawable/com_facebook_picker_list_selector_background_transition.xml --><!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/bundles/debug/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->

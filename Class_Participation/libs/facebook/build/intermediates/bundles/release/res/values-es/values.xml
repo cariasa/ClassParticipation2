@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/facebook/res/values-es/strings.xml -->
+    <!-- From: file:/home/Nivx/Documents/UNITEC/ProgramacionIV/ClassParticipation2/Class_Participation/libs/facebook/res/values-es/strings.xml -->
     <eat-comment/>
     <string name="com_facebook_choose_friends">Elige Amigos</string>
     <string name="com_facebook_dialogloginactivity_ok_button">Aceptar</string>
