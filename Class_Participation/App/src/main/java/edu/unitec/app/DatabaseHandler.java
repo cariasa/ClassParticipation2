@@ -350,7 +350,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(PART_STUSECT, participation.get_StudentSectionId());
         values.put(PART_GRADE, participation.get_ParticipationGrade());
         values.put(PART_DATE, participation.get_ParticipationDate());
-        values.put(PART_COMMENT, participation.get_ParticipationComment());
+        values.put(PART_COMMENT, participation.get_ParticipationComment().replaceAll("'","''"));
         values.put("SyncState",1);
         db.insert(TABLE_PARTICIPATION, null, values);
         db.close();
@@ -644,8 +644,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(STU_ID, student.get_StudentId());
-        values.put(STU_NAME, student.get_StudentName());
-        values.put(STU_MAJOR, student.get_StudentMajor());
+        values.put(STU_NAME, student.get_StudentName().replaceAll("'","''"));
+        values.put(STU_MAJOR, student.get_StudentMajor().replaceAll("'","''"));
         values.put(STU_EMAIL, student.get_StudentEmail());
         values.put(STU_PASSWORD, student.get_StudentId());
         values.put("SyncState",1);
@@ -967,7 +967,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(CRITERIA_ID, getCriteriaID(criteria.getCriteriaUUID()));
         values.put(CRITERIA_UUID, criteria.getCriteriaUUID());
-        values.put(CRITERIA_NAME, criteria.getCriteriaName());
+        values.put(CRITERIA_NAME, criteria.getCriteriaName().replaceAll("'","''"));
         values.put(CRITERIA_WEIGHT, criteria.getCriteriaWeight());
         values.put(CRITERIA_HOMEWORK, criteria.getCriteriaHomeworkId());
         values.put("SyncState",1);
