@@ -278,7 +278,7 @@ public class StudentActivity extends Activity {
 
                                 // if( !list1.containsAll( list2 ) ){
                                 for (Student aStudent : student) {
-                                    bd.addStudent(aStudent);
+                                    bd.addStudents(aStudent);
                                     bd.addStudentTable(aStudent, currentSection);
                                 }
                                 this.recreate();
