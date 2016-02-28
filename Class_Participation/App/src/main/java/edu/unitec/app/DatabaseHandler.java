@@ -640,12 +640,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    void addStudent(Student student) {
+    void addStudents(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(STU_ID, student.get_StudentId());
         values.put(STU_NAME, student.get_StudentName().replaceAll("'","''"));
         values.put(STU_MAJOR, student.get_StudentMajor().replaceAll("'","''"));
+        values.put(STU_EMAIL, student.get_StudentEmail());
+        values.put(STU_PASSWORD, student.get_StudentId());
+        values.put("SyncState",1);
+        db.insert(TABLE_STUDENT, null, values);
+        db.close();
+    }
+    
+    void addStudent(Student student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(STU_ID, student.get_StudentId());
+        values.put(STU_NAME, student.get_StudentName());
+        values.put(STU_MAJOR, student.get_StudentMajor());
         values.put(STU_EMAIL, student.get_StudentEmail());
         values.put(STU_PASSWORD, student.get_StudentId());
         values.put("SyncState",1);
