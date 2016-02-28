@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_placepickerfragment.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_placepickerfragment.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_list_row.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_list_row.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_friendpickerfragment.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_friendpickerfragment.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_placepickerfragment_list_row.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_placepickerfragment_list_row.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_checkbox.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_checkbox.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_list_section_header.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_list_section_header.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_image.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_image.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_activity_circle_row.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_activity_circle_row.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_search_bar_layout.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_search_bar_layout.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_search_box.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_search_box.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_usersettingsfragment.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_usersettingsfragment.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_tooltip_bubble.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_title_bar.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_title_bar.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_login_activity_layout.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_login_activity_layout.xml"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/layout/com_facebook_picker_title_bar_stub.xml",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/layout/com_facebook_picker_title_bar_stub.xml"
+    }
+]

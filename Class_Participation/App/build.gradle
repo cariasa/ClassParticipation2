@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:1.5.0'
     }
 }
 apply plugin: 'android'
@@ -53,5 +53,8 @@ dependencies {
     compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
     compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
     compile files('/home/niwde04/Documentos/ClassParticipation2/Class_Participation/libs/opencsv.jar')
+    compile files('/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/opencsv.jar')
+    compile files('/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/gson-2.2.4.jar')
+    compile files('/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/android-async-http-1.4.4.jar')
 }
 
