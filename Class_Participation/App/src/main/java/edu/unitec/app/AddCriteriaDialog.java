@@ -87,7 +87,7 @@ public class AddCriteriaDialog extends DialogFragment
 
                     try{
                         DatabaseHandler db = new DatabaseHandler(v.getContext());
-                        criteriaExist = db.criteriaExist(txtCriteriaName.getText().toString(),currentHomework.getHomeworkId(),UUID);
+                        criteriaExist = db.criteriaExist(txtCriteriaName.getText().toString().replaceAll("'", "''"),currentHomework.getHomeworkId(),UUID);
                         db.close();
                     }catch (Exception e){
 
@@ -101,7 +101,7 @@ public class AddCriteriaDialog extends DialogFragment
                         txtCriteriaWeight.requestFocus();
                     }else{
                         Criteria criteria = new Criteria(
-                                txtCriteriaName.getText().toString(),
+                                txtCriteriaName.getText().toString().replaceAll("'", "''"),
                                 Double.parseDouble(txtCriteriaWeight.getText().toString()),
                                 currentHomework.getHomeworkId(),UUID);
 

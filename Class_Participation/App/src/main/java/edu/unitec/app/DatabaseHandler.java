@@ -1180,18 +1180,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "ORDER BY S.StudentId";
 
         Cursor homeworks = db.rawQuery(QUERY, null);
-        homeworks.moveToFirst();
-
         List<String> homeworks_return = new ArrayList<String>();
-
-        do {
-
-            String AddVal = homeworks.getString(0) + "HOLAHELLO" + homeworks.getString(1);
-            homeworks_return.add(AddVal);
-
-        } while (homeworks.moveToNext());
+        if( homeworks.moveToFirst()) {
 
 
+
+            do {
+
+                String AddVal = homeworks.getString(0) + "HOLAHELLO" + homeworks.getString(1);
+                homeworks_return.add(AddVal);
+
+            } while (homeworks.moveToNext());
+
+        }
         return homeworks_return;
         //NAMEHOLAHELLO52
     }

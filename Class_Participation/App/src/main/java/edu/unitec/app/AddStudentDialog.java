@@ -110,12 +110,12 @@ public class AddStudentDialog extends DialogFragment
                         studentName.requestFocus();
                     }else{
                         Student student = new Student(Integer.parseInt(studentId.getText().toString()),
-                                                      studentName.getText().toString(),
+                                                      studentName.getText().toString().replaceAll("'", "''"),
                                                       studentEmail.getText().toString());
 
                         try{
                             DatabaseHandler db = new DatabaseHandler(v.getContext());
-                            if(!db.studentExist(studentId.getText().toString() + studentName.getText().toString())){
+                            if(!db.studentExist(studentId.getText().toString() + studentName.getText().toString().replaceAll("'","''"))){
                                 if(db.tableStudentIsEmpty(currentSection.get_SectionId())) {
                                     //if table student is empty show the invisible menuItems
                                     MenuItem item_statistics = ((StudentActivity) getActivity()).menu.findItem(R.id.item_statistics);

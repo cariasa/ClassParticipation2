@@ -119,7 +119,11 @@ public class StudentItemAdapter extends BaseAdapter {
                         for(int i=0;i<currentStudentHomeworks.size();i++){
                             acumHomeworks+=Double.parseDouble(currentStudentHomeworks.get(i).split("HOLAHELLO")[1]);
                         }
-                        percentageHomeworks=acumHomeworks/currentStudentHomeworks.size();
+                        if (currentStudentHomeworks.size() != 0) {
+                            percentageHomeworks = acumHomeworks / currentStudentHomeworks.size();
+                        }else {
+                            percentageHomeworks = 0;
+                        }
                         //get the average of participations
                         for(int i=0;i<currentStudentParticipationList.size();i++){
                             acumParticipations+=currentStudentParticipationList.get(i).get_ParticipationGrade();

@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/drawable-xxhdpi-v4/com_facebook_button_like_background.png",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/drawable-xxhdpi/com_facebook_button_like_background.png"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/drawable-xxhdpi-v4/com_facebook_button_like_icon_selected.png",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/drawable-xxhdpi/com_facebook_button_like_icon_selected.png"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/drawable-xxhdpi-v4/com_facebook_button_like_pressed.png",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/drawable-xxhdpi/com_facebook_button_like_pressed.png"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/drawable-xxhdpi-v4/com_facebook_button_like_background_selected.png",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/drawable-xxhdpi/com_facebook_button_like_background_selected.png"
+    },
+    {
+        "merged": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/build/intermediates/res/merged/release/drawable-xxhdpi-v4/com_facebook_button_like_icon.png",
+        "source": "/home/daemonaeon/Documents/clasiNiv/ClassParticipation2/Class_Participation/libs/facebook/res/drawable-xxhdpi/com_facebook_button_like_icon.png"
+    }
+]
